@@ -1,0 +1,24 @@
+.content-column {
+    width: 200px;
+}
+.logo-column {
+    width: 32px;
+}
+.active {
+    color: purple;
+    font-weight: bold;
+}
+.panel-footer a {
+    padding: 0 4px;
+}
+.container {
+    margin-top: 20px;
+}
+.coin-image {
+    display: inline-block;
+}
+.coin-info {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+}
