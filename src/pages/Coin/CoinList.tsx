@@ -10,22 +10,27 @@ const INITIAL_PAGINATION = {
 }
 
 export function CoinList() {
-    const [serverUrl, setServerUrl] = useState(`http://localhost:8000/api/v1/coins`);
 
     const [coinList, setCoinList] = useState<ICoinVM[]>([]);
+
     const [pagination, setPagination] = useState<IPage>(INITIAL_PAGINATION);
+
     useEffect(() => {
-        fetch(serverUrl)
+        fetch(`http://localhost:8000/api/v1/coins?page=${pagination.currentPage}`)
             .then(response => response.json())
             .then((response: ICoinDto) => {
                 const { data, ...pages } = response;
                 mapCoins(data);
                 mapPagination(pages);
             })
-    }, [serverUrl]);
-    const handlePageChange = (page: number) => {
-        const newRequest = `http://localhost:8000/api/v1/coins?page=${page}`;
-        setServerUrl(newRequest);
+    }, [pagination.currentPage]);
+
+    const handlePageChange = (currentPage: number) => {
+
+        setPagination({
+            ...pagination,
+            currentPage
+        });
     }
 
     const mapCoins = (coins: ICoin[]) => {
@@ -88,10 +93,10 @@ export function CoinList() {
                 <footer className="panel-footer">
                     {pagination.currentPage !== 1
                         ? <div>
-                            
-                                <span onClick={() => handlePageChange(1)}>{'<<'}</span>
-                                <span onClick={() => handlePageChange(pagination.currentPage - 1)}>{'<'}</span>
-                            
+
+                            <span onClick={() => handlePageChange(1)}>{'<<'}</span>
+                            <span onClick={() => handlePageChange(pagination.currentPage - 1)}>{'<'}</span>
+
                         </div>
                         : <p></p>
                     }

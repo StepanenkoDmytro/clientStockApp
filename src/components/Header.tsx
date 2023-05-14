@@ -1,7 +1,18 @@
-export function Header() {
+import { ChangeEvent } from "react"
+
+interface IHeaderProps{
+    search: string;
+    onSearch: (value: string) => void;
+}
+
+export function Header({search, onSearch}: IHeaderProps) {
+    const handleOnSearch = (event: ChangeEvent<HTMLInputElement>) => {
+        const value = event.target?.value || '';
+        onSearch && onSearch(value);
+    }
+
     return (
         <header>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script>
             <div className="container">
                 <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                     <a href="/api/v1/main" className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
@@ -20,8 +31,10 @@ export function Header() {
                     </ul>
 
                     <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                        <input type="search" className="form-control form-control-dark" placeholder="Search..." aria-label="Search"
-                            />
+                        <input type="search" className="form-control form-control-dark"
+                            placeholder="Search..." aria-label="Search"
+                            value={search} onChange={(e) => handleOnSearch(e)}
+                        />
                     </form>
 
                     {/* <div className="dropdown text-end" th:if="${isAuthenticated}">
