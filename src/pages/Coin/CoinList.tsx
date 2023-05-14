@@ -2,8 +2,6 @@ import './coin.css';
 import { useState, useEffect } from 'react';
 import { ICoinVM, IPage, ICoinDto, ICoin } from './interfaces';
 
-
-
 const INITIAL_PAGINATION = {
     totalItems: 0,
     totalPages: 0,
@@ -12,107 +10,115 @@ const INITIAL_PAGINATION = {
 }
 
 export function CoinList() {
+    const [serverUrl, setServerUrl] = useState(`http://localhost:8000/api/v1/coins`);
+
     const [coinList, setCoinList] = useState<ICoinVM[]>([]);
     const [pagination, setPagination] = useState<IPage>(INITIAL_PAGINATION);
     useEffect(() => {
-        fetch('http://localhost:8000/api/v1/coins')
-        .then(response => response.json())
-        .then((response: ICoinDto) => {
-            const {data, ...pages} = response;
-            mapCoins(data);
-            mapPagination(pages);
-        })
-    }, []);
+        fetch(serverUrl)
+            .then(response => response.json())
+            .then((response: ICoinDto) => {
+                const { data, ...pages } = response;
+                mapCoins(data);
+                mapPagination(pages);
+            })
+    }, [serverUrl]);
+    const handlePageChange = (page: number) => {
+        const newRequest = `http://localhost:8000/api/v1/coins?page=${page}`;
+        setServerUrl(newRequest);
+    }
 
     const mapCoins = (coins: ICoin[]) => {
-        const coinsVM: ICoinVM[] = coins.map((coin) => ({...coin, iconUrl: 'https://cryptologos.cc/logos/thumbs/' + coin.id + '.png?v=024'} ));
+        const coinsVM: ICoinVM[] = coins.map((coin) => ({ ...coin, iconUrl: 'https://cryptologos.cc/logos/thumbs/' + coin.id + '.png?v=024' }));
         setCoinList(coinsVM);
     }
     const mapPagination = (pages: IPage) => {
         let visiblePages = [];
-        if(pages.currentPage < 3) {
+        if (pages.currentPage <= 3) {
             visiblePages = createSequence(1, pages.currentPage + 6);
-        } else if(pages.currentPage > pages.totalPages - 3) {
+        } else if (pages.currentPage > pages.totalPages - 3) {
             visiblePages = createSequence(pages.currentPage - 3, pages.totalPages + 1);
         } else {
             visiblePages = createSequence(pages.currentPage - 3, pages.currentPage + 3);
         }
-        setPagination({...pages, visiblePages});
+        setPagination({ ...pages, visiblePages });
     }
 
     const createSequence = (from: number, to: number) => {
         const sequence = [];
-        for(let i = from; i < to; i++) {
+        for (let i = from; i < to; i++) {
             sequence.push(i);
         }
         return sequence;
     }
 
     return (
-               <>
-                 <div className="container">
-                     <table className="table">
-                         <thead className="thead-dark">
-                         <tr>
-                             <th scope="col"></th>
-                             <th scope="col">Name</th>
-                             <th scope="col">Price</th>
-                             <th scope="col">Market Cap</th>
-                         </tr>
-                         </thead>
-                         <tbody>
+        <>
+            <div className="container">
+                <table className="table">
+                    <thead className="thead-dark">
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Market Cap</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-                             {coinList.map((coin: ICoinVM) => (
-                                <tr key={coin.id}>
-                                    <td className="logo-column">
-                                        <img src={coin.iconUrl} alt="Logo"
-                                            height="32"/>
-                                    </td>
-                                    <td className="content-column">
-                                        <a href={"./coins/" + coin.id}>{coin.name}</a>
-                                    </td>
-                                    <td className="content-column">$ {coin.priceUSD}</td>
-                                    <td className="content-column">$ {coin.marketCapUsd}</td>
-                                </tr>
-                             ))}
+                        {coinList.map((coin: ICoinVM) => (
+                            <tr key={coin.id}>
+                                <td className="logo-column">
+                                    <img src={coin.iconUrl} alt="Logo"
+                                        height="32" />
+                                </td>
+                                <td className="content-column">
+                                    <a href={"./coins/" + coin.id}>{coin.name}</a>
+                                </td>
+                                <td className="content-column">$ {coin.priceUSD}</td>
+                                <td className="content-column">$ {coin.marketCapUsd}</td>
+                            </tr>
+                        ))}
 
-                         </tbody>
-                     </table>
-                 </div>
+                    </tbody>
+                </table>
+            </div>
 
-                 <div>
-                     <footer className="panel-footer">
-                        {pagination.currentPage !== 1
-                            ? <>
-                                <p>{'<<'}</p>
-                                <p>{'<'}</p>
-                              </>
-                            : <p></p>
-                        }
+            <div>
+                <footer className="panel-footer">
+                    {pagination.currentPage !== 1
+                        ? <div>
+                            
+                                <span onClick={() => handlePageChange(1)}>{'<<'}</span>
+                                <span onClick={() => handlePageChange(pagination.currentPage - 1)}>{'<'}</span>
+                            
+                        </div>
+                        : <p></p>
+                    }
 
-                        {pagination.totalItems !== 1
-                         ? (<div>
+                    {pagination.totalItems !== 1
+                        ? (<div>
 
                             Total Items: {pagination.totalItems} : Page {pagination.currentPage} of {pagination.totalPages}
 
-                             <br/>
-                             {pagination.visiblePages!.map(page => <span key={page}>{page}</span> )}
-                         </div>)
+                            <br />
+                            {pagination.visiblePages!.map(page => <span key={page} onClick={() => handlePageChange(page)}>{page}</span>)}
+                        </div>)
 
-                          : (<div>
+                        : (<div>
                             Total Items: {pagination.totalItems} : Page {pagination.currentPage} of {pagination.totalPages}
-                         </div>)
-                         }
+                        </div>)
+                    }
 
-                         {pagination.currentPage !== pagination.totalPages
-                            ? <>
-                                <p>{'>'}</p>
-                                <p>{'>>'}</p>
-                                </>
-                            : <p></p>
-                         }
-                     </footer>
-                 </div>
-               </>
-             )
+                    {pagination.currentPage !== pagination.totalPages
+                        ? <>
+                            <span onClick={() => handlePageChange(pagination.currentPage + 1)}>{'>'}</span>
+                            <span onClick={() => handlePageChange(pagination.totalPages)}>{'>>'}</span>
+                        </>
+                        : <p></p>
+                    }
+                </footer>
+            </div>
+        </>
+    )
 }

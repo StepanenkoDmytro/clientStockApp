@@ -13,16 +13,15 @@ import { CoinDetails } from './pages/Coin/CoinDetails.tsx';
 const router = createBrowserRouter([
   {
     path: "/",
-    
     element: <App />,
     children: [
       {
         path: "coins",
-        element: <CoinList/>
+        element: <CoinList />
       },
       {
         path: "coins/:coinId",
-        element: <CoinDetails/>
+        element: <CoinDetails />
       }
     ]
   },
@@ -30,6 +29,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-     <RouterProvider router={router}/> 
+    <RouterProvider router={router} />
   </React.StrictMode>,
 )

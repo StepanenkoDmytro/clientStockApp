@@ -7,13 +7,13 @@ import { Header } from './components/Header.tsx'
 
 
 function App() {
-  
+
   return (
     <>
-    {location.pathname === "/" && <Navigate to="/coins" />}
-      <Header/>
-      <Outlet/>
-      <Footer/>
+      {location.pathname === "/" && <Navigate to="/coins" />}
+      <Header />
+      <Outlet />
+      <Footer />
     </>
   )
 }
