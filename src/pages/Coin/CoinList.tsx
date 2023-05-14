@@ -1,6 +1,7 @@
 import './coin.css';
 import { useState, useEffect } from 'react';
 import { ICoinVM, IPage, ICoinDto, ICoin } from './interfaces';
+import { $search } from '../../store/store';
 
 const INITIAL_PAGINATION = {
     totalItems: 0,
@@ -12,18 +13,33 @@ const INITIAL_PAGINATION = {
 export function CoinList() {
 
     const [coinList, setCoinList] = useState<ICoinVM[]>([]);
-
     const [pagination, setPagination] = useState<IPage>(INITIAL_PAGINATION);
+    const [filter, setFilter] = useState<string>($search.getState());
 
     useEffect(() => {
-        fetch(`http://localhost:8000/api/v1/coins?page=${pagination.currentPage}`)
+        fetch(`http://localhost:8000/api/v1/coins?page=${pagination.currentPage}&filter=${filter}`)
             .then(response => response.json())
             .then((response: ICoinDto) => {
                 const { data, ...pages } = response;
                 mapCoins(data);
                 mapPagination(pages);
             })
-    }, [pagination.currentPage]);
+    }, [pagination.currentPage, filter]);
+
+    let timeOut: number | null = null;
+    $search.watch(state => {
+        console.log(state);
+        if (state !== filter) {
+            if(!!timeOut) {
+                clearTimeout(timeOut);
+                timeOut = null;
+            }
+            timeOut = setTimeout(() => {
+                setFilter(state);
+            }, 400);
+
+        }
+    });
 
     const handlePageChange = (currentPage: number) => {
 

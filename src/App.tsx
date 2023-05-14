@@ -11,7 +11,7 @@ function App() {
   return (
     <>
       {location.pathname === "/" && <Navigate to="/coins" />}
-      <Header />
+      <Header/>
       <Outlet />
       <Footer />
     </>

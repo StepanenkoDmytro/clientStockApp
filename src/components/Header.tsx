@@ -1,16 +1,14 @@
-import { ChangeEvent } from "react"
+import { useStore } from "effector-react";
+import { $search, setSearch } from "../store/store"
 
-interface IHeaderProps{
-    search: string;
-    onSearch: (value: string) => void;
-}
+export function Header() {
 
-export function Header({search, onSearch}: IHeaderProps) {
-    const handleOnSearch = (event: ChangeEvent<HTMLInputElement>) => {
-        const value = event.target?.value || '';
-        onSearch && onSearch(value);
+    const search = useStore($search);
+    const handleSearche = (value: string) => {
+        console.log(value);
+        setSearch(value);
     }
-
+    
     return (
         <header>
             <div className="container">
@@ -30,10 +28,11 @@ export function Header({search, onSearch}: IHeaderProps) {
                         <li><a href="/api/v1/main" className="nav-link px-2 text-secondary">Home</a></li>
                     </ul>
 
-                    <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                    <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" onSubmit={(e) => {e.preventDefault()}}>
                         <input type="search" className="form-control form-control-dark"
                             placeholder="Search..." aria-label="Search"
-                            value={search} onChange={(e) => handleOnSearch(e)}
+                            value={search} 
+                            onChange={(e) => handleSearche(e.target.value)}
                         />
                     </form>
 
