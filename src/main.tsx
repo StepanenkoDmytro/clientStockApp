@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Children } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
@@ -9,9 +9,10 @@ import {
 } from "react-router-dom";
 import { CoinList } from './pages/Coin/CoinList.tsx';
 import { CoinDetails } from './pages/Coin/CoinDetails.tsx';
-import { UserPage } from './pages/account/UserPage.tsx';
+import { AccountPage } from './pages/account/AccountPage.tsx';
 import { SignIn } from './pages/auth/SignIn.tsx';
 import { SignUp } from './pages/auth/SignUp.tsx';
+import { UserContainer } from './pages/account/UserContainer.tsx';
 
 const router = createBrowserRouter([
   {
@@ -35,8 +36,34 @@ const router = createBrowserRouter([
         element: <SignUp />
       },
       {
-        path: "user",
-        element: <UserPage />
+        path: "account",
+        element: <AccountPage />,
+        children: [
+          {
+            path: "porfolio",
+            element: <></>
+          },
+          {
+            path: "crypto",
+            element: <></>
+          },
+          {
+            path: "stock",
+            element: <></>
+          },
+          {
+            path: "transfer",
+            element: <></>
+          },
+          {
+            path: "transactions",
+            element: <></>
+          },
+          {
+            path: "user",
+            element: <UserContainer />
+          }
+        ]
       }
     ]
   },

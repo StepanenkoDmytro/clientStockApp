@@ -28,8 +28,7 @@ export function CoinList() {
 
     let timeOut: number | null = null;
     $search.watch(state => {
-        console.log(state);
-        if (state !== filter) {
+        if (state !== filter && state.length > 2) {
             if (!!timeOut) {
                 clearTimeout(timeOut);
                 timeOut = null;

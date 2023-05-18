@@ -1,0 +1,54 @@
+.account-container {
+    display: flex;
+    margin-top: 2%;
+}
+
+.user-menu-container{
+    display: inline-block;
+    width: 20%;
+    height: 80vh;
+    background-color: rgb(202, 214, 214);
+    border-right: 1px solid rgb(201, 218, 218);
+}
+
+.user-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color:white;
+    /* border: 2px solid red; */
+}
+
+.profile-info {
+    display: flex;
+    width: 100%;
+}
+
+.user-details {
+    width: 30%;
+    border: 2px solid red;
+}
+
+.user-photo {
+display: inline;
+}
+.user-photo img {
+    /* float: left; */
+    
+    margin-left: 20px;
+    margin-top: 20px;
+    width: 250px;
+    height: 250px;
+    border: 2px solid black;
+}
+
+.preview-name {
+    margin: 5%;
+}
+
+.nav-link.active {
+    color: yellow;
+}
+.menu-icon {
+    margin-right: 5px;
+}
