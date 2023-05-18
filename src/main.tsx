@@ -9,6 +9,9 @@ import {
 } from "react-router-dom";
 import { CoinList } from './pages/Coin/CoinList.tsx';
 import { CoinDetails } from './pages/Coin/CoinDetails.tsx';
+import { UserPage } from './pages/account/UserPage.tsx';
+import { SignIn } from './pages/auth/SignIn.tsx';
+import { SignUp } from './pages/auth/SignUp.tsx';
 
 const router = createBrowserRouter([
   {
@@ -22,6 +25,18 @@ const router = createBrowserRouter([
       {
         path: "coins/:coinId",
         element: <CoinDetails />
+      },
+      {
+        path: "sign-in",
+        element: <SignIn />
+      },
+      {
+        path: "sign-up",
+        element: <SignUp />
+      },
+      {
+        path: "user",
+        element: <UserPage />
       }
     ]
   },

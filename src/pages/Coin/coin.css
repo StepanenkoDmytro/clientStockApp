@@ -1,22 +1,48 @@
 .content-column {
     width: 200px;
 }
+
 .logo-column {
     width: 32px;
 }
+
 .active {
     color: purple;
     font-weight: bold;
 }
-.panel-footer a {
-    padding: 0 4px;
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+.pagination-container div {
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination-container span {
+    margin-left: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.pagination-container span:visited {
+    color: grey;
+    text-decoration: underline;
+}
+
 .container {
     margin-top: 20px;
+
 }
+
 .coin-image {
     display: inline-block;
 }
+
 .coin-info {
     display: inline-block;
     vertical-align: middle;

@@ -30,7 +30,7 @@ export function CoinList() {
     $search.watch(state => {
         console.log(state);
         if (state !== filter) {
-            if(!!timeOut) {
+            if (!!timeOut) {
                 clearTimeout(timeOut);
                 timeOut = null;
             }
@@ -42,7 +42,7 @@ export function CoinList() {
     });
 
     const handlePageChange = (currentPage: number) => {
-
+        
         setPagination({
             ...pagination,
             currentPage
@@ -50,17 +50,17 @@ export function CoinList() {
     }
 
     const mapCoins = (coins: ICoin[]) => {
-        const coinsVM: ICoinVM[] = coins.map((coin) => ({ ...coin, iconUrl: 'https://cryptologos.cc/logos/thumbs/' + coin.id + '.png?v=024' }));
+        const coinsVM: ICoinVM[] = coins.map((coin) => ({ ...coin, iconUrl: `https://cryptologos.cc/logos/thumbs/${coin.id}.png?v=024` }));
         setCoinList(coinsVM);
     }
     const mapPagination = (pages: IPage) => {
         let visiblePages = [];
         if (pages.currentPage <= 3) {
-            visiblePages = createSequence(1, pages.currentPage + 6);
+            visiblePages = createSequence(1, 8);
         } else if (pages.currentPage > pages.totalPages - 3) {
             visiblePages = createSequence(pages.currentPage - 3, pages.totalPages + 1);
         } else {
-            visiblePages = createSequence(pages.currentPage - 3, pages.currentPage + 3);
+            visiblePages = createSequence(pages.currentPage - 3, pages.currentPage + 4);
         }
         setPagination({ ...pages, visiblePages });
     }
@@ -77,7 +77,7 @@ export function CoinList() {
         <>
             <div className="container">
                 <table className="table">
-                    <thead className="thead-dark">
+                    <thead className='thead-dark'>
                         <tr>
                             <th scope="col"></th>
                             <th scope="col">Name</th>
@@ -106,39 +106,55 @@ export function CoinList() {
             </div>
 
             <div>
-                <footer className="panel-footer">
-                    {pagination.currentPage !== 1
-                        ? <div>
+                <footer className='footer'>
+                    <div>
+                        {pagination.totalItems !== 1 ? (
+                            <div>
+                                <div style={{color: 'gray'}}>
+                                    Total Items: {pagination.totalItems} : Page {pagination.currentPage} of {pagination.totalPages}
+                                </div>
 
-                            <span onClick={() => handlePageChange(1)}>{'<<'}</span>
-                            <span onClick={() => handlePageChange(pagination.currentPage - 1)}>{'<'}</span>
+                                <div className='pagination-container' style={{ paddingLeft: pagination.currentPage === 1 ? '38px' : '' }}>
+                                    {pagination.currentPage !== 1 ? (
+                                        <div>
+                                            <span onClick={() => handlePageChange(1)}>
+                                                {'<<'}
+                                            </span>
+                                            <span onClick={() => handlePageChange(pagination.currentPage - 1)}>
+                                                {'<'}
+                                            </span>
+                                        </div>
+                                    ) : (
+                                        <span></span>
+                                    )}
 
-                        </div>
-                        : <p></p>
-                    }
+                                    {pagination.visiblePages!.map((page) => (
+                                        <div key={page}>
+                                            <span className={pagination.currentPage === page ? 'active' : ''}
+                                                onClick={() => handlePageChange(page)}>
+                                                {page}
+                                            </span>
+                                        </div>
+                                    ))}
 
-                    {pagination.totalItems !== 1
-                        ? (<div>
-
-                            Total Items: {pagination.totalItems} : Page {pagination.currentPage} of {pagination.totalPages}
-
-                            <br />
-                            {pagination.visiblePages!.map(page => <span key={page} onClick={() => handlePageChange(page)}>{page}</span>)}
-                        </div>)
-
-                        : (<div>
-                            Total Items: {pagination.totalItems} : Page {pagination.currentPage} of {pagination.totalPages}
-                        </div>)
-                    }
-
-                    {pagination.currentPage !== pagination.totalPages
-                        ? <>
-                            <span onClick={() => handlePageChange(pagination.currentPage + 1)}>{'>'}</span>
-                            <span onClick={() => handlePageChange(pagination.totalPages)}>{'>>'}</span>
-                        </>
-                        : <p></p>
-                    }
+                                    {pagination.currentPage !== pagination.totalPages ? (
+                                        <div>
+                                            <span onClick={() => handlePageChange(pagination.currentPage + 1)}>{'>'}</span>
+                                            <span onClick={() => handlePageChange(pagination.totalPages)}>{'>>'}</span>
+                                        </div>
+                                    ) : (
+                                        <span></span>
+                                    )}
+                                </div>
+                            </div>
+                        ) : (
+                            <div style={{color: 'gray'}}>
+                                Total Items: {pagination.totalItems} : Page {pagination.currentPage} of {pagination.totalPages}
+                            </div>
+                        )}
+                    </div>
                 </footer>
+
             </div>
         </>
     )
