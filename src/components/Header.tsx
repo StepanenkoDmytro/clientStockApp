@@ -51,10 +51,10 @@ export function Header() {
                     </div> */}
                     <div className='text-end'>
                         <form action='/sign-in' style={{ display: 'inline-block' }}>
-                            <button type='submit' className='btn btn-secondary me-2 text-white'>Sign-in</button>
+                            <button type='submit' className='btn btn-warning'>Sign-in</button>
                         </form>
-                        <form action='/sign-up' style={{ display: 'inline-block' }}>
-                            <button type='submit' className='btn btn-warning'>Sign-up</button>
+                        <form action='/sign-up' style={{ display: 'inline-block', marginLeft: '5px'}}>
+                            <button type='submit' className='btn btn-secondary me-2 text-white'>Sign-up</button>
                         </form>
                     </div>
                 </div>

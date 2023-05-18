@@ -23,7 +23,7 @@ export function SignIn() {
                     </div>
 
                     <div>
-                        <input type='submit' value='Sign In' className='btn btn-primary' />
+                        <input type='submit' value='Sign In' className='btn btn-warning' />
                     </div>
                     <a href='#'>Забули пароль?</a>
 
@@ -31,7 +31,7 @@ export function SignIn() {
 
                 </form>
                 <hr />
-                <a href='#' className='btn btn-success'>Sign-up</a>
+                <a href='#' className='btn btn-secondary me-2 text-white'>Sign-up</a>
 
             </div>
         </div>

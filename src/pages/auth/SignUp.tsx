@@ -14,11 +14,12 @@ export function SignUp() {
                     <input className='form-control form-control-dark' placeholder='Enter password' type='password' name='password' />
                     <hr />
                     <p style={{ fontSize: '12px' }}>Реєструючись, ви приймаєте наші <a href='#'>Умови, Політику конфіденційності і Політику щодо файлів cookie.</a></p>
-                    <input className='btn btn-primary' type='submit' value='Register' />
+                    <input className='btn btn-warning' type='submit' value='Register' />
                 </form>
-<hr/>
+                <hr />
                 <p>У вас є обліковий запис?</p>
-                <a href='#' className='btn btn-success' style={{width: '100%'}}>Sign-in</a>
+
+                <a href='#' className='btn btn-secondary me-2 text-white' style={{ width: '100%' }}>Sign-in</a>
             </div>
         </div>
     );
