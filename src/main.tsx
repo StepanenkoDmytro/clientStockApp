@@ -13,6 +13,7 @@ import { AccountPage } from './pages/account/AccountPage.tsx';
 import { SignIn } from './pages/auth/SignIn.tsx';
 import { SignUp } from './pages/auth/SignUp.tsx';
 import { UserContainer } from './pages/account/UserContainer.tsx';
+import { TransactComponent } from './pages/account/TransactComponent.tsx';
 
 const router = createBrowserRouter([
   {
@@ -57,7 +58,7 @@ const router = createBrowserRouter([
           },
           {
             path: "transactions",
-            element: <></>
+            element: <TransactComponent />
           },
           {
             path: "user",

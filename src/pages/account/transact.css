@@ -1,0 +1,35 @@
+.transact-container {
+    display: flex;
+    flex-direction: column;
+    width: 77%;
+    background-color: white;
+}
+
+.table {
+    font-size: 12px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table thead{
+    text-align: center;
+    vertical-align: middle;
+    /* background-color: rgb(126, 199, 247); */
+    background-color: white;
+    border-bottom: 1px solid black;
+}
+
+.date-container {
+    /* margin-top: 2%; */
+    display: inline-flex;
+    width: 100%;
+  }
+
+  .table select {
+    font-size: 12px;
+    font-weight: bold;
+    border: 0;
+    /* background-color: rgb(126, 199, 247); */
+    background-color: white;
+  }
+

@@ -2,8 +2,8 @@ export interface ICoin {
     id: string;
     name: string;
     symbol: string;
-    priceUSD: number;
-    marketCapUsd: number;
+    priceUSD: string;
+    marketCapUsd: string;
 }
 
 export interface ICoinVM extends ICoin {

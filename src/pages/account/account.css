@@ -3,7 +3,7 @@
     margin-top: 2%;
 }
 
-.user-menu-container{
+.user-menu-container {
     display: inline-block;
     width: 20%;
     height: 80vh;
@@ -14,8 +14,8 @@
 .user-container {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    background-color:white;
+    width: 77%;
+    background-color: white;
     /* border: 2px solid red; */
 }
 
@@ -30,11 +30,12 @@
 }
 
 .user-photo {
-display: inline;
+    display: inline;
 }
+
 .user-photo img {
     /* float: left; */
-    
+
     margin-left: 20px;
     margin-top: 20px;
     width: 250px;
@@ -47,8 +48,14 @@ display: inline;
 }
 
 .nav-link.active {
-    color: yellow;
+    /* color: rgb(247, 184, 67); */
+    color: black;
 }
+
 .menu-icon {
     margin-right: 5px;
+}
+
+.nav.flex-column {
+    margin-left: 10px;
 }

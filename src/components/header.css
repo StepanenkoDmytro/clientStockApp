@@ -3,5 +3,6 @@
 }
 
 .nav-link:hover {
+    transform: scale(1.2);
     color: black;
 }
