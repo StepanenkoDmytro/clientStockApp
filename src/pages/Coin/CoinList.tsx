@@ -41,7 +41,7 @@ export function CoinList() {
     });
 
     const handlePageChange = (currentPage: number) => {
-        
+
         setPagination({
             ...pagination,
             currentPage
@@ -55,7 +55,8 @@ export function CoinList() {
     const mapPagination = (pages: IPage) => {
         let visiblePages = [];
         if (pages.currentPage <= 3) {
-            visiblePages = createSequence(1, 8);
+            let endIndex = Math.min(8, pages.totalPages + 1);
+            visiblePages = createSequence(1, endIndex);
         } else if (pages.currentPage > pages.totalPages - 3) {
             visiblePages = createSequence(pages.currentPage - 3, pages.totalPages + 1);
         } else {
@@ -109,7 +110,7 @@ export function CoinList() {
                     <div>
                         {pagination.totalItems !== 1 ? (
                             <div>
-                                <div style={{color: 'gray'}}>
+                                <div style={{ color: 'gray' }}>
                                     Total Items: {pagination.totalItems} : Page {pagination.currentPage} of {pagination.totalPages}
                                 </div>
 
@@ -147,7 +148,7 @@ export function CoinList() {
                                 </div>
                             </div>
                         ) : (
-                            <div style={{color: 'gray'}}>
+                            <div style={{ color: 'gray' }}>
                                 Total Items: {pagination.totalItems} : Page {pagination.currentPage} of {pagination.totalPages}
                             </div>
                         )}

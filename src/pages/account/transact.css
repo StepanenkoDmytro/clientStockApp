@@ -5,13 +5,13 @@
     background-color: white;
 }
 
-.table {
+.transact-container .table {
     font-size: 12px;
     text-align: center;
     vertical-align: middle;
 }
 
-.table thead{
+.transact-container .table thead{
     text-align: center;
     vertical-align: middle;
     /* background-color: rgb(126, 199, 247); */
