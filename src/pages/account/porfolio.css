@@ -1,0 +1,25 @@
+.porfolio-container {
+    display: flex;
+    flex-direction: column;
+    width: 77%;
+    background-color: white;
+}
+
+.dropdown {
+    width: 100%;
+    /* margin-left: 4%; */
+}
+
+.dropdown button {
+    width: 100%;
+    text-align: left;
+    color: black;
+    border: 0;
+    background-color: white;
+}
+
+.dropdown-menu {
+    width: 100%;
+    /* position: static;
+    float: none; */
+}

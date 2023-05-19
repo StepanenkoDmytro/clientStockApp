@@ -11,37 +11,13 @@
     border-right: 1px solid rgb(201, 218, 218);
 }
 
-.user-container {
-    display: flex;
-    flex-direction: column;
-    width: 77%;
-    background-color: white;
-    /* border: 2px solid red; */
-}
 
-.profile-info {
-    display: flex;
-    width: 100%;
-}
 
-.user-details {
-    width: 30%;
-    border: 2px solid red;
-}
 
-.user-photo {
-    display: inline;
-}
 
-.user-photo img {
-    /* float: left; */
 
-    margin-left: 20px;
-    margin-top: 20px;
-    width: 250px;
-    height: 250px;
-    border: 2px solid black;
-}
+
+
 
 .preview-name {
     margin: 5%;

@@ -1,4 +1,4 @@
-import './account.css'
+import './user.css'
 
 export function UserContainer() {
     return (
@@ -11,52 +11,22 @@ export function UserContainer() {
 
                 <div className='user-details'>
                     <div>
-                        <p>{'Username: user'}</p>
-                        <p>{'Email:  user@ '}</p>
+                        <h4>Contact information:</h4> <hr />
+                        <p>{'Dmytro Stepanenko'}</p>
+                        <p>{'user@gmail.com'}</p>
+                        <p>{'0982846242'}</p>
+                        <p><a href='#'>{'Edit'}</a>{' | '} <a href='#'>{'Change password'}</a></p>
+                    </div>
+                    <div>
+                        <h4>Address information:</h4> <hr />
+                        <p>{'Country: Ukraine'}</p>
+                        <p>{'City: Dnipro'}</p>
+                        <p><a href='#'>{'Edit address'}</a></p>
                     </div>
 
                 </div>
-                <div>
-                    <h2>{'Total balance: 0'}</h2>
-                </div>
             </div>
-
-            <div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th scope='col'>Wallets</th>
-                            <th scope='col'>Account type</th>
-                            <th scope='col'>Balance</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <a href='#'>Мій кріпто портфель</a>
-                            </td>
-                            <td>
-                                <p>CryptoWallet</p>
-                            </td>
-                            <td>
-                                <p>1000$</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a href='#'>Мій кріпто портфель</a>
-                            </td>
-                            <td>
-                                <p>CryptoWallet</p>
-                            </td>
-                            <td>
-                                <p>1000$</p>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
+            <hr />
         </div>
     );
 }

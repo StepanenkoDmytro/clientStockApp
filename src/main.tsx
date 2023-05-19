@@ -15,6 +15,7 @@ import { SignUp } from './pages/auth/SignUp.tsx';
 import { UserContainer } from './pages/account/UserContainer.tsx';
 import { TransactComponent } from './pages/account/TransactComponent.tsx';
 import { CryptoComponent } from './pages/account/CryptoComponent.tsx';
+import { PortfolioComponent } from './pages/account/PortfolioComponent.tsx';
 
 const router = createBrowserRouter([
   {
@@ -43,7 +44,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: "porfolio",
-            element: <></>
+            element: <PortfolioComponent />
           },
           {
             path: "crypto",
