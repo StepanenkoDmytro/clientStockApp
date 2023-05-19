@@ -14,6 +14,7 @@ import { SignIn } from './pages/auth/SignIn.tsx';
 import { SignUp } from './pages/auth/SignUp.tsx';
 import { UserContainer } from './pages/account/UserContainer.tsx';
 import { TransactComponent } from './pages/account/TransactComponent.tsx';
+import { CryptoComponent } from './pages/account/CryptoComponent.tsx';
 
 const router = createBrowserRouter([
   {
@@ -46,7 +47,7 @@ const router = createBrowserRouter([
           },
           {
             path: "crypto",
-            element: <></>
+            element: <CryptoComponent />
           },
           {
             path: "stock",
