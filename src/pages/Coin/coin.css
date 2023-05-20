@@ -48,3 +48,9 @@
     vertical-align: middle;
     margin-left: 10px;
 }
+
+.pag-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

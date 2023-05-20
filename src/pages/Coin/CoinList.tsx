@@ -109,12 +109,12 @@ export function CoinList() {
                 <footer className='footer'>
                     <div>
                         {pagination.totalItems !== 1 ? (
-                            <div>
+                            <div className='pag-container'>
                                 <div style={{ color: 'gray' }}>
                                     Total Items: {pagination.totalItems} : Page {pagination.currentPage} of {pagination.totalPages}
                                 </div>
 
-                                <div className='pagination-container' style={{ paddingLeft: pagination.currentPage === 1 ? '38px' : '' }}>
+                                <div className='pagination-container'>
                                     {pagination.currentPage !== 1 ? (
                                         <div>
                                             <span onClick={() => handlePageChange(1)}>
