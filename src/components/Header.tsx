@@ -15,7 +15,6 @@ export function Header() {
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         console.log('handleSubmit');
         event.preventDefault();
-        // return <Navigate to={'/coins'} />;
         navigate('/coins');
     }
 

@@ -13,7 +13,7 @@ export function SignIn() {
 
             <div className='form-container'>
                 <h1 id='name'>Stock Archive</h1>
-                <form action='#' method='post'>
+                <form action='http://localhost:8000/api/v1/auth/sign-in' method='post'>
                     <div>
                         {/* <label>Email:</label> */}
                         <div>
@@ -26,9 +26,6 @@ export function SignIn() {
                         <input type='submit' value='Sign In' className='btn btn-warning' />
                     </div>
                     <a href='#'>Забули пароль?</a>
-
-
-
                 </form>
                 <hr />
                 <a href='#' className='btn btn-secondary me-2 text-white'>Sign-up</a>
