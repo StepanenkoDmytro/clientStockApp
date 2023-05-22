@@ -53,13 +53,12 @@ export function SignIn() {
             <div className='form-container'>
                 <h1 id='name'>Stock Archive</h1>
                 <form onSubmit={(e) => handleSubmit(e)}>
+
                     <div>
-                        <div>
-                            <input type='text' name='email' placeholder='Enter email' className='form-control form-control-dark'
-                                value={email} onChange={(e) => handleUsernameChange(e.target.value)} />
-                            <input type='password' name='password' placeholder='Enter password' className='form-control form-control-dark'
-                                value={password} onChange={(e) => handlePasswordChange(e.target.value)} />
-                        </div>
+                        <input type='text' name='email' placeholder='Enter email' className='form-control form-control-dark'
+                            value={email} onChange={(e) => handleUsernameChange(e.target.value)} />
+                        <input type='password' name='password' placeholder='Enter password' className='form-control form-control-dark'
+                            value={password} onChange={(e) => handlePasswordChange(e.target.value)} />
                     </div>
 
                     <div>

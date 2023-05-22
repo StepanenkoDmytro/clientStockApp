@@ -35,6 +35,7 @@ export interface IUser {
 }
 
 export interface IAccount {
+    id: number,
     accountName: string;
     accountType: string;
     balance: number;
@@ -44,4 +45,6 @@ export interface IAccount {
 export interface IAccountCoin {
     idCoin: string;
     name: string;
+    amountCOIN: number;
+    amountUSD: number;
 }
