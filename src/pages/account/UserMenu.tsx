@@ -33,7 +33,7 @@ export function UserMenu() {
             title: 'Transactions'
         },
         {
-            link: '/account/user',
+            link: '/account/transactions',
             icon: '/public/icons/userSettingsIcon.svg',
             title: 'User Settings'
         }
@@ -42,8 +42,13 @@ export function UserMenu() {
         <div className='user-menu-container'>
             <div>
                 <div className='preview-name'>
-                    {/* <img src='https://github.com/mdo.png ' alt='mdo ' width='64 ' height='64 ' style={{ float: 'left', borderRadius: '15%', marginRight: '3%' }} /> */}
-                    <img src={`http://localhost:8000/images/${user?.imageID}`} alt='mdo ' width='64 ' height='64 ' style={{ float: 'left', borderRadius: '15%', marginRight: '3%' }} />
+                    {user ? (
+                        <img src={`http://localhost:8000/images/${user?.imageID}`} alt='mdo ' width='64 ' height='64 ' style={{ float: 'left', borderRadius: '15%', marginRight: '3%' }} />
+                    )
+                        : (
+                            <img src='/src/img/non-user-photo.png' alt='mdo ' width='64 ' height='64 ' style={{ float: 'left', borderRadius: '15%', marginRight: '3%' }} />
+                        )}
+
                     <div>
                         <h3>{user?.username}</h3>
                         <p>{'1000$'}</p>
@@ -52,8 +57,8 @@ export function UserMenu() {
                 <ul className='nav flex-column'>
                     {menuItems.map((item) => <li className='nav-item' key={item.title}>
                         <NavLink to={item.link}
-                                 className={({ isActive }) => isActive ? "nav-link active" : "nav-link "}>
-                             <img src={item.icon} className='menu-icon' />
+                            className={({ isActive }) => isActive ? "nav-link active" : "nav-link "}>
+                            <img src={item.icon} className='menu-icon' />
                             {item.title}
                         </NavLink>
                     </li>)}

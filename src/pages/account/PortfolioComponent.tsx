@@ -55,7 +55,6 @@ export function PortfolioComponent() {
                                         </tbody>
                                     </table>
                                 </table>
-
                             )}
                         </li>
                     ))}

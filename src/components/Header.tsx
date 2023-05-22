@@ -1,7 +1,7 @@
 import { useStore } from 'effector-react';
 import { $search, setSearch, userStore } from '../store/store'
 import './header.css'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { FormEvent } from 'react';
 import { IUser } from '../pages/Coin/interfaces';
 
@@ -37,41 +37,53 @@ export function Header() {
                     <ul className='nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0'>
                         <li><a href='/' className='nav-link'>Home</a></li>
                     </ul>
+                    <div className='elements-menu d-flex align-items-center'>
+                        <form className='col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3' onSubmit={(e) => { e.preventDefault(); handleSubmit(e) }}>
+                            <input type='search' className='form-control form-control-dark'
+                                placeholder='Search...' aria-label='Search'
+                                value={search}
+                                onChange={(e) => handleSearch(e.target.value)}
+                            />
+                        </form>
+                        {user != null
+                            ? (<div className='dropdown text-end'>
+                                <a href='#' className='d-block link-dark text-decoration-none dropdown-toggle' id='dropdownUser1' data-bs-toggle='dropdown' aria-expanded='false'>
+                                    <img src={`http://localhost:8000/images/${user?.imageID}`} alt='mdo' width='32' height='32' className='rounded-circle' />
+                                </a>
 
-                    <form className='col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3' onSubmit={(e) => { e.preventDefault(); handleSubmit(e) }}>
-                        <input type='search' className='form-control form-control-dark'
-                            placeholder='Search...' aria-label='Search'
-                            value={search}
-                            onChange={(e) => handleSearch(e.target.value)}
-                        />
-                    </form>
-                    {user != null
-                        ? (<div className='dropdown text-end'>
-                            <a href='#' className='d-block link-dark text-decoration-none dropdown-toggle' id='dropdownUser1' data-bs-toggle='dropdown' aria-expanded='false'>
-                                <img src={`http://localhost:8000/images/${user?.imageID}`} alt='mdo' width='32' height='32' className='rounded-circle' />
-                                {/* <img src='src/img/non-user-photo.png' alt='mdo' width='32' height='32' className='rounded-circle'/> */}
-                            </a>
+                                <ul className='dropdown-menu text-small' aria-labelledby='dropdownUser1'>
+                                    <li>
+                                        <NavLink to='/account/porfolio' className='dropdown-divider'>Profile Overview</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to='/account/crypto' className='dropdown-divider'>Crypto Portfolio</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to='/account/stock' className='dropdown-divider'>Stock Portfolio</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to='/account/transfer' className='dropdown-divider'>Transfers Money</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to='/account/transactions' className='dropdown-divider'>Transactions</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to='/account/user' className='dropdown-divider'>User Settings</NavLink>
+                                    </li>
+                                    <li><hr className='dropdown-divider' /></li>
+                                    <li><a className='dropdown-item' href='/logout'>Sign out</a></li>
+                                </ul>
+                            </div>)
+                            : (<div className='text-end'>
+                                <Link to='/sign-in' style={{ display: 'inline-block' }}>
+                                    <button type='submit' className='btn btn-warning'>Sign-in</button>
+                                </Link>
+                                <Link to='/sign-up' style={{ display: 'inline-block', marginLeft: '5px' }}>
+                                    <button type='submit' className='btn btn-secondary me-2 text-white'>Sign-up</button>
+                                </Link>
+                            </div>)}
 
-                            <ul className='dropdown-menu text-small' aria-labelledby='dropdownUser1'>
-                                <li>
-                                    {/* <a className='dropdown-item' href='/account/porfolio'>Profile</a> */}
-                                    <Link to='/account/porfolio' className='dropdown-divider'>Profile</Link>
-                                </li>
-                                {/* <li><hr className='dropdown-divider'></li> */}
-                                <li><hr className='dropdown-divider' /></li>
-                                <li><a className='dropdown-item' href='/logout'>Sign out</a></li>
-                            </ul>
-                        </div>)
-                        : (<div className='text-end'>
-                            <Link to='/sign-in' style={{ display: 'inline-block' }}>
-                                <button type='submit' className='btn btn-warning'>Sign-in</button>
-                            </Link>
-                            <Link to='/sign-up' style={{ display: 'inline-block', marginLeft: '5px' }}>
-                                <button type='submit' className='btn btn-secondary me-2 text-white'>Sign-up</button>
-                            </Link>
-                        </div>)}
-
-
+                    </div>
                 </div>
             </div>
         </header>
