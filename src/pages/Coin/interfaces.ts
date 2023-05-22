@@ -20,3 +20,28 @@ export interface IPage {
     currentPage: number;
     visiblePages?: number[];
 }
+
+// User and his friends
+export interface IUserDto {
+    user: IUser;
+    token: string;
+}
+
+export interface IUser {
+    username: string;
+    email: string;
+    imageID: number;
+    accounts: IAccount[];
+}
+
+export interface IAccount {
+    accountName: string;
+    accountType: string;
+    balance: number;
+    coins: IAccountCoin[];
+}
+
+export interface IAccountCoin {
+    idCoin: string;
+    name: string;
+}

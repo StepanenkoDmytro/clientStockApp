@@ -1,10 +1,12 @@
 import { useStore } from 'effector-react';
-import { $search, setSearch } from '../store/store'
+import { $search, setSearch, userStore } from '../store/store'
 import './header.css'
 import { Link, useNavigate } from 'react-router-dom';
 import { FormEvent } from 'react';
+import { IUser } from '../pages/Coin/interfaces';
 
 export function Header() {
+    const user: IUser | null = useStore(userStore);
 
     const search = useStore($search);
     const handleSearch = (value: string) => {
@@ -13,7 +15,6 @@ export function Header() {
 
     const navigate = useNavigate();
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-        console.log('handleSubmit');
         event.preventDefault();
         navigate('/coins');
     }
@@ -44,26 +45,33 @@ export function Header() {
                             onChange={(e) => handleSearch(e.target.value)}
                         />
                     </form>
+                    {user != null
+                        ? (<div className='dropdown text-end'>
+                            <a href='#' className='d-block link-dark text-decoration-none dropdown-toggle' id='dropdownUser1' data-bs-toggle='dropdown' aria-expanded='false'>
+                                <img src={`http://localhost:8000/images/${user?.imageID}`} alt='mdo' width='32' height='32' className='rounded-circle' />
+                                {/* <img src='src/img/non-user-photo.png' alt='mdo' width='32' height='32' className='rounded-circle'/> */}
+                            </a>
 
-                    {/* <div className='dropdown text-end' th:if='${isAuthenticated}'>
-                        <a href='#' className='d-block link-dark text-decoration-none dropdown-toggle' id='dropdownUser1' data-bs-toggle='dropdown' aria-expanded='false'>
-                            <img src='/img/non-user-photo.png' alt='mdo' width='32' height='32' className='rounded-circle'>
-                        </a>
+                            <ul className='dropdown-menu text-small' aria-labelledby='dropdownUser1'>
+                                <li>
+                                    {/* <a className='dropdown-item' href='/account/porfolio'>Profile</a> */}
+                                    <Link to='/account/porfolio' className='dropdown-divider'>Profile</Link>
+                                </li>
+                                {/* <li><hr className='dropdown-divider'></li> */}
+                                <li><hr className='dropdown-divider' /></li>
+                                <li><a className='dropdown-item' href='/logout'>Sign out</a></li>
+                            </ul>
+                        </div>)
+                        : (<div className='text-end'>
+                            <Link to='/sign-in' style={{ display: 'inline-block' }}>
+                                <button type='submit' className='btn btn-warning'>Sign-in</button>
+                            </Link>
+                            <Link to='/sign-up' style={{ display: 'inline-block', marginLeft: '5px' }}>
+                                <button type='submit' className='btn btn-secondary me-2 text-white'>Sign-up</button>
+                            </Link>
+                        </div>)}
 
-                        <ul className='dropdown-menu text-small' aria-labelledby='dropdownUser1' style=''>
-                            <li><a className='dropdown-item' href='/api/v1/user'>Profile</a></li>
-                            <li><hr className='dropdown-divider'></li>
-                            <li><a className='dropdown-item' href='/logout'>Sign out</a></li>
-                        </ul>
-                    </div> */}
-                    <div className='text-end'>
-                        <Link to='/sign-in' style={{ display: 'inline-block' }}>
-                            <button type='submit' className='btn btn-warning'>Sign-in</button>
-                        </Link>
-                        <Link to='/sign-up' style={{ display: 'inline-block', marginLeft: '5px' }}>
-                            <button type='submit' className='btn btn-secondary me-2 text-white'>Sign-up</button>
-                        </Link>
-                    </div>
+
                 </div>
             </div>
         </header>

@@ -1,42 +1,40 @@
-// import UserSettingsIcon from 'src/img/icons/userSettingsIcon.svg';
-// import TransactionIcon from 'src/img/icons/transactionsIcon.svg';
-// import TransfersMoneyIcon from 'src/img/icons/transfersMoneyIcon.svg';
-// import StockPortfolioIcon from 'src/img/icons/stockPortfolioIcon.svg';
-// import CryptoPortfolioIcon from 'src/img/icons/cryptoPortfolioIcon.svg';
-// import PortfolioOverviewIcon from 'src/img/icons/portfolioOverviewIcon.svg';
 import { NavLink } from 'react-router-dom';
 import './account.css'
+import { userStore } from '../../store/store';
+import { IUser } from '../Coin/interfaces';
+import { useStore } from 'effector-react';
 
 export function UserMenu() {
+    const user: IUser | null = useStore(userStore);
     const menuItems = [
         {
             link: '/account/porfolio',
-            icon: <img src='src/img/icons/portfolioOverviewIcon.svg'/>,
+            icon: '/public/icons/portfolioOverviewIcon.svg',
             title: 'Portfolio Overview'
         },
         {
             link: '/account/crypto',
-            icon: <svg><use xlinkHref="src/img/icons/transactionsIcon.svg"/></svg>,
+            icon: '/public/icons/cryptoPortfolioIcon.svg',
             title: 'Crypto Portfolio'
         },
         {
             link: '/account/stock',
-            icon: <svg><use xlinkHref="src/img/icons/transactionsIcon.svg"/></svg>,
+            icon: '/public/icons/stockPortfolioIcon.svg',
             title: 'Stock Portfolio'
         },
         {
             link: '/account/transfer',
-            icon: <svg><use xlinkHref="src/img/icons/transactionsIcon.svg"/></svg>,
+            icon: '/public/icons/transfersMoneyIcon.svg',
             title: 'Transfers Money'
         },
         {
             link: '/account/transactions',
-            icon: <svg><use xlinkHref="src/img/icons/transactionsIcon.svg"/></svg>,
+            icon: '/public/icons/transactionsIcon.svg',
             title: 'Transactions'
         },
         {
             link: '/account/user',
-            icon: <svg><use xlinkHref="src/img/icons/transactionsIcon.svg"/></svg>,
+            icon: '/public/icons/userSettingsIcon.svg',
             title: 'User Settings'
         }
     ]
@@ -44,17 +42,18 @@ export function UserMenu() {
         <div className='user-menu-container'>
             <div>
                 <div className='preview-name'>
-                    <img src='https://github.com/mdo.png ' alt='mdo ' width='64 ' height='64 ' style={{ float: 'left', borderRadius: '15%', marginRight: '3%' }} />
+                    {/* <img src='https://github.com/mdo.png ' alt='mdo ' width='64 ' height='64 ' style={{ float: 'left', borderRadius: '15%', marginRight: '3%' }} /> */}
+                    <img src={`http://localhost:8000/images/${user?.imageID}`} alt='mdo ' width='64 ' height='64 ' style={{ float: 'left', borderRadius: '15%', marginRight: '3%' }} />
                     <div>
-                        <h3>Username</h3>
-                        <p>AccountType</p>
+                        <h3>{user?.username}</h3>
+                        <p>{'1000$'}</p>
                     </div>
                 </div>
                 <ul className='nav flex-column'>
                     {menuItems.map((item) => <li className='nav-item' key={item.title}>
                         <NavLink to={item.link}
                                  className={({ isActive }) => isActive ? "nav-link active" : "nav-link "}>
-                            <span dangerouslySetInnerHTML={{ __html: item.icon }} className='menu-icon' />
+                             <img src={item.icon} className='menu-icon' />
                             {item.title}
                         </NavLink>
                     </li>)}
