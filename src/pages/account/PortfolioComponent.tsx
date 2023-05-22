@@ -48,9 +48,9 @@ export function PortfolioComponent() {
                                         <tbody>
                                             <tr>
                                                 <td>{account.accountName}</td>
-                                                <td>9876$</td>
+                                                <td></td>
                                                 <td>{account.balance}$</td>
-                                                <td>2%</td>
+                                                <td></td>
                                             </tr>
                                         </tbody>
                                     </table>

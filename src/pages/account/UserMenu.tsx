@@ -33,7 +33,7 @@ export function UserMenu() {
             title: 'Transactions'
         },
         {
-            link: '/account/transactions',
+            link: '/account/user',
             icon: '/public/icons/userSettingsIcon.svg',
             title: 'User Settings'
         }
