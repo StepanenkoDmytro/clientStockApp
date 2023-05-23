@@ -2,7 +2,7 @@ import { useStore } from 'effector-react';
 import { saveUser, userStore } from '../../store/store';
 import './porfolio.css'
 import { IUser } from '../Coin/interfaces';
-import { FormEvent, HtmlHTMLAttributes, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { USER_AUTH_TOKEN } from '../../App';
 
 export function PortfolioComponent() {
@@ -20,7 +20,7 @@ export function PortfolioComponent() {
     const createNewAccount = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const formData = {newAccountName};
+        const formData = { newAccountName };
         console.log(formData);
 
         fetch(`http://localhost:8000/api/v1/account/create`, {
@@ -51,53 +51,66 @@ export function PortfolioComponent() {
     };
     return (
         <div className='porfolio-container'>
-            <h2>{'Total balance: 0'}</h2><hr />
-            <div>
-                <form onSubmit={(e) => createNewAccount(e)}>
-                    <input type='text' name='accountName' placeholder='Введіть назву гаманця'
-                        className='form-control' onChange={(e) => handlNewAccountName(e.target.value)}/>
-                    <button type='submit' className='btn btn-success'>Create</button>
-                </form>
-            </div>
-            <div className='dropdown'>
-                <h3>Wallets</h3>
-                <ul className='list-unstyled'>
-                    {accounts.map((account) => (
-                        <li key={account.accountName}>
-                            <button
-                                className={showAccountMap[account.accountName]
-                                    ? 'btn btn-secondary dropdown-toggle active'
-                                    : 'btn btn-secondary dropdown-toggle'}
-                                type='button' id='cryptoDropdown'
-                                onClick={() => handleShowAccount(account.accountName)}>
-                                {account.accountName}
-                            </button>
 
-                            {showAccountMap[account.accountName] && (
-                                <table>
-                                    <table className='table'>
-                                        <thead>
-                                            <tr>
-                                                <th>Account name</th>
-                                                <th>Account value</th>
-                                                <th>Account money USD</th>
-                                                <th>Account profit</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>{account.accountName}</td>
-                                                <td></td>
-                                                <td>{account.balance}$</td>
-                                                <td></td>
-                                            </tr>
-                                        </tbody>
+            <div className='porfolio-balance'>
+                <h2>{'Total balance: 0$'}</h2>
+            </div>
+            <hr />
+            <div className='wallet'>
+                <div className='wallet-title'>
+                    <div className='wallets-name'>
+                        <h3>Wallets:</h3>
+                    </div>
+                    <div className='wallets-create'>
+                        <form onSubmit={(e) => createNewAccount(e)}>
+                            <input type='text' name='accountName' placeholder='Введіть назву гаманця'
+                                onChange={(e) => handlNewAccountName(e.target.value)} />
+                            <button style={{ marginLeft: '5px' }} type='submit' className='btn btn-success'>Create</button>
+                        </form>
+                    </div>
+                    
+                </div>
+                {/* <hr/> */}
+                <div className='wallets-dropdown'>
+                
+                    <ul className='list-unstyled'>
+                        {accounts.map((account) => (
+                            <li key={account.accountName}>
+                                <button
+                                    className={showAccountMap[account.accountName]
+                                        ? 'btn btn-secondary dropdown-toggle active'
+                                        : 'btn btn-secondary dropdown-toggle'}
+                                    type='button' id='cryptoDropdown'
+                                    onClick={() => handleShowAccount(account.accountName)}>
+                                    {account.accountName}
+                                </button>
+
+                                {showAccountMap[account.accountName] && (
+                                    <table>
+                                        <table className='table'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Account name</th>
+                                                    <th>Account value</th>
+                                                    <th>Account money USD</th>
+                                                    <th>Account profit</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>{account.accountName}</td>
+                                                    <td></td>
+                                                    <td>{account.balance}$</td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </table>
-                                </table>
-                            )}
-                        </li>
-                    ))}
-                </ul>
+                                )}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             </div>
         </div>
     );
