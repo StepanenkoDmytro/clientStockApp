@@ -24,10 +24,10 @@ export function CryptoComponent() {
     const token = localStorage.getItem(USER_AUTH_TOKEN);
     const handleDeposit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        
+
         const accountId = activeAccount?.id;
 
-        const formData = {accountId, depositAmount};
+        const formData = { accountId, depositAmount };
         console.log(formData);
 
         fetch(`http://localhost:8000/api/v1/account/deposit`, {
@@ -50,32 +50,54 @@ export function CryptoComponent() {
 
     return (
         <div className='crypto-container'>
-            <div className='changer-acc'>
-                <select onChange={(e) => handleActiveAccount(JSON.parse(e.target.value))}>
-                    {accounts.map((account) => (
-                        <option key={account.accountName} value={JSON.stringify(account)}>
-                            {account.accountName}
-                        </option>
-                    ))}
-                </select>
+            <div className='coin-details'>
+                <div className='left-block'>
+                    <h1>{activeAccount?.accountName}</h1>
+                    <h6>{activeAccount?.accountType}</h6>
+                    <form className='form-control' onSubmit={(event) => handleDeposit(event)}>
+                        <input type='number' name='depositAmount' placeholder='Введіть суму депозиту'
+                            onChange={(e) => handleDepositAmount(Number(e.target.value))} />
+                        <button type='submit' className='btn btn-success'>Accept</button>
+                    </form>
+                </div>
+                <div className='right-block'>
+                    <select className='form-select'
+                        onChange={(e) => handleActiveAccount(JSON.parse(e.target.value))}>
+                        {accounts.map((account) => (
+                            <option key={account.accountName} value={JSON.stringify(account)}>
+                                {account.accountName}
+                            </option>
+                        ))}
+                    </select>
+                    <h2>Total balance: {activeAccount?.balance}$</h2>
+                </div>
             </div>
-            <h1>{activeAccount?.accountName}</h1>
-            <h6>{activeAccount?.accountType}</h6>
-            <h4>{activeAccount?.balance}$</h4>
             <hr />
 
-            <form onSubmit={(event) => handleDeposit(event)}>
-                <input type="number" name="depositAmount" placeholder="Введіть суму депозиту" className="form-control" 
-                onChange={(e) => handleDepositAmount(Number(e.target.value))}/>
-                <button type="submit" className="btn btn-success">Accept</button>
-            </form>
-
-            <hr />
-            <ul>
-                {activeAccount?.coins.map((coin) => (
-                    <li key={coin.idCoin}><p>Coin name: {coin.name} AmountCOIN: {coin.amountCOIN} AmountUSD: {coin.amountUSD}</p></li>
-                ))}
-            </ul>
+            <div className='coin-table'>
+                <table className='table'>
+                    <thead className='thead-dark'>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Amount coin</th>
+                            <th>Amount usd</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {activeAccount?.coins.map((coin) => (
+                            <tr>
+                                <td><img src={`https://cryptologos.cc/logos/thumbs/${coin.idCoin}.png?v=024`} alt='Logo'
+                                    height='32' />
+                                </td>
+                                <td>{coin.name}</td>
+                                <td>{coin.amountCOIN}</td>
+                                <td>{coin.amountUSD}$</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }
