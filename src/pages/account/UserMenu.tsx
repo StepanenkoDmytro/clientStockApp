@@ -42,7 +42,7 @@ export function UserMenu() {
         <div className='user-menu-container'>
             <div>
                 <div className='preview-name'>
-                    {user ? (
+                    {user?.imageID !== 0 ? (
                         <img src={`http://localhost:8000/images/${user?.imageID}`} alt='mdo ' width='64 ' height='64 ' style={{ float: 'left', borderRadius: '15%', marginRight: '3%' }} />
                     )
                         : (

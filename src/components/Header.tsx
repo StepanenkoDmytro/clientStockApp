@@ -48,7 +48,11 @@ export function Header() {
                         {user != null
                             ? (<div className='dropdown text-end'>
                                 <a href='#' className='d-block link-dark text-decoration-none dropdown-toggle' id='dropdownUser1' data-bs-toggle='dropdown' aria-expanded='false'>
-                                    <img src={`http://localhost:8000/images/${user?.imageID}`} alt='mdo' width='32' height='32' className='rounded-circle' />
+                                    {user.imageID !== 0 ? (
+                                        <img src={`http://localhost:8000/images/${user?.imageID}`} alt='mdo' width='32' height='32' className='rounded-circle' />)
+                                        : (
+                                            <img src='/src/img/non-user-photo.png' alt='mdo' width='32' height='32' className='rounded-circle'/>
+                                        )}
                                 </a>
 
                                 <ul className='dropdown-menu text-small' aria-labelledby='dropdownUser1'>
