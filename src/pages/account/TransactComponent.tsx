@@ -1,7 +1,34 @@
+import { useEffect, useState } from 'react';
 import './account.css'
 import './transact.css'
+import { userStore } from '../../store/store';
+import { useStore } from 'effector-react';
+import { ITransact, IUser } from '../Coin/interfaces';
+import { USER_AUTH_TOKEN } from '../../App';
 
 export function TransactComponent() {
+    const user: IUser | null = useStore(userStore);
+    const token = localStorage.getItem(USER_AUTH_TOKEN);
+
+    const[transacts, setTransacts] = useState<ITransact[]>([]);
+
+    useEffect(() => {
+        fetch(`http://localhost:8000/api/v1/transacts?userId=${user?.id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer_${token}`
+            }
+        })
+        .then(response => response.json())
+        .then((response: ITransact[]) => {
+            console.log(response);
+            setTransacts(response);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    }, []);
     return (
         <div className='transact-container'>
             {/* <h3>Transaction History</h3> */}
@@ -13,7 +40,7 @@ export function TransactComponent() {
             <table className='table table-striped'>
                 <thead>
                     <tr>
-                        <th scope='col'>Transaction ID</th>
+                        {/* <th scope='col'>Transaction ID</th> */}
                         <th scope='col'>
                             {/* Account Name */}
                             <select className="form-select" aria-label="Default select example">
@@ -41,184 +68,18 @@ export function TransactComponent() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><p>1</p></td>
-                        <td><p>Username</p></td>
-                        <td><p>DEPOSIT_ACCOUNT</p></td>
-                        <td><p>1000$</p></td>
-                        <td><p>BIG_BANK</p></td>
-                        <td><p>success</p></td>
-                        <td><p>DEPOSIT_SUCCESS</p></td>
-                        <td><p>USD</p></td>
-                        <td><p>2023-05-14 11:20:35</p></td>
+                    {transacts.map((transact) => (
+                        <tr>
+                        <td>{transact.accountID}</td>
+                        <td>{transact.transactionType}</td>
+                        <td>{transact.amount}</td>
+                        <td>{transact.source}</td>
+                        <td>{transact.status}</td>
+                        <td>{transact.reasonCode}</td>
+                        <td>{transact.purchaseDetails}</td>
+                        <td>{transact.created.toLocaleString()}</td>
                     </tr>
-                    <tr>
-                        <td><p>2</p></td>
-                        <td><p>Username</p></td>
-                        <td><p>BUY_CRYPTO</p></td>
-                        <td><p>1000$</p></td>
-                        <td><p>COINCAP</p></td>
-                        <td><p>success</p></td>
-                        <td><p>BUY_CRYPTO_SUCCESS</p></td>
-                        <td><p>Bitcoin</p></td>
-                        <td><p>2023-05-14 11:20:35</p></td>
-                    </tr>
-                    <tr>
-                        <td><p>3</p></td>
-                        <td><p>Username</p></td>
-                        <td><p>DEPOSIT_ACCOUNT</p></td>
-                        <td><p>10000$</p></td>
-                        <td><p>BIG_BANK</p></td>
-                        <td><p>success</p></td>
-                        <td><p>DEPOSIT_SUCCESS</p></td>
-                        <td><p>USD</p></td>
-                        <td><p>2023-05-14 11:20:35</p></td>
-                    </tr>
-                    <tr>
-                        <td><p>4</p></td>
-                        <td><p>Username</p></td>
-                        <td><p>BUY_CRYPTO</p></td>
-                        <td><p>500$</p></td>
-                        <td><p>COINCAP</p></td>
-                        <td><p>success</p></td>
-                        <td><p>BUY_CRYPTO_SUCCESS</p></td>
-                        <td><p>Bitcoin</p></td>
-                        <td><p>2023-05-14 11:20:35</p></td>
-                    </tr>
-                    <tr>
-                        <td><p>5</p></td>
-                        <td><p>Username</p></td>
-                        <td><p>BUY_CRYPTO</p></td>
-                        <td><p>500$</p></td>
-                        <td><p>COINCAP</p></td>
-                        <td><p>success</p></td>
-                        <td><p>BUY_CRYPTO_SUCCESS</p></td>
-                        <td><p>Dogecoin</p></td>
-                        <td><p>2023-05-14 11:20:35</p></td>
-                    </tr>
-                    <tr>
-                        <td><p>1</p></td>
-                        <td><p>Username</p></td>
-                        <td><p>DEPOSIT_ACCOUNT</p></td>
-                        <td><p>1000$</p></td>
-                        <td><p>BIG_BANK</p></td>
-                        <td><p>success</p></td>
-                        <td><p>DEPOSIT_SUCCESS</p></td>
-                        <td><p>USD</p></td>
-                        <td><p>2023-05-14 11:20:35</p></td>
-                    </tr>
-                    <tr>
-                        <td><p>2</p></td>
-                        <td><p>Username</p></td>
-                        <td><p>BUY_CRYPTO</p></td>
-                        <td><p>1000$</p></td>
-                        <td><p>COINCAP</p></td>
-                        <td><p>success</p></td>
-                        <td><p>BUY_CRYPTO_SUCCESS</p></td>
-                        <td><p>Bitcoin</p></td>
-                        <td><p>2023-05-14 11:20:35</p></td>
-                    </tr>
-                    <tr>
-                        <td><p>2</p></td>
-                        <td><p>Username</p></td>
-                        <td><p>BUY_CRYPTO</p></td>
-                        <td><p>1000$</p></td>
-                        <td><p>COINCAP</p></td>
-                        <td><p>success</p></td>
-                        <td><p>BUY_CRYPTO_SUCCESS</p></td>
-                        <td><p>Bitcoin</p></td>
-                        <td><p>2023-05-14 11:20:35</p></td>
-                    </tr>
-                    <tr>
-                        <td><p>1</p></td>
-                        <td><p>Username</p></td>
-                        <td><p>DEPOSIT_ACCOUNT</p></td>
-                        <td><p>1000$</p></td>
-                        <td><p>BIG_BANK</p></td>
-                        <td><p>success</p></td>
-                        <td><p>DEPOSIT_SUCCESS</p></td>
-                        <td><p>USD</p></td>
-                        <td><p>2023-05-14 11:20:35</p></td>
-                    </tr>
-                    <tr>
-                        <td><p>2</p></td>
-                        <td><p>Username</p></td>
-                        <td><p>BUY_CRYPTO</p></td>
-                        <td><p>1000$</p></td>
-                        <td><p>COINCAP</p></td>
-                        <td><p>success</p></td>
-                        <td><p>BUY_CRYPTO_SUCCESS</p></td>
-                        <td><p>Bitcoin</p></td>
-                        <td><p>2023-05-14 11:20:35</p></td>
-                    </tr>
-                    <tr>
-                        <td><p>3</p></td>
-                        <td><p>Username</p></td>
-                        <td><p>DEPOSIT_ACCOUNT</p></td>
-                        <td><p>10000$</p></td>
-                        <td><p>BIG_BANK</p></td>
-                        <td><p>success</p></td>
-                        <td><p>DEPOSIT_SUCCESS</p></td>
-                        <td><p>USD</p></td>
-                        <td><p>2023-05-14 11:20:35</p></td>
-                    </tr>
-                    <tr>
-                        <td><p>4</p></td>
-                        <td><p>Username</p></td>
-                        <td><p>BUY_CRYPTO</p></td>
-                        <td><p>500$</p></td>
-                        <td><p>COINCAP</p></td>
-                        <td><p>success</p></td>
-                        <td><p>BUY_CRYPTO_SUCCESS</p></td>
-                        <td><p>Bitcoin</p></td>
-                        <td><p>2023-05-14 11:20:35</p></td>
-                    </tr>
-                    <tr>
-                        <td><p>5</p></td>
-                        <td><p>Username</p></td>
-                        <td><p>BUY_CRYPTO</p></td>
-                        <td><p>500$</p></td>
-                        <td><p>COINCAP</p></td>
-                        <td><p>success</p></td>
-                        <td><p>BUY_CRYPTO_SUCCESS</p></td>
-                        <td><p>Dogecoin</p></td>
-                        <td><p>2023-05-14 11:20:35</p></td>
-                    </tr>
-                    <tr>
-                        <td><p>1</p></td>
-                        <td><p>Username</p></td>
-                        <td><p>DEPOSIT_ACCOUNT</p></td>
-                        <td><p>1000$</p></td>
-                        <td><p>BIG_BANK</p></td>
-                        <td><p>success</p></td>
-                        <td><p>DEPOSIT_SUCCESS</p></td>
-                        <td><p>USD</p></td>
-                        <td><p>2023-05-14 11:20:35</p></td>
-                    </tr>
-                    <tr>
-                        <td><p>2</p></td>
-                        <td><p>Username</p></td>
-                        <td><p>BUY_CRYPTO</p></td>
-                        <td><p>1000$</p></td>
-                        <td><p>COINCAP</p></td>
-                        <td><p>success</p></td>
-                        <td><p>BUY_CRYPTO_SUCCESS</p></td>
-                        <td><p>Bitcoin</p></td>
-                        <td><p>2023-05-14 11:20:35</p></td>
-                    </tr>
-                    <tr>
-                        <td><p>2</p></td>
-                        <td><p>Username</p></td>
-                        <td><p>BUY_CRYPTO</p></td>
-                        <td><p>1000$</p></td>
-                        <td><p>COINCAP</p></td>
-                        <td><p>success</p></td>
-                        <td><p>BUY_CRYPTO_SUCCESS</p></td>
-                        <td><p>Bitcoin</p></td>
-                        <td><p>2023-05-14 11:20:35</p></td>
-                    </tr>
-                    
-                
+                    ))}
                 </tbody>
             </table>
             </div>

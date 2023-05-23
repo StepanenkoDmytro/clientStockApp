@@ -28,6 +28,7 @@ export interface IUserDto {
 }
 
 export interface IUser {
+    id: number;
     username: string;
     email: string;
     imageID: number;
@@ -47,4 +48,15 @@ export interface IAccountCoin {
     name: string;
     amountCOIN: number;
     amountUSD: number;
+}
+
+export interface ITransact {
+    accountID: number;
+    transactionType: string;
+    amount: number;
+    source: string;
+    status: string;
+    reasonCode: string;
+    purchaseDetails: string;
+    created: Date;
 }

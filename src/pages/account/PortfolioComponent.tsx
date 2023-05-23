@@ -70,7 +70,7 @@ export function PortfolioComponent() {
                     </div>
                     
                 </div>
-                {/* <hr/> */}
+                
                 <div className='wallets-dropdown'>
                 
                     <ul className='list-unstyled'>

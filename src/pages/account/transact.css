@@ -25,7 +25,8 @@
     width: 100%;
   }
 
-  .table select {
+  .transact-container .table select {
+    width: 100%;
     font-size: 12px;
     font-weight: bold;
     border: 0;
