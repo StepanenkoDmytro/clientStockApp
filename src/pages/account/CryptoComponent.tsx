@@ -57,7 +57,7 @@ export function CryptoComponent() {
                     <form onSubmit={(event) => handleDeposit(event)}>
                         <input type='number' name='depositAmount' placeholder='Введіть суму депозиту'
                             onChange={(e) => handleDepositAmount(Number(e.target.value))} />
-                        <button style={{marginLeft: '5px'}} type='submit' className='btn btn-success'>Accept</button>
+                        <button style={{ marginLeft: '5px' }} type='submit' className='btn btn-success'>Accept</button>
                     </form>
                 </div>
                 <div className='right-block'>
@@ -73,7 +73,7 @@ export function CryptoComponent() {
                 </div>
             </div>
             <hr />
-
+        
             <div className='coin-table'>
                 <table className='table'>
                     <thead className='thead-dark'>

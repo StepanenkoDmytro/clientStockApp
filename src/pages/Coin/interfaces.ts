@@ -10,7 +10,7 @@ export interface ICoinVM extends ICoin {
     iconUrl: string;
 }
 
-export interface ICoinDto extends IPage{
+export interface ICoinDto extends IPage {
     data: ICoin[];
 }
 
@@ -59,4 +59,9 @@ export interface ITransact {
     reasonCode: string;
     purchaseDetails: string;
     created: Date;
+}
+
+export interface IDataPieChart {
+    label: string;
+    value: number;
 }
