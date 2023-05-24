@@ -9,32 +9,32 @@ export function UserMenu() {
     const menuItems = [
         {
             link: '/account/porfolio',
-            icon: '/public/icons/portfolioOverviewIcon.svg',
+            icon: '/icons/portfolioOverviewIcon.svg',
             title: 'Portfolio Overview'
         },
         {
             link: '/account/crypto',
-            icon: '/public/icons/cryptoPortfolioIcon.svg',
+            icon: '/icons/cryptoPortfolioIcon.svg',
             title: 'Crypto Portfolio'
         },
         {
             link: '/account/stock',
-            icon: '/public/icons/stockPortfolioIcon.svg',
+            icon: '/icons/stockPortfolioIcon.svg',
             title: 'Stock Portfolio'
         },
         {
             link: '/account/transfer',
-            icon: '/public/icons/transfersMoneyIcon.svg',
+            icon: '/icons/transfersMoneyIcon.svg',
             title: 'Transfers Money'
         },
         {
             link: '/account/transactions',
-            icon: '/public/icons/transactionsIcon.svg',
+            icon: '/icons/transactionsIcon.svg',
             title: 'Transactions'
         },
         {
             link: '/account/user',
-            icon: '/public/icons/userSettingsIcon.svg',
+            icon: '/icons/userSettingsIcon.svg',
             title: 'User Settings'
         }
     ]

@@ -40,7 +40,11 @@
     width: 100%;
     text-align: left;
     color: black;
-    border: 0;
     border: 1px solid rgb(48, 48, 48);
     background-color: white;
 }
+ #button-delete {
+    border: 0;
+    width: 32px;
+    height: 32px;
+ }

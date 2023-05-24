@@ -1,14 +1,16 @@
 import { useStore } from 'effector-react';
 import { saveUser, userStore } from '../../store/store';
 import './porfolio.css'
-import { IUser } from '../Coin/interfaces';
+import { IAccount, IUser } from '../Coin/interfaces';
 import { FormEvent, useState } from 'react';
 import { USER_AUTH_TOKEN } from '../../App';
 
 export function PortfolioComponent() {
     const user: IUser | null = useStore(userStore);
 
-    const { accounts } = user || { accounts: [] };
+    // const { accounts } = user || { accounts: [] };
+    const [accounts, setAccounts] = useState(user?.accounts || []);
+
 
     const [newAccountName, setNewAccountName] = useState('');
 
@@ -41,6 +43,19 @@ export function PortfolioComponent() {
             });
     };
 
+    const deleteAccount = (accountID: number) => {
+        fetch(`http://localhost:8000/api/v1/account/${accountID}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer_${token}`
+            }
+        })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
+
     const [showAccountMap, setShowAccountMap] = useState<{ [key: string]: boolean }>({});
 
     const handleShowAccount = (accountName: string) => {
@@ -68,11 +83,11 @@ export function PortfolioComponent() {
                             <button style={{ marginLeft: '5px' }} type='submit' className='btn btn-success'>Create</button>
                         </form>
                     </div>
-                    
+
                 </div>
-                
+
                 <div className='wallets-dropdown'>
-                
+
                     <ul className='list-unstyled'>
                         {accounts.map((account) => (
                             <li key={account.accountName}>
@@ -94,6 +109,7 @@ export function PortfolioComponent() {
                                                     <th>Account value</th>
                                                     <th>Account money USD</th>
                                                     <th>Account profit</th>
+                                                    <th>Delete account</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -102,6 +118,13 @@ export function PortfolioComponent() {
                                                     <td></td>
                                                     <td>{account.balance}$</td>
                                                     <td></td>
+                                                    <td>
+                                                        <button 
+                                                        id='button-delete'
+                                                        onClick={() => deleteAccount(account.id)}>
+                                                            <img src='/delete-icon.svg'/>
+                                                        </button>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
