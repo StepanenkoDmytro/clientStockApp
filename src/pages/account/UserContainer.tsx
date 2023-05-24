@@ -10,7 +10,7 @@ export function UserContainer() {
 
             <div className='profile-info'>
                 <div className='user-photo'>
-                    {user?.imageID !== null ? (
+                    {user?.imageID !== 0 ? (
                         <img src={`http://localhost:8000/images/${user?.imageID}`} />
                     ) : (
                         <img src='/src/img/non-user-photo.png' />

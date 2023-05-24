@@ -31,11 +31,6 @@ export function TransactComponent() {
     }, []);
     return (
         <div className='transact-container'>
-            {/* <h3>Transaction History</h3> */}
-            {/* <div className='date-container'>
-                <input type='date' className='form-control form-control-dark'/>
-                <input type='date' className='form-control form-control-dark' />
-            </div> */}
             <div>
             <table className='table table-striped'>
                 <thead>
@@ -83,15 +78,6 @@ export function TransactComponent() {
                 </tbody>
             </table>
             </div>
-            {/* <nav aria-label='...' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <ul className='pagination pagination-sm'>
-                    <li className='page-item active' aria-current='page'>
-                        <span className='page-link'>1</span>
-                    </li>
-                    <li className='page-item'><a className='page-link' href='#'>2</a></li>
-                    <li className='page-item'><a className='page-link' href='#'>3</a></li>
-                </ul>
-            </nav> */}
         </div>
     );
 }

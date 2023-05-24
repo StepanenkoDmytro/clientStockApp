@@ -6,3 +6,8 @@
     transform: scale(1.2);
     color: black;
 }
+
+.dropdown-item.active{
+    color: black;
+    background-color: white;
+}

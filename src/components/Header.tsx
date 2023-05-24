@@ -57,22 +57,22 @@ export function Header() {
 
                                 <ul className='dropdown-menu text-small' aria-labelledby='dropdownUser1'>
                                     <li>
-                                        <NavLink to='/account/porfolio' className='dropdown-divider'>Profile Overview</NavLink>
+                                        <NavLink to='/account/porfolio' className='dropdown-item'>Profile Overview</NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to='/account/crypto' className='dropdown-divider'>Crypto Portfolio</NavLink>
+                                        <NavLink to='/account/crypto' className='dropdown-item'>Crypto Portfolio</NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to='/account/stock' className='dropdown-divider'>Stock Portfolio</NavLink>
+                                        <NavLink to='/account/stock' className='dropdown-item'>Stock Portfolio</NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to='/account/transfer' className='dropdown-divider'>Transfers Money</NavLink>
+                                        <NavLink to='/account/transfer' className='dropdown-item'>Transfers Money</NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to='/account/transactions' className='dropdown-divider'>Transactions</NavLink>
+                                        <NavLink to='/account/transactions' className='dropdown-item'>Transactions</NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to='/account/user' className='dropdown-divider'>User Settings</NavLink>
+                                        <NavLink to='/account/user' className='dropdown-item'>User Settings</NavLink>
                                     </li>
                                     <li><hr className='dropdown-divider' /></li>
                                     <li><a className='dropdown-item' href='/logout'>Sign out</a></li>
