@@ -1,7 +1,7 @@
 import { FormEvent, useState } from 'react';
 import './auth.css'
 import { saveToken, saveUser } from '../../store/store';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { IUserDto } from '../Coin/interfaces';
 
 export function SignIn() {
@@ -67,8 +67,12 @@ export function SignIn() {
                     <a href='#'>Забули пароль?</a>
                 </form>
                 <hr />
-                <a href='#' className='btn btn-secondary me-2 text-white'>Sign-up</a>
-
+                {/* <a href='#' className='btn btn-secondary me-2 text-white'>Sign-up</a> */}
+                <Link to='/sign-up' className='btn btn-secondary me-2 text-white' style={{width: '100%'}}>
+                    {/* <button type='submit' > */}
+                        Sign-up
+                        {/* </button> */}
+                </Link>
             </div>
         </div>
 

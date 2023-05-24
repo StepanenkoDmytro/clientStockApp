@@ -1,5 +1,5 @@
 import { useStore } from 'effector-react';
-import { $search, setSearch, userStore } from '../store/store'
+import { $search, saveToken, setSearch, userStore } from '../store/store'
 import './header.css'
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { FormEvent } from 'react';
@@ -11,13 +11,18 @@ export function Header() {
     const search = useStore($search);
     const handleSearch = (value: string) => {
         setSearch(value);
-    }
+    };
 
     const navigate = useNavigate();
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         navigate('/coins');
-    }
+    };
+    
+    const handleLogout = () => {  
+        saveToken('');
+        navigate('/sign-in');
+    };
 
     return (
         <header>
@@ -75,7 +80,7 @@ export function Header() {
                                         <NavLink to='/account/user' className='dropdown-item'>User Settings</NavLink>
                                     </li>
                                     <li><hr className='dropdown-divider' /></li>
-                                    <li><a className='dropdown-item' href='/logout'>Sign out</a></li>
+                                    <li><a className='dropdown-item' onClick={handleLogout}>Sign out</a></li>
                                 </ul>
                             </div>)
                             : (<div className='text-end'>
