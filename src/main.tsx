@@ -16,6 +16,7 @@ import { UserContainer } from './pages/account/UserContainer.tsx';
 import { TransactComponent } from './pages/account/TransactComponent.tsx';
 import { CryptoComponent } from './pages/account/CryptoComponent.tsx';
 import { PortfolioComponent } from './pages/account/PortfolioComponent.tsx';
+import { StockComponent } from './pages/account/StockComponent.tsx';
 
 const router = createBrowserRouter([
   {
@@ -52,7 +53,7 @@ const router = createBrowserRouter([
           },
           {
             path: "stock",
-            element: <></>
+            element: <StockComponent />
           },
           {
             path: "transfer",

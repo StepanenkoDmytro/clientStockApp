@@ -7,20 +7,35 @@
 }
 
 .user-photo {
+    position: relative;
+    box-sizing: border-box;
+    width: 154px;
+    height: 154px;
+    border: 2px solid black;
+    border-radius: 50%;
+    margin: 40px;
+}
+
+.user-photo:hover {
+    cursor: pointer;
+}
+
+.user-photo span {
+    position: absolute;
+    display: none;
+    bottom: 15px;
+    left: 17%;
+    /* transform: translateX(-50%); */
+}
+
+.user-photo:hover span {
     display: inline;
-    width: 20%;
-    /* border: 2px solid red; */
 }
 
 .user-photo img {
-    /* float: left; */
-
-
-    margin-top: 30%;
-    margin-left: 20%;
+    box-sizing: border-box;
     width: 150px;
     height: 150px;
-    border: 2px solid black;
     border-radius: 50%;
 }
 

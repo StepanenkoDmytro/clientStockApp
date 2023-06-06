@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
-import { IDataPieChart } from '../Coin/interfaces';
+import { IPieCoinPrice } from '../Coin/interfaces';
 
-const PieChart: React.FC<{ data: IDataPieChart[]; width: number; height: number }> = ({ data, width, height }) => {
+const PieChart: React.FC<{ data: IPieCoinPrice[]; width: number; height: number }> = ({ data, width, height }) => {
   const svgRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
@@ -19,20 +19,20 @@ const PieChart: React.FC<{ data: IDataPieChart[]; width: number; height: number 
       .domain(data.map((d) => d.label))
       .range(d3.schemeCategory10);
 
-    const pie = d3.pie<IDataPieChart>()
+    const pie = d3.pie<IPieCoinPrice>()
       .value((d) => d.value);
 
-    const arc = d3.arc<d3.PieArcDatum<IDataPieChart>>()
+    const arc = d3.arc<d3.PieArcDatum<IPieCoinPrice>>()
       .innerRadius(0)
       .outerRadius(radius);
 
-    const arcs = svg.selectAll<SVGPathElement, d3.PieArcDatum<IDataPieChart>>('path')
+    const arcs = svg.selectAll<SVGPathElement, d3.PieArcDatum<IPieCoinPrice>>('path')
       .data(pie(data))
       .join('path')
       .attr('d', (d) => arc(d))
       .attr('fill', (d) => color(d.data.label));
 
-    const text = svg.selectAll<SVGTextElement, d3.PieArcDatum<IDataPieChart>>('text')
+    const text = svg.selectAll<SVGTextElement, d3.PieArcDatum<IPieCoinPrice>>('text')
       .data(pie(data))
       .join('text')
       .attr('transform', (d) => `translate(${arc.centroid(d)})`)

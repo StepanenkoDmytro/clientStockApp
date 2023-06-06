@@ -1,21 +1,15 @@
 import { useStore } from 'effector-react';
 import { saveUser, userStore } from '../../store/store';
 import './porfolio.css'
-import { IDataPieChart, IUser } from '../Coin/interfaces';
+import { IUser } from '../Coin/interfaces';
 import { FormEvent, useState } from 'react';
 import { USER_AUTH_TOKEN } from '../../App';
-import PieChart from '../d3/PieChart';
 
 export function PortfolioComponent() {
     const user: IUser | null = useStore(userStore);
 
     const { accounts } = user || { accounts: [] };
 
-    const dataForPieChart: IDataPieChart[] = accounts.map((account) => ({
-        label: account.accountName,
-        value: account.balance / 100
-    }));
-    console.log(dataForPieChart);
 
     const [newAccountName, setNewAccountName] = useState('');
 
@@ -89,10 +83,6 @@ export function PortfolioComponent() {
                         </form>
                     </div>
 
-                </div>
-
-                <div className='pie-chart'>
-                    <PieChart data={dataForPieChart} width={250} height={150}/>
                 </div>
 
                 <div className='wallets-dropdown'>

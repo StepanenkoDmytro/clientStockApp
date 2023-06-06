@@ -1,26 +1,29 @@
 import './coin.css';
-import { useState, useEffect, FormEvent } from 'react';
-import { ICoin, ICoinVM, IUser } from './interfaces';
+import { useState, useEffect } from 'react';
+import { IAccount, ICoin, ICoinVM } from './interfaces';
 import { useParams } from 'react-router-dom';
 import { useStore } from 'effector-react';
-import { userStore } from '../../store/store';
-import { USER_AUTH_TOKEN } from '../../App';
+import { tokenStore, updateAccount, userAccountsStore } from '../../store/store';
+import { PurchaseData, PurchaseWidget } from './components/PurchaseWidget';
 
 
 export function CoinDetails() {
     const [coin, setCoin] = useState<ICoinVM | null>(null);
 
-    const user: IUser | null = useStore(userStore);
-    const { accounts } = user || { accounts: [] };
+    const token = useStore(tokenStore);
+    const accounts = useStore(userAccountsStore);
 
     let { coinId } = useParams();
     useEffect(() => {
-        fetch(`http://localhost:8000/api/v1/coins/${coinId}`)
-            .then(response => response.json())
-            .then(coin => {
-                const updatedCoin = mapCoin(coin);
-                setCoin(updatedCoin);
-            });
+        if (!coin) {
+            fetch(`http://localhost:8000/api/v1/coins/${coinId}`)
+                .then(response => response.json())
+                .then(coin => {
+                    const updatedCoin = mapCoin(coin);
+                    setCoin(updatedCoin);
+                })
+        }
+
     }, [coinId]);
     const mapCoin = (coin: ICoin) => {
         const coinVM: ICoinVM = {
@@ -29,22 +32,12 @@ export function CoinDetails() {
         };
         return coinVM;
     };
-    const [accountID, setAccountID] = useState(accounts.length > 0 ? accounts[0].id : null);
-    const [amount, setAmount] = useState(0);
 
-    const handleAccountID = (accountID: number) => {
-        setAccountID(accountID);
-    }
+   
 
-    const handleAmount = (amount: number) => {
-        setAmount(amount);
-    }
-    const token = localStorage.getItem(USER_AUTH_TOKEN);
+    const handleBuyCoins = (data: PurchaseData) => {
 
-    const handleBuyCoins = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-
-        const formData = { accountID, coinId, amount };
+        const formData = { ...data, coinId };
         console.log(formData);
 
         fetch(`http://localhost:8000/api/v1/coins/${coinId}`, {
@@ -56,8 +49,8 @@ export function CoinDetails() {
             body: JSON.stringify(formData),
         })
             .then((response) => response.json())
-            .then((response) => {
-                console.log(response);
+            .then((account: IAccount) => {
+                updateAccount(account)
             })
             .catch((error) => {
                 console.error(error);
@@ -75,19 +68,10 @@ export function CoinDetails() {
                     <div className='coin-info'>
                         <h1>{coin.name}</h1>
                         <p>$ {coin.priceUSD}</p>
+                        
                     </div>
-                    {user ? (
-                        <form onSubmit={(event) => handleBuyCoins(event)}>
-                            <select name='accountID' onChange={(e) => handleAccountID(Number(e.target.value))}>
-                                {accounts.map((account) => (
-                                    <option key={account.accountName} value={account.id}>
-                                        {account.accountName}</option>
-                                ))}
-                            </select>
-                            <input type='number' name='amount' placeholder='Введіть суму купівлі' className='form-control'
-                                onChange={(e) => handleAmount(Number(e.target.value))} />
-                            <button type='submit' className='btn btn-success'>Accept</button>
-                        </form>
+                    {accounts && accounts.length ? (
+                       <PurchaseWidget accounts={accounts} onBuyCoins={handleBuyCoins}/>
                     ) : (<p></p>)}
                 </div>
             )}

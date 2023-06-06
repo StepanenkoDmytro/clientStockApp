@@ -1,5 +1,5 @@
 import { createEvent, createStore } from "effector";
-import { IUser } from "../pages/Coin/interfaces";
+import { IAccount, IUser } from "../pages/Coin/interfaces";
 
 export const USER_AUTH_TOKEN = 'user_auth_token';
 
@@ -14,11 +14,32 @@ export const $search = createStore('')
 export const saveToken = createEvent<string>();
 export const tokenStore = createStore<string | null>(null)
     .on(saveToken, (_, token) => {
-        console.log('Token:',token);
+        console.log('Token:', token);
         localStorage.setItem(USER_AUTH_TOKEN, token || '');
         return token;
-     });
+    });
 
 export const saveUser = createEvent<IUser>();
 export const userStore = createStore<IUser | null>(null)
-    .on(saveUser, (_, user) => user);
+    .on(saveUser, (_, user) => {
+        if (user && user.accounts) {
+            saveAccounts(user.accounts);
+        }
+
+        return user;
+    });
+
+export const saveAccounts = createEvent<IAccount[]>();
+export const updateAccount = createEvent<IAccount>();
+export const userAccountsStore = createStore<IAccount[]>([])
+    .on(saveAccounts, (state, accounts) => accounts)
+    .on(updateAccount, (state, account) => {
+        const accountIndex = state.findIndex(acc => acc.id = account.id);
+        if(accountIndex > -1) {
+            state[accountIndex] = {...account};
+        } else {
+            state.push({...account});
+        }
+
+        return state;
+    });

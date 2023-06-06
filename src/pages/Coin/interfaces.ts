@@ -46,6 +46,7 @@ export interface IAccount {
 export interface IAccountCoin {
     idCoin: string;
     name: string;
+    symbol: string;
     amountCOIN: number;
     amountUSD: number;
 }
@@ -61,7 +62,12 @@ export interface ITransact {
     created: Date;
 }
 
-export interface IDataPieChart {
+export interface IPieCoinPrice {
     label: string;
     value: number;
+}
+
+export interface IPieCoinsData {
+    pieCoins: IPieCoinPrice[];
+    totalBalance: number;
 }
