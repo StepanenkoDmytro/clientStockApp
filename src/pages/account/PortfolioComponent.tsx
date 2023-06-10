@@ -2,16 +2,21 @@ import { useStore } from 'effector-react';
 import { saveUser, userStore } from '../../store/store';
 import './porfolio.css'
 import { IUser } from '../Coin/interfaces';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { USER_AUTH_TOKEN } from '../../App';
+
+export const TYPE_CRYPTO_WALLET = 'CryptoWallet';
+export const TYPE_STOCK_WALLET = 'StockWallet';
 
 export function PortfolioComponent() {
     const user: IUser | null = useStore(userStore);
 
     const { accounts } = user || { accounts: [] };
 
-
     const [newAccountName, setNewAccountName] = useState('');
+    const [accountType, setAccountType] = useState<string>(TYPE_STOCK_WALLET);
+
+    useEffect(() => { }, [user]);
 
     const handlNewAccountName = (accountName: string) => {
         setNewAccountName(accountName);
@@ -21,8 +26,8 @@ export function PortfolioComponent() {
     const createNewAccount = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const formData = { newAccountName };
-        console.log(formData);
+        const formData = { newAccountName,  accountType};
+        console.log(accountType);
 
         fetch(`http://localhost:8000/api/v1/account/create`, {
             method: 'POST',
@@ -44,7 +49,7 @@ export function PortfolioComponent() {
 
     const deleteAccount = (accountID: number) => {
         fetch(`http://localhost:8000/api/v1/account/${accountID}`, {
-            method: 'POST',
+            method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer_${token}`
@@ -79,6 +84,11 @@ export function PortfolioComponent() {
                         <form onSubmit={(e) => createNewAccount(e)}>
                             <input type='text' name='accountName' placeholder='Введіть назву гаманця'
                                 onChange={(e) => handlNewAccountName(e.target.value)} />
+                            <select name='accountType' defaultValue={TYPE_STOCK_WALLET}
+                                onChange={(e) => setAccountType(e.target.value)}>
+                                <option value={TYPE_STOCK_WALLET}>{TYPE_STOCK_WALLET}</option>
+                                <option value={TYPE_CRYPTO_WALLET}>{TYPE_CRYPTO_WALLET}</option>
+                            </select>
                             <button style={{ marginLeft: '5px' }} type='submit' className='btn btn-success'>Create</button>
                         </form>
                     </div>
@@ -105,6 +115,7 @@ export function PortfolioComponent() {
                                             <thead>
                                                 <tr>
                                                     <th>Account name</th>
+                                                    <th>Account Type</th>
                                                     <th>Account value</th>
                                                     <th>Account money USD</th>
                                                     <th>Account profit</th>
@@ -114,6 +125,7 @@ export function PortfolioComponent() {
                                             <tbody>
                                                 <tr>
                                                     <td>{account.accountName}</td>
+                                                    <td>{account.accountType}</td>
                                                     <td></td>
                                                     <td>{account.balance}$</td>
                                                     <td></td>

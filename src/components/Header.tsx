@@ -40,7 +40,8 @@ export function Header() {
                     </a>
 
                     <ul className='nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0'>
-                        <li><a href='/' className='nav-link'>Home</a></li>
+                        <li><a href='/coins' className='nav-link'>Crypto Market</a></li>
+                        <li><a href='/stocks' className='nav-link'>Stock Market</a></li>
                     </ul>
                     <div className='elements-menu d-flex align-items-center'>
                         <form className='col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3' onSubmit={(e) => { e.preventDefault(); handleSubmit(e) }}>

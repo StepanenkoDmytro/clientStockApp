@@ -17,6 +17,7 @@ import { TransactComponent } from './pages/account/TransactComponent.tsx';
 import { CryptoComponent } from './pages/account/CryptoComponent.tsx';
 import { PortfolioComponent } from './pages/account/PortfolioComponent.tsx';
 import { StockComponent } from './pages/account/StockComponent.tsx';
+import { StockList } from './pages/Stock/StockList.tsx';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "coins/:coinId",
         element: <CoinDetails />
+      },
+      {
+        path: "stocks",
+        element: <StockList />
       },
       {
         path: "sign-in",

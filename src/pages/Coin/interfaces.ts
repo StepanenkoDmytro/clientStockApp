@@ -1,3 +1,29 @@
+export interface ICompany {
+    symbol: string;
+    name: string;
+    exchange: string;
+    assetType: string;
+}
+
+export interface ICompanyDto extends IPage {
+    data: ICompany[];
+}
+
+export interface IStock {
+    symbol: string;
+    assetType: string;
+    name: string;
+    price: number;
+    currency: string;
+    country: string;
+    sector: string;
+    industry: string;
+    marketCapitalization: string;
+    dividendYield: number;
+    dividendDate: string;
+    exDividendDate: string;
+}
+
 export interface ICoin {
     id: string;
     name: string;
@@ -8,6 +34,19 @@ export interface ICoin {
 
 export interface ICoinVM extends ICoin {
     iconUrl: string;
+}
+
+export interface ICoinDetails {
+    coin: ICoin;
+    candles: CandlesData[];
+}
+
+export interface CandlesData {
+    date: string;
+    open: number;
+    high: number;
+    low: number;
+    close: number;
 }
 
 export interface ICoinDto extends IPage {
@@ -41,6 +80,7 @@ export interface IAccount {
     accountType: string;
     balance: number;
     coins: IAccountCoin[];
+    stocks: IAccountStock[];
 }
 
 export interface IAccountCoin {
@@ -49,6 +89,17 @@ export interface IAccountCoin {
     symbol: string;
     amountCOIN: number;
     amountUSD: number;
+}
+
+export interface IAccountStock {
+    symbol: string;
+    assetType: string;
+    name: string;
+    currency: string;
+    buyPrice: number;
+    countStocks: number;
+    sector: string;
+    dividendYield: number;
 }
 
 export interface ITransact {

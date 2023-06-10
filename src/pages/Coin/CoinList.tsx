@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { ICoinVM, IPage, ICoinDto, ICoin } from './interfaces';
 import { $search } from '../../store/store';
 
-const INITIAL_PAGINATION = {
+export const INITIAL_PAGINATION = {
     totalItems: 0,
     totalPages: 0,
     currentPage: 1,
