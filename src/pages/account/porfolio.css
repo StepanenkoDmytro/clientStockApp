@@ -25,14 +25,12 @@
 }
 
 .wallets-create {
-    display: inline-block;
     margin-left: auto;
     margin-right: 2%;
 }
 
 .wallets-dropdown {
     width: 100%;
-    /* margin-left: 4%; */
 }
 
 .wallets-dropdown button {

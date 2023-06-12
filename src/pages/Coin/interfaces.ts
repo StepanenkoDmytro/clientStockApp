@@ -113,12 +113,12 @@ export interface ITransact {
     created: Date;
 }
 
-export interface IPieCoinPrice {
+export interface IPiePrice {
     label: string;
     value: number;
 }
 
-export interface IPieCoinsData {
-    pieCoins: IPieCoinPrice[];
+export interface IPieData {
+    data: IPiePrice[];
     totalBalance: number;
 }

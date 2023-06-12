@@ -60,10 +60,10 @@ const router = createBrowserRouter([
             path: "stock",
             element: <StockComponent />
           },
-          {
-            path: "transfer",
-            element: <></>
-          },
+          // {
+          //   path: "transfer",
+          //   element: <></>
+          // },
           {
             path: "transactions",
             element: <TransactComponent />

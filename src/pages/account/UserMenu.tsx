@@ -22,11 +22,11 @@ export function UserMenu() {
             icon: '/icons/stockPortfolioIcon.svg',
             title: 'Stock Portfolio'
         },
-        {
-            link: '/account/transfer',
-            icon: '/icons/transfersMoneyIcon.svg',
-            title: 'Transfers Money'
-        },
+        // {
+        //     link: '/account/transfer',
+        //     icon: '/icons/transfersMoneyIcon.svg',
+        //     title: 'Transfers Money'
+        // },
         {
             link: '/account/transactions',
             icon: '/icons/transactionsIcon.svg',

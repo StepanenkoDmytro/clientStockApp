@@ -71,9 +71,9 @@ export function Header() {
                                     <li>
                                         <NavLink to='/account/stock' className='dropdown-item'>Stock Portfolio</NavLink>
                                     </li>
-                                    <li>
+                                    {/* <li>
                                         <NavLink to='/account/transfer' className='dropdown-item'>Transfers Money</NavLink>
-                                    </li>
+                                    </li> */}
                                     <li>
                                         <NavLink to='/account/transactions' className='dropdown-item'>Transactions</NavLink>
                                     </li>

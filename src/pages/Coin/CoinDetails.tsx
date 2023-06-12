@@ -88,9 +88,6 @@ export function CoinDetails() {
                         <p>$ {coin.priceUSD}</p>
 
                     </div>
-
-
-
                     {cryptoAccounts && cryptoAccounts.length ? (
                         <PurchaseWidget accounts={cryptoAccounts} onBuyCoins={handleBuyCoins} />
                     ) : (<p></p>)}
