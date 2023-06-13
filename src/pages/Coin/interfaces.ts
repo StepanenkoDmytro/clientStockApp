@@ -1,11 +1,12 @@
 export interface ICompany {
     symbol: string;
     name: string;
+    price: number;
     exchange: string;
     assetType: string;
 }
 
-export interface ICompanyDto extends IPage {
+export interface ICompanyDto {
     data: ICompany[];
 }
 

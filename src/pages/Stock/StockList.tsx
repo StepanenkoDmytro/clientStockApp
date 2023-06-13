@@ -16,44 +16,48 @@ export function StockList() {
 
     const [activeStock, setActiveStock] = useState<IStock | null>(null);
 
+    const [typeCompaniesList, setTypeCompaniesList] = useState<string>('actives');
+    const handleTypeCompaniesList = (type: string) => {
+        setTypeCompaniesList(type);
+    };
+
     useEffect(() => {
-        fetch(`http://localhost:8000/api/v1/stocks?page=${pagination.currentPage}`)
+        fetch(`http://localhost:8000/api/v1/stocks/${typeCompaniesList}`)
             .then(response => response.json())
-            .then((response: ICompanyDto) => {
-                const { data, ...pages } = response;
-                setCompanies(data);
-                mapPagination(pages);
+            .then((companies: ICompanyDto) => {
+                setCompanies(companies.data);
+                // mapPagination(pages);
             })
-    }, [pagination.currentPage]);
+    }, [typeCompaniesList, companies]);
 
-    const mapPagination = (pages: IPage) => {
-        let visiblePages = [];
-        if (pages.currentPage <= 3) {
-            let endIndex = Math.min(8, pages.totalPages + 1);
-            visiblePages = createSequence(1, endIndex);
-        } else if (pages.currentPage > pages.totalPages - 3) {
-            visiblePages = createSequence(pages.currentPage - 3, pages.totalPages + 1);
-        } else {
-            visiblePages = createSequence(pages.currentPage - 3, pages.currentPage + 4);
-        }
-        setPagination({ ...pages, visiblePages });
-    }
+    // const mapPagination = (pages: IPage) => {
+    //     let visiblePages = [];
+    //     if (pages.currentPage <= 3) {
+    //         let endIndex = Math.min(8, pages.totalPages + 1);
+    //         visiblePages = createSequence(1, endIndex);
+    //     } else if (pages.currentPage > pages.totalPages - 3) {
+    //         visiblePages = createSequence(pages.currentPage - 3, pages.totalPages + 1);
+    //     } else {
+    //         visiblePages = createSequence(pages.currentPage - 3, pages.currentPage + 4);
+    //     }
+    //     setPagination({ ...pages, visiblePages });
+    // }
 
-    const createSequence = (from: number, to: number) => {
-        const sequence = [];
-        for (let i = from; i < to; i++) {
-            sequence.push(i);
-        }
-        return sequence;
-    }
+    // const createSequence = (from: number, to: number) => {
+    //     const sequence = [];
+    //     for (let i = from; i < to; i++) {
+    //         sequence.push(i);
+    //     }
+    //     return sequence;
+    // }
 
-    const handlePageChange = (currentPage: number) => {
+    // const handlePageChange = (currentPage: number) => {
 
-        setPagination({
-            ...pagination,
-            currentPage
-        });
-    }
+    //     setPagination({
+    //         ...pagination,
+    //         currentPage
+    //     });
+    // }
 
     const handleActiveStock = (symbol: string) => {
 
@@ -75,7 +79,7 @@ export function StockList() {
     }
 
     const handleBuyStock = (data: PurchaseData) => {
-        
+
 
         const formData = { activeStock, data };
         console.log(formData);
@@ -105,8 +109,12 @@ export function StockList() {
                 <button className="btn btn-secondary me-2 text-white">Search</button>
             </div> */}
             <div className="companies-container">
-
                 <div className='list-container'>
+                    <div>
+                        <button onClick={() => handleTypeCompaniesList('actives')}>Actives</button>
+                        <button onClick={() => handleTypeCompaniesList('gainers')}>Gainers</button>
+                        <button onClick={() => handleTypeCompaniesList('losers')}>Losers</button>
+                    </div>
                     <table className="table">
                         <thead className='thead-dark'>
                             <tr>
@@ -114,10 +122,11 @@ export function StockList() {
                                 <th scope="col">Name</th>
                                 <th scope="col">Exchange</th>
                                 <th scope="col">Asset Type</th>
+                                <th scope="col">Price</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {companies.map((stock: ICompany) => (
+                            {companies ? companies.map((stock: ICompany) => (
                                 <tr key={stock.symbol}>
                                     <td>{stock.symbol}</td>
                                     <td className="content-column">
@@ -125,12 +134,14 @@ export function StockList() {
                                     </td>
                                     <td className="content-column">{stock.exchange}</td>
                                     <td className="content-column">{stock.assetType}</td>
+                                    <td className="content-column">{stock.price}</td>
                                 </tr>
-                            ))}
+                            ))
+                        : <></>}
 
                         </tbody>
                     </table>
-                    <div>
+                    {/* <div>
                         <footer className='footer'>
                             <div>
                                 {pagination.totalItems !== 1 ? (
@@ -180,17 +191,24 @@ export function StockList() {
                             </div>
                         </footer>
 
-                    </div>
+                    </div> */}
                 </div>
                 <div className="company-container">
-                <h4>Details:</h4>
                     {activeStock
                         ? (<div>
                             <table>
                                 <tbody>
                                     <tr>
+                                        <td><h4>Details:</h4></td>
+                                        <td className="data"><h4>{activeStock.price}$</h4></td>
+                                    </tr>
+                                    <tr>
                                         <td>Symbol:</td>
                                         <td className="data">{activeStock.symbol}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Name:</td>
+                                        <td className="data">{activeStock.name}</td>
                                     </tr>
                                     <tr>
                                         <td>Currency:</td>
@@ -228,7 +246,7 @@ export function StockList() {
                             </table>
                         </div>)
                         : (<div>
-                            <h4 style={{color: 'red'}}>Виберіть акцію</h4>
+                            <h4 style={{ color: 'red' }}>Виберіть акцію</h4>
                         </div>)
                     }
                 </div>
@@ -239,7 +257,7 @@ export function StockList() {
                             <PurchaseWidgetStock accounts={stockAccounts} activeStock={activeStock} onBuyStocks={handleBuyStock} />
                         </div>
                     ) : (<div>
-                        <h4 style={{color: 'red'}}>Виберіть акцію</h4>
+                        <h4 style={{ color: 'red' }}>Виберіть акцію</h4>
                     </div>)}
                 </div>
 
