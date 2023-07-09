@@ -1,4 +1,29 @@
 .stock-container {
     width: 77%;
-    background-color: white;
+    background-color:  rgb(77, 74, 74);
+}
+
+.stock-porfolio-info {
+    width: auto;
+    margin: 0px 5px;
+    border: 1px solid rgb(190, 187, 187);
+}
+
+.stock-table {
+    align-items: center;
+    text-align: center;
+    font-size: 13px;
+    
+    background-color: rgb( 255, 255, 255);
+    /* border-bottom: 1px solid rgb(219, 214, 214); */
+}
+
+.stock-table thead {
+    
+    background-color: rgb(220, 220, 220);
+}
+
+.stock-table tr {
+    color: rgb(66, 66, 66);
+    border-bottom: 1px solid rgb(182, 180, 210);
 }

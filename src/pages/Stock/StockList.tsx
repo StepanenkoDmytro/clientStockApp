@@ -10,22 +10,23 @@ export function StockList() {
     const token = useStore(tokenStore);
 
     const [companies, setCompanies] = useState<ICompany[]>([]);
-    const [pagination, setPagination] = useState<IPage>(INITIAL_PAGINATION);
+    // const [pagination, setPagination] = useState<IPage>(INITIAL_PAGINATION);
     const accounts = useStore(userAccountsStore);
     const stockAccounts = accounts.filter((account) => account.accountType === 'StockWallet');
 
     const [activeStock, setActiveStock] = useState<IStock | null>(null);
 
-    const [typeCompaniesList, setTypeCompaniesList] = useState<string>('actives');
+    const [typeCompaniesList, setTypeCompaniesList] = useState<string>('MOST_ACTIVES');
     const handleTypeCompaniesList = (type: string) => {
         setTypeCompaniesList(type);
     };
 
     useEffect(() => {
-        fetch(`http://localhost:8000/api/v1/stocks/${typeCompaniesList}`)
+        fetch(`http://localhost:8000/api/v1/stocks/movers/${typeCompaniesList}`)
             .then(response => response.json())
-            .then((companies: ICompanyDto) => {
-                setCompanies(companies.data);
+            .then((companies: ICompany[]) => {
+                // console.log(companies);
+                setCompanies(companies);
                 // mapPagination(pages);
             })
     }, [typeCompaniesList, companies]);
@@ -103,17 +104,17 @@ export function StockList() {
     }
 
     return (
-        <>
-            {/* <div className="companies-search">
-                <input type="search" className='form-control form-control-dark' />
-                <button className="btn btn-secondary me-2 text-white">Search</button>
-            </div> */}
+        <div className='stock-page'>
+        <div className="companies-search">
+                    <input type="search" />
+                    <button>Search</button>
+                </div>
             <div className="companies-container">
                 <div className='list-container'>
-                    <div>
-                        <button onClick={() => handleTypeCompaniesList('actives')}>Actives</button>
-                        <button onClick={() => handleTypeCompaniesList('gainers')}>Gainers</button>
-                        <button onClick={() => handleTypeCompaniesList('losers')}>Losers</button>
+                    <div className='type-companies'>
+                        <button className='btn btn-light' onClick={() => handleTypeCompaniesList('MOST_ACTIVES')}>Actives</button>
+                        <button className='btn btn-info' onClick={() => handleTypeCompaniesList('DAY_GAINERS')}>Gainers</button>
+                        <button className='btn btn-info' onClick={() => handleTypeCompaniesList('DAY_LOSERS')}>Losers</button>
                     </div>
                     <table className="table">
                         <thead className='thead-dark'>
@@ -122,7 +123,7 @@ export function StockList() {
                                 <th scope="col">Name</th>
                                 <th scope="col">Exchange</th>
                                 <th scope="col">Asset Type</th>
-                                <th scope="col">Price</th>
+                                {/* <th scope="col">Price</th> */}
                             </tr>
                         </thead>
                         <tbody>
@@ -134,10 +135,10 @@ export function StockList() {
                                     </td>
                                     <td className="content-column">{stock.exchange}</td>
                                     <td className="content-column">{stock.assetType}</td>
-                                    <td className="content-column">{stock.price}</td>
+                                    {/* <td className="content-column">{stock.price}</td> */}
                                 </tr>
                             ))
-                        : <></>}
+                                : <></>}
 
                         </tbody>
                     </table>
@@ -194,14 +195,14 @@ export function StockList() {
                     </div> */}
                 </div>
                 <div className="company-container">
+                    <div style={{ backgroundColor: '#31d2f2' }}>
+                        <h4>Details:</h4>
+                    </div>
                     {activeStock
                         ? (<div>
+                            <h4>{activeStock.price}</h4>
                             <table>
                                 <tbody>
-                                    <tr>
-                                        <td><h4>Details:</h4></td>
-                                        <td className="data"><h4>{activeStock.price}$</h4></td>
-                                    </tr>
                                     <tr>
                                         <td>Symbol:</td>
                                         <td className="data">{activeStock.symbol}</td>
@@ -251,7 +252,9 @@ export function StockList() {
                     }
                 </div>
                 <div className="buy-container">
-                    <h4>Details Buy:</h4>
+                    <div style={{ backgroundColor: '#18c9ed' }}>
+                        <h4>Details Buy:</h4>
+                    </div>
                     {activeStock ? (
                         <div>
                             <PurchaseWidgetStock accounts={stockAccounts} activeStock={activeStock} onBuyStocks={handleBuyStock} />
@@ -262,6 +265,6 @@ export function StockList() {
                 </div>
 
             </div>
-        </>
+        </div>
     );
 }

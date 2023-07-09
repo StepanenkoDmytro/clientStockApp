@@ -1,11 +1,10 @@
-import { FormEvent, useEffect, useState } from 'react';
-import { IAccount, IPieData, IPiePrice } from '../Coin/interfaces';
-import './account.css'
+import { useEffect, useState } from 'react';
+import { IAccount } from '../Coin/interfaces';
 import './stock.css'
+import './account.css'
 import { USER_AUTH_TOKEN } from '../../App';
 import { useStore } from 'effector-react';
 import { updateAccount, userAccountsStore } from '../../store/store';
-import PieChart from '../d3/PieChart';
 import { DepositForm } from './portfolioComponents/DepositForm';
 import { PieAssetsChart } from './portfolioComponents/PieAssetsChart';
 
@@ -34,21 +33,23 @@ export function StockComponent() {
 
     useEffect(() => {
         getSavedAccountFromLocalStorage();
-        {activeAccount &&
-            fetch(`http://localhost:8000/api/v1/account/${activeAccount.id}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer_${token}`
-                }})
-                .then((response) => response.json())
-                .then((account: IAccount) => {
-                    console.log(account);
-                    setActiveAccount(account);
+        {
+            activeAccount &&
+                fetch(`http://localhost:8000/api/v1/account/${activeAccount.id}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer_${token}`
+                    }
                 })
-                .catch((error) => {
-                    console.error(error);
-                });
+                    .then((response) => response.json())
+                    .then((account: IAccount) => {
+                        console.log(account);
+                        setActiveAccount(account);
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
         }
     }, [accounts]);
 
@@ -93,36 +94,42 @@ export function StockComponent() {
                 </div>
             </div>
             <hr />
-
-            <div className='coin-table'>
-                <table className='table'>
-                    <thead className='thead-dark'>
-                        <tr>
-                            <th>Name</th>
-                            <th>Buy price</th>
-                            <th>Count</th>
-                            <th>Asset type</th>
-                            <th>Currency</th>
-                            <th>Dividend yield</th>
-                            <th>Sector</th>
-                            <th>Cost</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {activeAccount ? activeAccount.stocks?.map((stock) => (
-                            <tr key={stock.symbol}>
-                                <td>{stock.name}</td>
-                                <td>{stock.buyPrice}$</td>
-                                <td>{stock.countStocks}</td>
-                                <td>{stock.assetType}</td>
-                                <td>{stock.currency}</td>
-                                <td>{stock.dividendYield}</td>
-                                <td>{stock.sector}</td>
-                                <td>{(stock.buyPrice * stock.countStocks).toFixed(2)}$</td>
+            <div className='stock-porfolio-info'>
+                <div className="btn-group" role="group" aria-label="Basic outlined example">
+                    <button type="button" className="btn btn-outline-primary">Left</button>
+                    <button type="button" className="btn btn-outline-primary">Middle</button>
+                    <button type="button" className="btn btn-outline-primary">Right</button>
+                </div><hr/>
+                <div className='stock-table'>
+                    <table className='table'>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Buy price</th>
+                                <th>Count</th>
+                                <th>Asset type</th>
+                                <th>Currency</th>
+                                <th>Dividend yield</th>
+                                <th>Sector</th>
+                                <th>Cost</th>
                             </tr>
-                        )) : <></>}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {activeAccount ? activeAccount.stocks?.map((stock) => (
+                                <tr key={stock.symbol}>
+                                    <td>{stock.name}</td>
+                                    <td>{stock.buyPrice}$</td>
+                                    <td>{stock.countStocks}</td>
+                                    <td>{stock.assetType}</td>
+                                    <td>{stock.currency}</td>
+                                    <td>{stock.dividendYield}</td>
+                                    <td>{stock.sector}</td>
+                                    <td>{(stock.buyPrice * stock.countStocks).toFixed(2)}$</td>
+                                </tr>
+                            )) : <></>}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     );

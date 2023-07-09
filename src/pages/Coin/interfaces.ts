@@ -1,7 +1,7 @@
 export interface ICompany {
     symbol: string;
     name: string;
-    price: number;
+    // price?: number;
     exchange: string;
     assetType: string;
 }
