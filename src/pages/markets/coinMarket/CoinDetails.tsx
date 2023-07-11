@@ -1,11 +1,11 @@
-import './coin.css';
+import './coin-market.css';
 import { useState, useEffect } from 'react';
 import { IAccount, ICoin, ICoinVM, ICoinDetails, CandlesData } from './interfaces';
 import { useParams } from 'react-router-dom';
 import { useStore } from 'effector-react';
-import { tokenStore, updateAccount, userAccountsStore } from '../../store/store';
+import { tokenStore, updateAccount, userAccountsStore } from '../../../store/store';
 import { PurchaseData, PurchaseWidget } from './components/PurchaseWidget';
-import CandlestickChart, { CandlestickData } from '../d3/CandlesChart';
+import CandlestickChart, { CandlestickData } from '../../components/d3/CandlesChart';
 
 
 export function CoinDetails() {

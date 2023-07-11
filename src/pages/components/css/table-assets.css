@@ -1,0 +1,32 @@
+.table-assets {
+    font-size: small;
+}
+.table-assets .table thead {
+    color: rgb(160, 159, 162);
+}
+
+.table-assets .table tbody {
+    color: rgb(249, 250, 254);
+    height: auto;
+}
+
+.table-assets .table tr {
+    border-bottom: rgb(16, 16, 16) solid 10px;
+}
+
+.table-assets .table tbody tr {
+    border-radius: 10px;
+    background-color: rgb(30, 30, 32);
+}
+
+.table-assets p {
+    font-size: medium;
+}
+
+.table-assets a {
+    text-decoration: none;
+    color: rgb(249, 250, 254);
+}
+
+
+

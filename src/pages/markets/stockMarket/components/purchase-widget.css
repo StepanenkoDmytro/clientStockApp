@@ -1,0 +1,11 @@
+.purchase-container {
+    font-size: small;
+    padding: 30px;
+}
+
+.purchase-container div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    /* margin-left: 20px; */
+}

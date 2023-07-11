@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { USER_AUTH_TOKEN } from "../../../App";
-import { IAccount, IPieData, IPiePrice } from "../../Coin/interfaces";
-import PieChart from "../../d3/PieChart";
+import { USER_AUTH_TOKEN } from "../../../../App";
+import { IAccount, IPieData, IPiePrice } from "../../../markets/coinMarket/interfaces";
+import PieChart from "../../../components/d3/PieChart";
 
 interface PieAssetsChartrops {
     account: IAccount;

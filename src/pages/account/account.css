@@ -1,30 +1,3 @@
 .account-container {
     display: flex;
-    margin-top: 2%;
-}
-
-.user-menu-container {
-    display: inline-block;
-    width: 18%;
-    height: 80vh;
-    /* background-color: rgb(202, 214, 214); */
-    background-color: rgb(222, 230, 230);
-    border-right: 1px solid rgb(201, 218, 218);
-}
-
-.preview-name {
-    margin: 5%;
-}
-
-.nav-link.active {
-    /* color: rgb(247, 184, 67); */
-    color: black;
-}
-
-.menu-icon {
-    margin-right: 5px;
-}
-
-.nav.flex-column {
-    margin-left: 10px;
 }

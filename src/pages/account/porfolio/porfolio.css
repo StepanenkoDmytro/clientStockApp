@@ -1,0 +1,54 @@
+.porfolio-container {
+    display: inline-block;
+    /* flex-direction: column; */
+    width: 77%;
+    background-color: rgb(30, 30, 32);
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-left: 21%;
+    padding: 10px;
+}
+
+.porfolio-info {
+    background-color: rgb(16, 16, 16);
+    border-radius: 10px;
+    /* width: auto; */
+    padding: 10px;
+    display: inline-block;
+}
+/* .porfolio-info form {
+    display: inline;
+} */
+
+.porfolio-info form input,
+.porfolio-info form select {
+    display: flex;
+    align-items: center;
+    margin: 5px;
+}
+
+.wallets {
+    background-color: rgb(16, 16, 16);
+    border-radius: 10px;
+    padding: 10px;
+    height: auto;
+}
+
+.wallets-dropdown {
+    width: 100%;
+}
+
+.wallets-dropdown button {
+    margin-top: 1%;
+    width: 100%;
+    text-align: left;
+    color: black;
+    border: 1px solid rgb(48, 48, 48);
+    background-color: white;
+}
+
+#button-delete {
+    border: 0;
+    width: 32px;
+    height: 32px;
+}

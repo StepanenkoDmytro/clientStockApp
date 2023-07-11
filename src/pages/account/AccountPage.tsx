@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import './account.css'
-import { UserMenu } from './UserMenu';
+import Navigation from '../components/Navigation';
 // import { tokenStore, userStore } from '../../store/store';
 // import { useStore } from 'effector-react';
 // import { useEffect } from 'react';
@@ -28,7 +28,7 @@ export function AccountPage() {
     return (
         <div className='account-container '>
 
-            <UserMenu />
+            <Navigation />
             <Outlet />
         </div>
     );

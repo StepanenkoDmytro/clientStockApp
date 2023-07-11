@@ -1,0 +1,58 @@
+.stock-market-container {
+    width: 78%;
+    background-color: rgb(30, 30, 32);
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-left: 21%;
+}
+
+.companies-container {
+    display: flex;
+    align-items: flex-start;
+}
+
+.companies-search {
+    padding: 10px 10px;
+    border: 2px solid red;
+}
+
+
+.form-control-dark {
+    margin-left: 5%;
+    width: 75%;
+    margin-bottom: 10px;
+}
+
+.info-container {
+    font-size: small;
+    margin: 10px;
+    padding: 20px;
+    box-shadow: -5px 5px 10px -5px rgb(16, 16, 16);
+    background-color: rgb(16, 16, 16);
+    border-radius: 10px;
+    height: auto;
+}
+.info-container p {
+    font-size: medium;
+}
+
+.buy-container {
+    margin-left: 10px;
+    /* width: 25%; */
+    background-color: white;
+    text-align: center;
+}
+
+.button-table {
+    align-items: center;
+    font-size: small;
+    width: 60px;
+    height: 30px;
+    padding: 0;
+    margin: 5px;
+    border-radius: 10px;
+    border: 0;
+    color: rgb(219, 214, 214);
+    background-color: rgb(30, 30, 32);
+   
+}

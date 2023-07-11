@@ -1,9 +1,9 @@
 import { useStore } from 'effector-react';
-import { $search, saveToken, setSearch, userStore } from '../store/store'
+import { $search, saveToken, setSearch, userStore } from '../../store/store'
 import './header.css'
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { FormEvent } from 'react';
-import { IUser } from '../pages/Coin/interfaces';
+import { IUser } from '../markets/coinMarket/interfaces';
 
 export function Header() {
     const user: IUser | null = useStore(userStore);
@@ -40,8 +40,8 @@ export function Header() {
                     </a>
 
                     <ul className='nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0'>
-                        <li><a href='/coins' className='nav-link'>Crypto Market</a></li>
-                        <li><a href='/stocks' className='nav-link'>Stock Market</a></li>
+                        <li><a href='/coin-market' className='nav-link'>Crypto Market</a></li>
+                        <li><a href='/stock-market' className='nav-link'>Stock Market</a></li>
                     </ul>
                     <div className='elements-menu d-flex align-items-center'>
                         <form className='col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3' onSubmit={(e) => { e.preventDefault(); handleSubmit(e) }}>
@@ -63,22 +63,22 @@ export function Header() {
 
                                 <ul className='dropdown-menu text-small' aria-labelledby='dropdownUser1'>
                                     <li>
-                                        <NavLink to='/account/porfolio' className='dropdown-item'>Profile Overview</NavLink>
+                                        <NavLink to='/page/porfolio' className='dropdown-item'>Profile Overview</NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to='/account/crypto' className='dropdown-item'>Crypto Portfolio</NavLink>
+                                        <NavLink to='/page/crypto' className='dropdown-item'>Crypto Portfolio</NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to='/account/stock' className='dropdown-item'>Stock Portfolio</NavLink>
+                                        <NavLink to='/page/stock' className='dropdown-item'>Stock Portfolio</NavLink>
                                     </li>
                                     {/* <li>
-                                        <NavLink to='/account/transfer' className='dropdown-item'>Transfers Money</NavLink>
+                                        <NavLink to='/page/transfer' className='dropdown-item'>Transfers Money</NavLink>
                                     </li> */}
                                     <li>
-                                        <NavLink to='/account/transactions' className='dropdown-item'>Transactions</NavLink>
+                                        <NavLink to='/page/transactions' className='dropdown-item'>Transactions</NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to='/account/user' className='dropdown-item'>User Settings</NavLink>
+                                        <NavLink to='/page/user' className='dropdown-item'>User Settings</NavLink>
                                     </li>
                                     <li><hr className='dropdown-divider' /></li>
                                     <li><a className='dropdown-item' onClick={handleLogout}>Sign out</a></li>

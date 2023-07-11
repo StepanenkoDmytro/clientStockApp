@@ -1,0 +1,50 @@
+.stock-container {
+    width: 77%;
+    background-color: rgb(30, 30, 32);
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-left: 21%;
+    padding: 10px;
+}
+
+.up {
+    display: flex;
+}
+
+.stock-info {
+    display: inline-block;
+    align-items: center;
+    margin-top: 1%;
+    margin: 3.5%;
+    padding: 2%;
+    color: rgb(249, 250, 254);
+    background-color: rgb(16, 16, 16);
+    border-radius: 10px;
+}
+
+.stock-porfolio-info {
+    background-color: rgb(16, 16, 16);
+    /* margin: 3.5%; */
+    padding: 2%;
+    border-radius: 10px;
+    font-size: small;
+    box-shadow: -5px 5px 10px -5px rgb(16, 16, 16);
+    height: auto;
+}
+
+.pie-chart {
+    margin: 3.5%;
+    padding: 2%;
+    color: rgb(249, 250, 254);
+    background-color: rgb(16, 16, 16);
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.actions-wallet {
+    margin: 3.5%;
+    padding: 2%;
+    color: rgb(249, 250, 254);
+    background-color: rgb(16, 16, 16);
+    border-radius: 10px;
+}

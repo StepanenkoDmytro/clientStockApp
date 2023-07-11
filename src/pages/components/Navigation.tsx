@@ -1,24 +1,34 @@
 import { NavLink } from 'react-router-dom';
-import './account.css'
+import './navigation.css'
 import { userStore } from '../../store/store';
-import { IUser } from '../Coin/interfaces';
+import { IUser } from '../markets/coinMarket/interfaces';
 import { useStore } from 'effector-react';
 
-export function UserMenu() {
+export default function Navigation() {
     const user: IUser | null = useStore(userStore);
+    const marketItems = [
+        {
+            link: '/page/coin-market',
+            title: 'Coin Market'
+        },
+        {
+            link: '/page/stock-market',
+            title: 'Stock Market'
+        }
+    ]
     const menuItems = [
         {
-            link: '/account/porfolio',
+            link: '/page/porfolio',
             icon: '/icons/portfolioOverviewIcon.svg',
             title: 'Portfolio Overview'
         },
         {
-            link: '/account/crypto',
+            link: '/page/crypto',
             icon: '/icons/cryptoPortfolioIcon.svg',
             title: 'Crypto Portfolio'
         },
         {
-            link: '/account/stock',
+            link: '/page/stock',
             icon: '/icons/stockPortfolioIcon.svg',
             title: 'Stock Portfolio'
         },
@@ -28,12 +38,12 @@ export function UserMenu() {
         //     title: 'Transfers Money'
         // },
         {
-            link: '/account/transactions',
+            link: '/page/transactions',
             icon: '/icons/transactionsIcon.svg',
             title: 'Transactions'
         },
         {
-            link: '/account/user',
+            link: '/page/user',
             icon: '/icons/userSettingsIcon.svg',
             title: 'User Settings'
         }
@@ -54,11 +64,22 @@ export function UserMenu() {
                         <p>{'1000$'}</p>
                     </div>
                 </div>
+                <p>Markets:</p>
+                <ul className='nav flex-column'>
+                    {marketItems.map((item) => <li className='nav-item' key={item.title}>
+                        <NavLink to={item.link}
+                            className={({ isActive }) => isActive ? "nav-link active" : "nav-link "}>
+                            {/* <img src={item.icon} className='menu-icon' /> */}
+                            {item.title}
+                        </NavLink>
+                    </li>)}
+                </ul>
+                <p>Account:</p>
                 <ul className='nav flex-column'>
                     {menuItems.map((item) => <li className='nav-item' key={item.title}>
                         <NavLink to={item.link}
-                            className={({ isActive }) => isActive ? "nav-link active" : "nav-link "}>
-                            <img src={item.icon} className='menu-icon' />
+                            className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+                            {/* <img src={item.icon} className='menu-icon' /> */}
                             {item.title}
                         </NavLink>
                     </li>)}

@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { IAccount } from '../Coin/interfaces';
 import './stock.css'
-import './account.css'
-import { USER_AUTH_TOKEN } from '../../App';
+import '../account.css'
+import '../../components/css/table-assets.css'
 import { useStore } from 'effector-react';
-import { updateAccount, userAccountsStore } from '../../store/store';
-import { DepositForm } from './portfolioComponents/DepositForm';
-import { PieAssetsChart } from './portfolioComponents/PieAssetsChart';
+import { USER_AUTH_TOKEN, updateAccount, userAccountsStore } from '../../../store/store';
+import { IAccount } from '../../markets/coinMarket/interfaces';
+import { DepositForm } from '../porfolio/portfolioComponents/DepositForm';
+import { PieAssetsChart } from '../porfolio/portfolioComponents/PieAssetsChart';
 
 export function StockComponent() {
     const token = localStorage.getItem(USER_AUTH_TOKEN);
@@ -66,20 +66,19 @@ export function StockComponent() {
 
     return (
         <div className='stock-container'>
-            <div className='coin-details'>
-                <div className='left-block'>
+            <div className='up'>
+                <div className='stock-info'>
+                    <p>Wallet info</p>
                     <h1>{activeAccount?.accountName}</h1>
                     <h6>{activeAccount?.accountType}</h6>
+                    <h2>Total balance: {accountTotalBalance}$</h2>
+                    <h4>USD: {activeAccount?.balance}$</h4>
+
+                </div>
+                <div className='actions-wallet'>
                     {activeAccount &&
                         <DepositForm accountID={activeAccount.id} handleDepositAccount={handleAccount} />
                     }
-                </div>
-                <div className='pie-chart'>
-                    {activeAccount &&
-                        <PieAssetsChart account={activeAccount} handleTotalBalance={handleTotalBalance} />
-                    }
-                </div>
-                <div className='right-block'>
                     <select className='form-select'
                         value={storedActiveAccount!}
                         onChange={(e) => handleActiveAccount(JSON.parse(e.target.value))}>
@@ -89,18 +88,24 @@ export function StockComponent() {
                             </option>
                         ))}
                     </select>
-                    <h2>Total balance: {accountTotalBalance}$</h2>
-                    <h4>USD: {activeAccount?.balance}$</h4>
+
+                </div>
+                <div className='pie-chart'>
+                    <p>Diagram:</p>
+                    {activeAccount &&
+                        <PieAssetsChart account={activeAccount} handleTotalBalance={handleTotalBalance} />
+                    }
                 </div>
             </div>
             <hr />
             <div className='stock-porfolio-info'>
+                <p>Holdings:</p>
                 <div className="btn-group" role="group" aria-label="Basic outlined example">
                     <button type="button" className="btn btn-outline-primary">Left</button>
                     <button type="button" className="btn btn-outline-primary">Middle</button>
                     <button type="button" className="btn btn-outline-primary">Right</button>
-                </div><hr/>
-                <div className='stock-table'>
+                </div><hr />
+                <div className='table-assets'>
                     <table className='table'>
                         <thead>
                             <tr>

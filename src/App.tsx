@@ -1,11 +1,11 @@
 
 import { Outlet, useNavigate } from 'react-router-dom'
 import './App.css'
-import { Footer } from './components/Footer.tsx'
-import { Header } from './components/Header.tsx'
+import { Footer } from './pages/components/Footer.tsx'
+import { Header } from './pages/components/Header.tsx'
 import { useStore } from 'effector-react';
 import { saveToken, saveUser, userStore } from './store/store';
-import { IUser, IUserDto } from './pages/Coin/interfaces.ts';
+import { IUser, IUserDto } from './pages/markets/coinMarket/interfaces.ts';
 import { useEffect } from 'react';
 
 export const USER_AUTH_TOKEN = 'user_auth_token';
@@ -40,15 +40,15 @@ function App() {
         });
     }
     if (location.pathname === "/") {
-      return navigate('/coins');
+      return navigate('/coin-market');
     }
   }, [])
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <Outlet />
-      <Footer />
+      {/* <Footer /> */}
     </>
   )
 }

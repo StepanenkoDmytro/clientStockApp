@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
-import { IPieCoinPrice } from '../Coin/interfaces';
+import { IPiePrice } from '../../markets/coinMarket/interfaces';
 
-const PieChart: React.FC<{ data: IPieCoinPrice[]; width: number; height: number }> = ({ data, width, height }) => {
+const PieChart: React.FC<{ data: IPiePrice[]; width: number; height: number }> = ({ data, width, height }) => {
   const svgRef = useRef<SVGSVGElement>(null);
 
   const fontSize = 11;
@@ -25,14 +25,14 @@ const PieChart: React.FC<{ data: IPieCoinPrice[]; width: number; height: number 
       .domain(data.map((d) => d.label))
       .range(d3.schemeCategory10);
 
-    const pie = d3.pie<IPieCoinPrice>()
+    const pie = d3.pie<IPiePrice>()
       .value((d) => d.value);
 
-    const arc = d3.arc<d3.PieArcDatum<IPieCoinPrice>>()
+    const arc = d3.arc<d3.PieArcDatum<IPiePrice>>()
       .innerRadius(0)
       .outerRadius(radius);
 
-    const arcs = svg.selectAll<SVGPathElement, d3.PieArcDatum<IPieCoinPrice>>('path')
+    const arcs = svg.selectAll<SVGPathElement, d3.PieArcDatum<IPiePrice>>('path')
       .data(pie(data))
       .join('path')
       .attr('d', (d) => arc(d))
@@ -45,7 +45,7 @@ const PieChart: React.FC<{ data: IPieCoinPrice[]; width: number; height: number 
     //   .attr('dy', '0.35em')
     //   .text((d) => d.data.label);
 
-    const text = svg.selectAll<SVGTextElement, d3.PieArcDatum<IPieCoinPrice>>('text')
+    const text = svg.selectAll<SVGTextElement, d3.PieArcDatum<IPiePrice>>('text')
   .data(pie(data))
   .join('text')
   .attr('transform', (d) => {
@@ -61,7 +61,7 @@ const PieChart: React.FC<{ data: IPieCoinPrice[]; width: number; height: number 
   .style('font-size', `${fontSize}px`);
 
 
-const lines = svg.selectAll<SVGLineElement, d3.PieArcDatum<IPieCoinPrice>>('line')
+const lines = svg.selectAll<SVGLineElement, d3.PieArcDatum<IPiePrice>>('line')
   .data(pie(data))
   .join('line')
   .attr('x1', (d) => arc.centroid(d)[0])

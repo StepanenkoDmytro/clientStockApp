@@ -1,6 +1,6 @@
 import { FormEvent, useState } from 'react';
-import { IAccount, IStock } from '../../Coin/interfaces';
-import '../stockList.css';
+import { IAccount, IStock } from '../../coinMarket/interfaces';
+import './purchase-widget.css';
 
 interface PurchaseWidgetProps {
     accounts: IAccount[];
@@ -46,7 +46,7 @@ export const PurchaseWidgetStock: React.FC<PurchaseWidgetProps> = ({ accounts, a
             <form onSubmit={(event) => handleSubmit(event)}>
                 <div>
                     <h5>Account:</h5>
-                    <select className="form-select" aria-label="Default select example"
+                    <select className="form-select small" aria-label="Default select example"
                         name='accountID' defaultValue={accountID!}
                         onChange={(e) => handleAccountChange(Number(e.target.value))}>
                         {accounts.map((account) => (

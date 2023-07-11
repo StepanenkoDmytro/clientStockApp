@@ -1,7 +1,7 @@
 import { useStore } from 'effector-react';
-import { userStore } from '../../store/store';
 import './user.css'
-import { IUser } from '../Coin/interfaces';
+import { userStore } from '../../../store/store';
+import { IUser } from '../../markets/coinMarket/interfaces';
 
 export function UserContainer() {
     const user: IUser | null = useStore(userStore);

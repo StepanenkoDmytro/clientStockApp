@@ -1,0 +1,59 @@
+.crypto-container {
+    width: 77%;
+    background-color: rgb(30, 30, 32);
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-left: 21%;
+    padding: 10px;
+}
+.crypto-container p {
+    color: rgb(160, 159, 162);
+    font-size: medium;
+}
+
+.up {
+    display: flex;
+}
+
+.coins-table {
+    background-color: rgb(16, 16, 16);
+    margin: 3.5%;
+    padding: 2%;
+    border-radius: 10px;
+    font-size: small;
+    box-shadow: -5px 5px 10px -5px rgb(16, 16, 16);
+    height: auto;
+}
+
+.crypto-info {
+    display: inline-block;
+    /* width: 100%; */
+    align-items: center;
+    margin-top: 1%;
+    margin: 3.5%;
+    padding: 2%;
+    color: rgb(249, 250, 254);
+    background-color: rgb(16, 16, 16);
+    border-radius: 10px;
+}
+
+.actions-wallet {
+    margin: 3.5%;
+    padding: 2%;
+    color: rgb(249, 250, 254);
+    background-color: rgb(16, 16, 16);
+    border-radius: 10px;
+}
+
+.pie-chart {
+    margin: 3.5%;
+    padding: 2%;
+    color: rgb(249, 250, 254);
+    background-color: rgb(16, 16, 16);
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.pie-chart svg {
+    display: inline-block;
+ }

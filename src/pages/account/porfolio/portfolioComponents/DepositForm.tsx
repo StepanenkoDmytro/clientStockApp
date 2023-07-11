@@ -1,6 +1,6 @@
 import { FormEvent, useState } from 'react';
-import { IAccount } from '../../Coin/interfaces';
-import { USER_AUTH_TOKEN } from '../../../App';
+import { IAccount } from '../../../markets/coinMarket/interfaces';
+import { USER_AUTH_TOKEN } from '../../../../App';
 
 interface DepositFormProps {
     accountID: number;

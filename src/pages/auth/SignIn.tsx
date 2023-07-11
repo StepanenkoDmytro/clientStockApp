@@ -2,7 +2,7 @@ import { FormEvent, useState } from 'react';
 import './auth.css'
 import { saveToken, saveUser } from '../../store/store';
 import { Link, useNavigate } from 'react-router-dom';
-import { IUserDto } from '../Coin/interfaces';
+import { IUserDto } from '../markets/coinMarket/interfaces';
 
 export function SignIn() {
     const [email, setEmail] = useState('');
@@ -34,7 +34,7 @@ export function SignIn() {
                 const { token, user } = response;
                 saveToken(token);
                 saveUser(user);
-                navigate('/coins');
+                navigate('/page/coin-market');
             })
             .catch((error) => {
                 console.error(error);

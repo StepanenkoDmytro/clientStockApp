@@ -1,5 +1,5 @@
 import { createEvent, createStore } from "effector";
-import { IAccount, IUser } from "../pages/Coin/interfaces";
+import { IAccount, IUser } from "../pages/markets/coinMarket/interfaces";
 
 export const USER_AUTH_TOKEN = 'user_auth_token';
 

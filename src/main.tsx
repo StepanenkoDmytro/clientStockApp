@@ -7,35 +7,23 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import { CoinList } from './pages/Coin/CoinList.tsx';
-import { CoinDetails } from './pages/Coin/CoinDetails.tsx';
+import { CoinList } from './pages/markets/coinMarket/CoinList.tsx';
+import { CoinDetails } from './pages/markets/coinMarket/CoinDetails.tsx';
 import { AccountPage } from './pages/account/AccountPage.tsx';
 import { SignIn } from './pages/auth/SignIn.tsx';
 import { SignUp } from './pages/auth/SignUp.tsx';
-import { UserContainer } from './pages/account/UserContainer.tsx';
-import { TransactComponent } from './pages/account/TransactComponent.tsx';
-import { CryptoComponent } from './pages/account/CryptoComponent.tsx';
-import { PortfolioComponent } from './pages/account/PortfolioComponent.tsx';
-import { StockComponent } from './pages/account/StockComponent.tsx';
-import { StockList } from './pages/Stock/StockList.tsx';
+import { PortfolioComponent } from './pages/account/porfolio/PortfolioComponent.tsx';
+import { StockList } from './pages/markets/stockMarket/StockList.tsx';
+import { CryptoComponent } from './pages/account/crypto/CryptoComponent.tsx';
+import { StockComponent } from './pages/account/stock/StockComponent.tsx';
+import { TransactComponent } from './pages/account/transact/TransactComponent.tsx';
+import { UserContainer } from './pages/account/user/UserContainer.tsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
-      {
-        path: "coins",
-        element: <CoinList />
-      },
-      {
-        path: "coins/:coinId",
-        element: <CoinDetails />
-      },
-      {
-        path: "stocks",
-        element: <StockList />
-      },
       {
         path: "sign-in",
         element: <SignIn />
@@ -45,9 +33,21 @@ const router = createBrowserRouter([
         element: <SignUp />
       },
       {
-        path: "account",
+        path: "page",
         element: <AccountPage />,
         children: [
+          {
+            path: "coin-market",
+            element: <CoinList />
+          },
+          {
+            path: "coin-market/:coinId",
+            element: <CoinDetails />
+          },
+          {
+            path: "stock-market",
+            element: <StockList />
+          },
           {
             path: "porfolio",
             element: <PortfolioComponent />

@@ -1,0 +1,36 @@
+
+.user-menu-container {
+    width: 20%; 
+    background-color: rgb(30, 30, 32);
+    position: fixed;
+    display: flex;
+    height: 120vh;
+}
+
+.user-menu-container p {
+    margin-left: 10px;
+    font-size: small;
+    color: rgb(160, 159, 162);
+}
+
+.preview-name {
+    margin: 5%;
+}
+.nav-link {
+    color: rgb(249, 250, 254);
+}
+
+.nav-link.active {
+    border-radius: 10px;
+    margin-right: 20px;
+    background-color: rgb(56, 59, 67);
+    color: rgb(249, 250, 254);
+}
+
+.menu-icon {
+    margin-right: 5px;
+}
+
+.nav.flex-column {
+    margin-left: 10px;
+}

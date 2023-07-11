@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { IAccount, ICompany, ICompanyDto, IPage, IStock } from '../Coin/interfaces';
-import { INITIAL_PAGINATION } from "../Coin/CoinList";
+import { IAccount, ICompany, IPage, IStock } from '../coinMarket/interfaces';
+import { INITIAL_PAGINATION } from "../coinMarket/CoinList";
 import './stockList.css';
+import '../../components/css/table-assets.css'
 import { PurchaseData, PurchaseWidgetStock } from "./components/PurchaseWidgetStock";
 import { useStore } from "effector-react";
-import { tokenStore, updateAccount, userAccountsStore } from "../../store/store";
+import { tokenStore, updateAccount, userAccountsStore } from "../../../store/store";
 
 export function StockList() {
     const token = useStore(tokenStore);
@@ -29,7 +30,7 @@ export function StockList() {
                 setCompanies(companies);
                 // mapPagination(pages);
             })
-    }, [typeCompaniesList, companies]);
+    }, [typeCompaniesList]);
 
     // const mapPagination = (pages: IPage) => {
     //     let visiblePages = [];
@@ -104,104 +105,54 @@ export function StockList() {
     }
 
     return (
-        <div className='stock-page'>
-        <div className="companies-search">
-                    <input type="search" />
-                    <button>Search</button>
-                </div>
+        <div className='stock-market-container'>
+            {/* <div className="companies-search">
+                <input type="search" />
+                <button>Search</button>
+            </div> */}
             <div className="companies-container">
-                <div className='list-container'>
-                    <div className='type-companies'>
-                        <button className='btn btn-light' onClick={() => handleTypeCompaniesList('MOST_ACTIVES')}>Actives</button>
-                        <button className='btn btn-info' onClick={() => handleTypeCompaniesList('DAY_GAINERS')}>Gainers</button>
-                        <button className='btn btn-info' onClick={() => handleTypeCompaniesList('DAY_LOSERS')}>Losers</button>
-                    </div>
-                    <table className="table">
-                        <thead className='thead-dark'>
-                            <tr>
-                                <th scope="col">Ticker</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Exchange</th>
-                                <th scope="col">Asset Type</th>
-                                {/* <th scope="col">Price</th> */}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {companies ? companies.map((stock: ICompany) => (
-                                <tr key={stock.symbol}>
-                                    <td>{stock.symbol}</td>
-                                    <td className="content-column">
-                                        <a onClick={() => handleActiveStock(stock.symbol)}>{stock.name}</a>
-                                    </td>
-                                    <td className="content-column">{stock.exchange}</td>
-                                    <td className="content-column">{stock.assetType}</td>
-                                    {/* <td className="content-column">{stock.price}</td> */}
+                <div className='info-container'>
+                    <div className="table-assets">
+                        <p>Stock market:</p>
+                        <div className='type-companies'>
+                            <button className='button-table' onClick={() => handleTypeCompaniesList('MOST_ACTIVES')}>Actives</button>
+                            <button className='button-table' onClick={() => handleTypeCompaniesList('DAY_GAINERS')}>Gainers</button>
+                            <button className='button-table' onClick={() => handleTypeCompaniesList('DAY_LOSERS')}>Losers</button>
+                        </div>
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Ticker</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Exchange</th>
+                                    <th scope="col">Asset Type</th>
                                 </tr>
-                            ))
-                                : <></>}
+                            </thead>
+                            <tbody>
+                                {companies ? companies.map((stock: ICompany) => (
+                                    <tr key={stock.symbol}>
+                                        <td>{stock.symbol}</td>
+                                        <td>
+                                            <a onClick={() => handleActiveStock(stock.symbol)}>{stock.name}</a>
+                                        </td>
+                                        <td>{stock.exchange}</td>
+                                        <td>{stock.assetType}</td>
+                                    </tr>
+                                ))
+                                    : <></>}
 
-                        </tbody>
-                    </table>
-                    {/* <div>
-                        <footer className='footer'>
-                            <div>
-                                {pagination.totalItems !== 1 ? (
-                                    <div className='pag-container'>
-                                        <div style={{ color: 'gray' }}>
-                                            Total Items: {pagination.totalItems} : Page {pagination.currentPage} of {pagination.totalPages}
-                                        </div>
-
-                                        <div className='pagination-container'>
-                                            {pagination.currentPage !== 1 ? (
-                                                <div>
-                                                    <span onClick={() => handlePageChange(1)}>
-                                                        {'<<'}
-                                                    </span>
-                                                    <span onClick={() => handlePageChange(pagination.currentPage - 1)}>
-                                                        {'<'}
-                                                    </span>
-                                                </div>
-                                            ) : (
-                                                <span></span>
-                                            )}
-
-                                            {pagination.visiblePages!.map((page) => (
-                                                <div key={page}>
-                                                    <span className={pagination.currentPage === page ? 'active' : ''}
-                                                        onClick={() => handlePageChange(page)}>
-                                                        {page}
-                                                    </span>
-                                                </div>
-                                            ))}
-
-                                            {pagination.currentPage !== pagination.totalPages ? (
-                                                <div>
-                                                    <span onClick={() => handlePageChange(pagination.currentPage + 1)}>{'>'}</span>
-                                                    <span onClick={() => handlePageChange(pagination.totalPages)}>{'>>'}</span>
-                                                </div>
-                                            ) : (
-                                                <span></span>
-                                            )}
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <div style={{ color: 'gray' }}>
-                                        Total Items: {pagination.totalItems} : Page {pagination.currentPage} of {pagination.totalPages}
-                                    </div>
-                                )}
-                            </div>
-                        </footer>
-
-                    </div> */}
-                </div>
-                <div className="company-container">
-                    <div style={{ backgroundColor: '#31d2f2' }}>
-                        <h4>Details:</h4>
+                            </tbody>
+                        </table>
                     </div>
+                </div>
+                <div className="info-container">
+                    <div className="table-assets">
+                        <p>Details:</p>
+                    
                     {activeStock
                         ? (<div>
                             <h4>{activeStock.price}</h4>
-                            <table>
+                            <table className="table">
                                 <tbody>
                                     <tr>
                                         <td>Symbol:</td>
@@ -250,10 +201,11 @@ export function StockList() {
                             <h4 style={{ color: 'red' }}>Виберіть акцію</h4>
                         </div>)
                     }
+                    </div>
                 </div>
-                <div className="buy-container">
-                    <div style={{ backgroundColor: '#18c9ed' }}>
-                        <h4>Details Buy:</h4>
+                <div className="info-container">
+                    <div>
+                        <p>Details Buy:</p>
                     </div>
                     {activeStock ? (
                         <div>

@@ -1,9 +1,10 @@
 import { useStore } from 'effector-react';
-import { saveUser, userStore } from '../../store/store';
+import { saveUser, userStore } from '../../../store/store';
 import './porfolio.css'
-import { IUser } from '../Coin/interfaces';
+import '../../components/css/table-assets.css'
+import { IUser } from '../../markets/coinMarket/interfaces';
 import { FormEvent, useEffect, useState } from 'react';
-import { USER_AUTH_TOKEN } from '../../App';
+import { USER_AUTH_TOKEN } from '../../../App';
 
 export const TYPE_CRYPTO_WALLET = 'CryptoWallet';
 export const TYPE_STOCK_WALLET = 'StockWallet';
@@ -26,7 +27,7 @@ export function PortfolioComponent() {
     const createNewAccount = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const formData = { newAccountName,  accountType};
+        const formData = { newAccountName, accountType };
         console.log(accountType);
 
         fetch(`http://localhost:8000/api/v1/account/create`, {
@@ -71,32 +72,25 @@ export function PortfolioComponent() {
     return (
         <div className='porfolio-container'>
 
-            <div className='porfolio-balance'>
+            <div className='porfolio-info'>
+                <p>Portfolio info</p>
                 <h2>{'Total balance: 0$'}</h2>
+                <form onSubmit={(e) => createNewAccount(e)}>
+                    <input type='text' name='accountName' placeholder='Введіть назву гаманця'
+                        onChange={(e) => handlNewAccountName(e.target.value)} />
+                    <select name='accountType' defaultValue={TYPE_STOCK_WALLET}
+                        onChange={(e) => setAccountType(e.target.value)}>
+                        <option value={TYPE_STOCK_WALLET}>{TYPE_STOCK_WALLET}</option>
+                        <option value={TYPE_CRYPTO_WALLET}>{TYPE_CRYPTO_WALLET}</option>
+                    </select>
+                    <button type='submit' className='btn btn-success'>Create</button>
+                </form>
             </div>
             <hr />
-            <div className='wallet'>
-                <div className='wallet-title'>
-                    <div className='wallets-name'>
-                        <h3>Wallets:</h3>
-                    </div>
-                    <div className='wallets-create'>
-                        <form onSubmit={(e) => createNewAccount(e)}>
-                            <input type='text' name='accountName' placeholder='Введіть назву гаманця'
-                                onChange={(e) => handlNewAccountName(e.target.value)} />
-                            <select name='accountType' defaultValue={TYPE_STOCK_WALLET}
-                                onChange={(e) => setAccountType(e.target.value)}>
-                                <option value={TYPE_STOCK_WALLET}>{TYPE_STOCK_WALLET}</option>
-                                <option value={TYPE_CRYPTO_WALLET}>{TYPE_CRYPTO_WALLET}</option>
-                            </select>
-                            <button style={{ marginLeft: '5px' }} type='submit' className='btn btn-success'>Create</button>
-                        </form>
-                    </div>
 
-                </div>
-
+            <div className='wallets'>
                 <div className='wallets-dropdown'>
-
+                    <p>Wallets:</p>
                     <ul className='list-unstyled'>
                         {accounts.map((account) => (
                             <li key={account.accountName}>
@@ -110,7 +104,7 @@ export function PortfolioComponent() {
                                 </button>
 
                                 {showAccountMap[account.accountName] && (
-                                    <table>
+                                    <div className='table-assets'>
                                         <table className='table'>
                                             <thead>
                                                 <tr>
@@ -139,7 +133,8 @@ export function PortfolioComponent() {
                                                 </tr>
                                             </tbody>
                                         </table>
-                                    </table>
+
+                                    </div>
                                 )}
                             </li>
                         ))}
