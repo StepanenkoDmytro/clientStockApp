@@ -1,24 +1,23 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
+import './pie.css';
 
 import { IPiePrice } from '../../markets/coinMarket/interfaces';
 
 const PieChart: React.FC<{ data: IPiePrice[]; width: number; height: number }> = ({ data, width, height }) => {
   const svgRef = useRef<SVGSVGElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
 
-  const fontSize = 11;
   const chartWidth = width - 50;
   const chartHeight = height - 50;
 
   useEffect(() => {
     const svg = d3.select(svgRef.current)
       .attr("width", width)
-      .attr("height", height)
-      // .attr("viewBox", [-width / 2, -height / 2, width, height])
+      .attr("height", height + 100)
       .attr("viewBox", [-chartWidth / 2, -chartHeight / 2, chartWidth, chartHeight])
       .attr("style", "max-width: 100%; height: auto; height: intrinsic;");
 
-    // const radius = Math.min(width, height) / 2;
     const radius = Math.min(chartWidth, chartHeight) / 2;
 
     const color = d3.scaleOrdinal<string>()
@@ -38,54 +37,59 @@ const PieChart: React.FC<{ data: IPiePrice[]; width: number; height: number }> =
       .attr('d', (d) => arc(d))
       .attr('fill', (d) => color(d.data.label));
 
-    // const text = svg.selectAll<SVGTextElement, d3.PieArcDatum<IPieCoinPrice>>('text')
-    //   .data(pie(data))
-    //   .join('text')
-    //   .attr('transform', (d) => `translate(${arc.centroid(d)})`)
-    //   .attr('dy', '0.35em')
-    //   .text((d) => d.data.label);
+    const sum = d3.sum(data, (d) => d.value); // Calculate the total sum of values
 
     const text = svg.selectAll<SVGTextElement, d3.PieArcDatum<IPiePrice>>('text')
-  .data(pie(data))
-  .join('text')
-  .attr('transform', (d) => {
-    const [x, y] = arc.centroid(d);
-    const angle = Math.atan2(y, x);
-    const radius = arc.outerRadius()(d) + 15; // Відстань між текстом і сектором
-    const newX = radius * Math.cos(angle);
-    const newY = radius * Math.sin(angle);
-    return `translate(${newX}, ${newY})`;
-  })
-  .attr('dy', '0.35em')
-  .text((d) => d.data.label)
-  .style('font-size', `${fontSize}px`);
+      .data(pie(data))
+      .join('text')
+      .attr('transform', (d) => {
+        const centroid = arc.centroid(d);
+        const angle = Math.atan2(centroid[1], centroid[0]);
+        const appendToRadius = 3 / ((d.data.value / sum) * 100) * 17;
+        const radius = (d.data.value / sum) * 100 > 3 ? arc.outerRadius()(d) + 10 : arc.outerRadius()(d) + appendToRadius; // Distance between text and sector
+        const textX = radius * Math.cos(angle);
+        const textY = radius * Math.sin(angle);
+        const textAnchor = angle > Math.PI / 2 || angle < -Math.PI / 2 ? 'end' : 'start';
+        return `translate(${textX}, ${textY})`;
+      })
+      .attr('dy', '0.35em')
+      .text((d) => `${((d.data.value / sum) * 100).toFixed(0)}%`)
+      .style('font-size', `20px`)
+      .style('fill', 'white')
+      .style('text-anchor', (d) => {
+        const centroid = arc.centroid(d);
+        const angle = Math.atan2(centroid[1], centroid[0]);
+        return angle > Math.PI / 2 || angle < -Math.PI / 2 ? 'end' : 'start';
+      })
+      .style('fill', (d) => color(d.data.label));
 
+    const list = d3.select(listRef.current); // Retrieve the list using listRef
+    const listItem = list.selectAll<HTMLElement, IPiePrice>('li')
+      .data(data)
+      .join('li')
+      .text((d) => d.label)
+      .style('font-size', `13px`); // Change text color
 
-const lines = svg.selectAll<SVGLineElement, d3.PieArcDatum<IPiePrice>>('line')
-  .data(pie(data))
-  .join('line')
-  .attr('x1', (d) => arc.centroid(d)[0])
-  .attr('y1', (d) => arc.centroid(d)[1])
-  .attr('x2', (d) => {
-    const [x, y] = arc.centroid(d);
-    const angle = Math.atan2(y, x);
-    const radius = arc.outerRadius()(d) + 5; // Відстань риски від сектору
-    return radius * Math.cos(angle);
-  })
-  .attr('y2', (d) => {
-    const [x, y] = arc.centroid(d);
-    const angle = Math.atan2(y, x);
-    const radius = arc.outerRadius()(d) + 5; // Відстань риски від сектору
-    return radius * Math.sin(angle);
-  })
-  .attr('stroke', 'black');
+    listItem.append('span') // Add a <span> element for the square
+      .style('display', 'inline-block')
+      .style('width', '10px')
+      .style('height', '10px')
+      .style('background-color', (d) => color(d.label))
+      .style('margin-left', '5px'); // Adjust the margin as needed
 
     return () => {
       svg.selectAll('*').remove();
     };
   }, [data]);
 
-  return <svg ref={svgRef}></svg>;
-};
+  return (
+    <div className="pie">
+      <svg ref={svgRef}></svg>
+      <div className="list-container">
+        <ul ref={listRef}></ul>
+      </div>
+    </div>
+  );
+}
 
 export default PieChart;

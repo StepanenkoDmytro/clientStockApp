@@ -27,14 +27,37 @@
 
 .crypto-info {
     display: inline-block;
-    /* width: 100%; */
     align-items: center;
     margin-top: 1%;
     margin: 3.5%;
     padding: 2%;
-    color: rgb(249, 250, 254);
+    color: rgb(160, 159, 162);
     background-color: rgb(16, 16, 16);
     border-radius: 10px;
+}
+
+.crypto-info label {
+    margin-bottom: 20px;
+}
+
+.crypto-info table {
+    border-collapse: collapse;
+}
+
+.crypto-info table td {
+    padding: 0;
+}
+
+#crypto-wallet-info {
+    color: rgb(249, 250, 254);
+    text-align: right;
+}
+
+.crypto-info select {
+    border: none;
+    color: rgb(249, 250, 254);
+    background-color: rgb(16, 16, 16);
+    text-align: right;
 }
 
 .actions-wallet {
@@ -51,9 +74,9 @@
     color: rgb(249, 250, 254);
     background-color: rgb(16, 16, 16);
     border-radius: 10px;
-    display: inline-block;
 }
 
-.pie-chart svg {
-    display: inline-block;
- }
+.pie-chart {
+    /* display: flex; */
+    /* align-items: */
+}

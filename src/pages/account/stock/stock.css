@@ -17,10 +17,36 @@
     margin-top: 1%;
     margin: 3.5%;
     padding: 2%;
-    color: rgb(249, 250, 254);
+    color: rgb(160, 159, 162);
     background-color: rgb(16, 16, 16);
     border-radius: 10px;
 }
+
+.stock-info label {
+    margin-bottom: 20px;
+}
+
+.stock-info table {
+    border-collapse: collapse;
+}
+
+.stock-info table td {
+    padding: 0;
+}
+
+#stock-wallet-info {
+    color: rgb(249, 250, 254);
+    text-align: right;
+}
+
+.stock-info select {
+    border: none;
+    color: rgb(249, 250, 254);
+    background-color: rgb(16, 16, 16);
+    text-align: right;
+}
+
+/* .stock-info select w */
 
 .stock-porfolio-info {
     background-color: rgb(16, 16, 16);
@@ -47,4 +73,18 @@
     color: rgb(249, 250, 254);
     background-color: rgb(16, 16, 16);
     border-radius: 10px;
+}
+
+.truncate-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px;
+}
+
+.truncate-sector {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 50px;
 }

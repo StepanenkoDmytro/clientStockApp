@@ -1,0 +1,32 @@
+.pie {
+    display: flex;
+}
+
+.pie ul {
+    list-style: none;
+    padding-left: 0;
+    margin-left: 20px;
+    /* Add a margin to create space between the pie chart and the list */
+}
+
+.list-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+  .list-container ul {
+    display: inline-block;
+    align-items: right;
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+  }
+  
+  .list-container li {
+    display: flex;
+    align-items: center;
+  }
+
+  
+  

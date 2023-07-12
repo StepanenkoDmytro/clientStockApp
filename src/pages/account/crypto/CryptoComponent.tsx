@@ -69,13 +69,51 @@ export function CryptoComponent() {
         <div className='crypto-container'>
             <div className='up'>
                 <div className='crypto-info'>
-                    <p>Wallet info</p>
+                    {/* <p>Wallet info</p>
                     <h1>{activeAccount?.accountName}</h1>
                     <h6>{activeAccount?.accountType}</h6>
 
                     <h2>Total balance: {accountTotalBalance}$</h2>
-                    <h4>USD: {activeAccount?.balance}$</h4>
-
+                    <h4>USD: {activeAccount?.balance}$</h4> */}
+                    <label>Wallet info</label>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style={{ width: '250px' }} />
+                                <th style={{ width: '200px' }} />
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><h4>Total balance:</h4></td>
+                                <td id='crypto-wallet-info'>
+                                    <h4>{accountTotalBalance}$</h4>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p>Unused USD:</p></td>
+                                <td id='crypto-wallet-info'><p>{activeAccount?.balance}$</p></td>
+                            </tr>
+                            <tr>
+                                <td><p>Account name:</p></td>
+                                <td id='crypto-wallet-info'>
+                                    <select className='form-select'
+                                        value={storedActiveAccount!}
+                                        onChange={(e) => handleActiveAccount(JSON.parse(e.target.value))}>
+                                        {cryptoAccounts.map((account) => (
+                                            <option key={account.accountName} value={JSON.stringify(account)}>
+                                                {account.accountName}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p>Account type:</p></td>
+                                <td id='crypto-wallet-info'><p>{activeAccount?.accountType}</p></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div className='pie-chart'>
                     <p>Diagram:</p>
@@ -85,15 +123,7 @@ export function CryptoComponent() {
                 </div>
                 <div className='actions-wallet'>
                     <p>Action wallet</p>
-                    <select className='form-select'
-                        value={storedActiveAccount!}
-                        onChange={(e) => handleActiveAccount(JSON.parse(e.target.value))}>
-                        {cryptoAccounts.map((account) => (
-                            <option key={account.accountName} value={JSON.stringify(account)}>
-                                {account.accountName}
-                            </option>
-                        ))}
-                    </select>
+
                     {activeAccount &&
                         <DepositForm accountID={activeAccount.id} handleDepositAccount={handleDepositAccount} />
                     }
@@ -102,6 +132,9 @@ export function CryptoComponent() {
             </div>
 
             <hr />
+            {/* <div>
+                <Speedometer width={200} height={200} value={64} previousValues={[74,76]}/>
+            </div> */}
             <div className='coins-table'>
                 <p>Holdings:</p>
                 <div className='table-assets'>
@@ -117,9 +150,9 @@ export function CryptoComponent() {
                         <tbody>
                             {activeAccount?.coins.map((coin) => (
                                 <tr key={coin.idCoin} style={{ width: '20px' }}>
-                                    <td style={{width: '20px'}}>
+                                    <td style={{ width: '20px' }}>
                                         <img src={`https://cryptologos.cc/logos/thumbs/${coin.idCoin}.png?v=024`} alt='Logo'
-                                        height='24' />
+                                            height='24' />
                                     </td>
                                     <td>{coin.name}</td>
                                     <td>{coin.amountCOIN}</td>

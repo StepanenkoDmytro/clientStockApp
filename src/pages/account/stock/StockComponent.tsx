@@ -68,28 +68,53 @@ export function StockComponent() {
         <div className='stock-container'>
             <div className='up'>
                 <div className='stock-info'>
-                    <p>Wallet info</p>
-                    <h1>{activeAccount?.accountName}</h1>
-                    <h6>{activeAccount?.accountType}</h6>
-                    <h2>Total balance: {accountTotalBalance}$</h2>
-                    <h4>USD: {activeAccount?.balance}$</h4>
-
+                    <label>Wallet info</label>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style={{ width: '250px' }} />
+                                <th style={{ width: '200px' }} />
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><h4>Total balance:</h4></td>
+                                <td id='stock-wallet-info'>
+                                    <h4>{accountTotalBalance}$</h4>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p>Unused USD:</p></td>
+                                <td id='stock-wallet-info'><p>{activeAccount?.balance}$</p></td>
+                            </tr>
+                            <tr>
+                                <td><p>Account name:</p></td>
+                                <td id='stock-wallet-info'>
+                                    <select className='form-select'
+                                        value={storedActiveAccount!}
+                                        onChange={(e) => handleActiveAccount(JSON.parse(e.target.value))}>
+                                        {stockAccounts.map((account) => (
+                                            <option key={account.accountName} value={JSON.stringify(account)}>
+                                                {account.accountName}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p>Account type:</p></td>
+                                <td id='stock-wallet-info'><p>{activeAccount?.accountType}</p></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div className='actions-wallet'>
+                {/* <div className='actions-wallet'>
                     {activeAccount &&
                         <DepositForm accountID={activeAccount.id} handleDepositAccount={handleAccount} />
                     }
-                    <select className='form-select'
-                        value={storedActiveAccount!}
-                        onChange={(e) => handleActiveAccount(JSON.parse(e.target.value))}>
-                        {stockAccounts.map((account) => (
-                            <option key={account.accountName} value={JSON.stringify(account)}>
-                                {account.accountName}
-                            </option>
-                        ))}
-                    </select>
 
-                </div>
+
+                </div> */}
                 <div className='pie-chart'>
                     <p>Diagram:</p>
                     {activeAccount &&
@@ -100,36 +125,74 @@ export function StockComponent() {
             <hr />
             <div className='stock-porfolio-info'>
                 <p>Holdings:</p>
-                <div className="btn-group" role="group" aria-label="Basic outlined example">
+                {/* <div className="btn-group" role="group" aria-label="Basic outlined example">
                     <button type="button" className="btn btn-outline-primary">Left</button>
                     <button type="button" className="btn btn-outline-primary">Middle</button>
                     <button type="button" className="btn btn-outline-primary">Right</button>
-                </div><hr />
+                </div><hr /> */}
                 <div className='table-assets'>
                     <table className='table'>
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Buy price</th>
                                 <th>Count</th>
-                                <th>Asset type</th>
-                                <th>Currency</th>
-                                <th>Dividend yield</th>
-                                <th>Sector</th>
+                                <th>Entry price</th>
+                                <th>Price</th>
                                 <th>Cost</th>
+                                <th>Sector</th>
+                                <th>Dividends</th>
+                                <th>Share</th>
+                                <th>Profit</th>
+                                <th>Growth</th>
+                                {/* <th>Asset type</th> */}
+                                <th>Currency</th>
+
+
                             </tr>
                         </thead>
                         <tbody>
                             {activeAccount ? activeAccount.stocks?.map((stock) => (
                                 <tr key={stock.symbol}>
-                                    <td>{stock.name}</td>
-                                    <td>{stock.buyPrice}$</td>
+                                    <td>
+                                        <div className="truncate-name" title={stock.name}>
+                                            {stock.name}
+                                        </div>
+                                    </td>
                                     <td>{stock.countStocks}</td>
-                                    <td>{stock.assetType}</td>
-                                    <td>{stock.currency}</td>
-                                    <td>{stock.dividendYield}</td>
-                                    <td>{stock.sector}</td>
+                                    <td>{stock.buyPrice}$</td>
+                                    <td>
+                                    <svg width="23" height="23" fill="#ed230c" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M14.59 16.005 5.982 7.398l1.414-1.414 8.607 8.606V7.005h2v11h-11v-2h7.587Z"></path>
+                                        </svg>
+                                    </td>
                                     <td>{(stock.buyPrice * stock.countStocks).toFixed(2)}$</td>
+                                    <td>
+                                        <div className="truncate-sector" title={stock.sector}>
+                                            {stock.sector}
+                                        </div>
+                                    </td>
+                                    <td>{stock.dividendYield}</td>
+                                    <td>
+                                        <svg width="23" height="23" fill="#ed230c" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M14.59 16.005 5.982 7.398l1.414-1.414 8.607 8.606V7.005h2v11h-11v-2h7.587Z"></path>
+                                        </svg>
+                                    </td>
+                                    <td>
+                                        <svg width="23" height="23" fill="#0ced1b" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="m16.004 9.414-8.607 8.607-1.414-1.414L14.59 8H7.004V6h11v11h-2V9.414Z"></path>
+                                        </svg>
+
+                                    </td>
+                                    <td>
+                                    <svg width="23" height="23" fill="#0ced1b" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="m16.004 9.414-8.607 8.607-1.414-1.414L14.59 8H7.004V6h11v11h-2V9.414Z"></path>
+                                        </svg>
+                                    </td>
+                                    {/* <td>{stock.assetType}</td> */}
+                                    <td>{stock.currency}</td>
+
+
+
                                 </tr>
                             )) : <></>}
                         </tbody>
