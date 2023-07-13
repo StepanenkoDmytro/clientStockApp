@@ -33,6 +33,6 @@ export const PieAssetsChart: React.FC<PieAssetsChartrops> = ({ account, handleTo
     }, [account]);
 
     return (
-        <PieChart data={priceList} width={500} height={300} />
+        <PieChart data={priceList} width={300} height={150} />
     );
 }

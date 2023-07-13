@@ -45,7 +45,7 @@ const PieChart: React.FC<{ data: IPiePrice[]; width: number; height: number }> =
       .attr('transform', (d) => {
         const centroid = arc.centroid(d);
         const angle = Math.atan2(centroid[1], centroid[0]);
-        const appendToRadius = 3 / ((d.data.value / sum) * 100) * 17;
+        const appendToRadius = 3 / ((d.data.value / sum) * 100) * 11;
         const radius = (d.data.value / sum) * 100 > 3 ? arc.outerRadius()(d) + 10 : arc.outerRadius()(d) + appendToRadius; // Distance between text and sector
         const textX = radius * Math.cos(angle);
         const textY = radius * Math.sin(angle);
@@ -54,7 +54,7 @@ const PieChart: React.FC<{ data: IPiePrice[]; width: number; height: number }> =
       })
       .attr('dy', '0.35em')
       .text((d) => `${((d.data.value / sum) * 100).toFixed(0)}%`)
-      .style('font-size', `20px`)
+      .style('font-size', `11px`)
       .style('fill', 'white')
       .style('text-anchor', (d) => {
         const centroid = arc.centroid(d);

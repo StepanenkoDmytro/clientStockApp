@@ -1,6 +1,10 @@
 .table-assets {
     font-size: small;
 }
+
+.table-assets table {
+    align-items: center;
+}
 .table-assets .table thead {
     color: rgb(160, 159, 162);
 }
@@ -22,6 +26,7 @@
 .table-assets p {
     font-size: medium;
 }
+
 
 .table-assets a {
     text-decoration: none;

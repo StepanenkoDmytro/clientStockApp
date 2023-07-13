@@ -4,7 +4,7 @@ import '../account.css'
 import '../../components/css/table-assets.css'
 import { useStore } from 'effector-react';
 import { USER_AUTH_TOKEN, updateAccount, userAccountsStore } from '../../../store/store';
-import { IAccount } from '../../markets/coinMarket/interfaces';
+import { IAccount, IAccountStock, IPiePrice } from '../../markets/coinMarket/interfaces';
 import { DepositForm } from '../porfolio/portfolioComponents/DepositForm';
 import { PieAssetsChart } from '../porfolio/portfolioComponents/PieAssetsChart';
 import HeadOfBlock from '../../components/HeadOfBlock';
@@ -13,6 +13,8 @@ export function StockComponent() {
     const token = localStorage.getItem(USER_AUTH_TOKEN);
     const accounts: IAccount[] = useStore(userAccountsStore);
     const stockAccounts = accounts.filter((account) => account.accountType === 'StockWallet');
+
+    const [currentStockPrices, setCurrentStockPrices] = useState<IPiePrice[]>([]);
 
     const [activeAccount, setActiveAccount] = useState<IAccount | null>(null);
     const [accountTotalBalance, setAccountTotalBalance] = useState<number>(0);
@@ -45,13 +47,15 @@ export function StockComponent() {
                 })
                     .then((response) => response.json())
                     .then((account: IAccount) => {
-                        console.log(account);
+                        // console.log(account);
                         setActiveAccount(account);
+                        getPrices(account);
                     })
                     .catch((error) => {
                         console.error(error);
                     });
         }
+
     }, [accounts]);
 
     const handleTotalBalance = (totalBalance: number) => {
@@ -65,65 +69,196 @@ export function StockComponent() {
         localStorage.setItem('activeStockAccount', JSON.stringify(account));
     }
 
+    const getPrices = (account: IAccount) => {
+
+        fetch(`http://localhost:8000/api/v1/stocks/price-list`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer_${token}`
+            },
+            body: JSON.stringify(account)
+        })
+            .then((response) => response.json())
+            .then((prices: IPiePrice[]) => {
+                console.log(prices);
+                setCurrentStockPrices(prices);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
+
+    const handlePrices = (ticker: string) => {
+        const priceObj = currentStockPrices?.find((item) => (item.label === ticker));
+        return priceObj ? priceObj.value : 0;
+    };
+
+    const costAccount = (activeAccount: IAccount) => {
+        const coast = activeAccount.stocks.reduce((sum: number, el: IAccountStock) => {
+            return sum + (el.buyPrice * el.countStocks)
+        }, 0);
+        return coast;
+    };
+
+    const getShareOfStock = (stock: IAccountStock) => {
+        return ((coastStock(stock)) / costAccount(activeAccount!)) * 100;
+    };
+
+    const coastStock = (stock: IAccountStock) => {
+        return stock.buyPrice * stock.countStocks;
+    };
+
+    const profitStock = (stock: IAccountStock) => {
+        return ((handlePrices(stock.symbol) - stock.buyPrice) * stock.countStocks).toFixed(2);
+    }
+
+    const growthStock = (stock: IAccountStock) => {
+        return ((((handlePrices(stock.symbol) - stock.buyPrice) * stock.countStocks) / (stock.buyPrice * stock.countStocks)) * 100).toFixed(2);
+    }
+
     return (
         <div className='stock-container'>
             <div className='up'>
-                <div className='info-container'>
-                    <HeadOfBlock name='Wallet info:' />
-                    <table>
-                        <thead>
-                            <tr>
-                                <th style={{ width: '250px' }} />
-                                <th style={{ width: '200px' }} />
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><h4>Total balance:</h4></td>
-                                <td id='stock-wallet-info'>
-                                    <h4>{accountTotalBalance}$</h4>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><p>Unused USD:</p></td>
-                                <td id='stock-wallet-info'><p>{activeAccount?.balance}$</p></td>
-                            </tr>
-                            <tr>
-                                <td><p>Account name:</p></td>
-                                <td id='stock-wallet-info'>
-                                    <select className='form-select'
-                                        value={storedActiveAccount!}
-                                        onChange={(e) => handleActiveAccount(JSON.parse(e.target.value))}>
-                                        {stockAccounts.map((account) => (
-                                            <option key={account.accountName} value={JSON.stringify(account)}>
-                                                {account.accountName}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><p>Account type:</p></td>
-                                <td id='stock-wallet-info'><p>{activeAccount?.accountType}</p></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div className='up-group'>
+                    <div className='info-container'>
+                        <HeadOfBlock name='Wallet info:' />
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style={{ width: '250px' }} />
+                                    <th style={{ width: '100px' }} />
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><h4>Total balance:</h4></td>
+                                    <td id='stock-wallet-info'>
+                                        <h4>{accountTotalBalance}$</h4>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><p>Unused USD:</p></td>
+                                    <td id='stock-wallet-info'><p>{activeAccount?.balance}$</p></td>
+                                </tr>
+                                <tr>
+                                    <td><p>Account name:</p></td>
+                                    <td id='stock-wallet-info'>
+                                        <select className='form-select'
+                                            value={storedActiveAccount!}
+                                            onChange={(e) => handleActiveAccount(JSON.parse(e.target.value))}>
+                                            {stockAccounts.map((account) => (
+                                                <option key={account.accountName} value={JSON.stringify(account)}>
+                                                    {account.accountName}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><p>Account type:</p></td>
+                                    <td id='stock-wallet-info'><p>{activeAccount?.accountType}</p></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className='info-container'>
+                        <HeadOfBlock name='Diagram:' />
+                        {activeAccount &&
+                            <PieAssetsChart account={activeAccount} handleTotalBalance={handleTotalBalance} />
+                        }
+                    </div>
                 </div>
-                {/* <div className='actions-wallet'>
+                <div className='actions-wallet'>
                     {activeAccount &&
                         <DepositForm accountID={activeAccount.id} handleDepositAccount={handleAccount} />
                     }
 
 
-                </div> */}
-                <div className='info-container'>
-                    <HeadOfBlock name='Diagram:' />
-                    {activeAccount &&
-                        <PieAssetsChart account={activeAccount} handleTotalBalance={handleTotalBalance} />
-                    }
+                </div>
+
+                <div className='up-group'>
+
+                    <div className='info-container'>
+                        <HeadOfBlock name='Profit:' />
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th
+                                        style={{ width: '150px' }}
+                                    />
+                                    <th
+                                        style={{ width: '100px' }}
+                                    />
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><p>Day profit:</p></td>
+                                    <td id='stock-profit-positive'>
+                                        <p>10$</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><p>Week profit:</p></td>
+                                    <td id='stock-profit-negative'>
+                                        <p>-100$</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><p>Month profit:</p></td>
+                                    <td id='stock-profit-positive'>
+                                        <p>200$</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><p>Total profit:</p></td>
+                                    <td id='stock-profit-positive'>
+                                        <p>1200$</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className='info-container'>
+                        <HeadOfBlock name='Calculator:' />
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th
+                                        style={{ width: '150px' }}
+                                    />
+                                    <th
+                                        style={{ width: '100px' }}
+                                    />
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><p>USD:</p></td>
+                                    <td id='stock-profit-positive'>
+                                        <p>100$</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><p>EUR:</p></td>
+                                    <td id='stock-profit-negative'>
+                                        <p>89.57€</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><p>UAH:</p></td>
+                                    <td id='stock-profit-positive'>
+                                        <p>200₴</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-            <hr />
+
+            {/* <hr /> */}
             <div className='info-container'>
                 <HeadOfBlock name='Holdings:' />
                 {/* <div className="btn-group" role="group" aria-label="Basic outlined example">
@@ -162,9 +297,20 @@ export function StockComponent() {
                                     <td>{stock.countStocks}</td>
                                     <td>{stock.buyPrice}$</td>
                                     <td>
-                                    <svg width="23" height="23" fill="#ed230c" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M14.59 16.005 5.982 7.398l1.414-1.414 8.607 8.606V7.005h2v11h-11v-2h7.587Z"></path>
-                                        </svg>
+                                        {(handlePrices(stock.symbol) > stock.buyPrice)
+                                            ? <div style={{ display: 'flex' }}>
+                                                <img className='right-element' src="/icons/positive-growth.svg" alt="Icon" />
+                                                <p id='positive-growth'>
+                                                    {handlePrices(stock.symbol).toFixed(2)}
+                                                </p>
+                                            </div>
+                                            : <div style={{ display: 'flex' }}>
+                                                <img className='right-element' src="/icons/negative-growth.svg" alt="Icon" />
+                                                <p id='negative-growth'>
+                                                    {handlePrices(stock.symbol).toFixed(2)}
+                                                </p>
+                                            </div>
+                                        }
                                     </td>
                                     <td>{(stock.buyPrice * stock.countStocks).toFixed(2)}$</td>
                                     <td>
@@ -173,21 +319,42 @@ export function StockComponent() {
                                         </div>
                                     </td>
                                     <td>{stock.dividendYield}</td>
+                                    <td>{getShareOfStock(stock)}%</td>
                                     <td>
-                                        <svg width="23" height="23" fill="#ed230c" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M14.59 16.005 5.982 7.398l1.414-1.414 8.607 8.606V7.005h2v11h-11v-2h7.587Z"></path>
-                                        </svg>
-                                    </td>
-                                    <td>
-                                        <svg width="23" height="23" fill="#0ced1b" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="m16.004 9.414-8.607 8.607-1.414-1.414L14.59 8H7.004V6h11v11h-2V9.414Z"></path>
-                                        </svg>
+                                        {parseInt(profitStock(stock)) > 0
+                                            ? <div style={{ display: 'flex' }}>
+                                                <img className='right-element' src="/icons/positive-growth.svg" alt="Icon" />
+                                                <p id='positive-growth'>
+                                                    {profitStock(stock)}
+                                                </p>
+                                            </div>
+                                            : <div style={{ display: 'flex' }}>
 
+                                                <img className='right-element' src="/icons/negative-growth.svg" alt="Icon" />
+                                                <p id='negative-growth'>
+                                                    {profitStock(stock)}
+                                                </p>
+
+                                            </div>
+                                        }
                                     </td>
                                     <td>
-                                    <svg width="23" height="23" fill="#0ced1b" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="m16.004 9.414-8.607 8.607-1.414-1.414L14.59 8H7.004V6h11v11h-2V9.414Z"></path>
-                                        </svg>
+                                        {parseInt(growthStock(stock)) > 0
+                                            ? <div style={{ display: 'flex' }}>
+                                                <img className='right-element' src="/icons/positive-growth.svg" alt="Icon" />
+                                                <p id='positive-growth'>
+                                                    {growthStock(stock)}%
+                                                </p>
+                                            </div>
+                                            : <div style={{ display: 'flex' }}>
+
+                                                <img className='right-element' src="/icons/negative-growth.svg" alt="Icon" />
+                                                <p id='negative-growth'>
+                                                    {growthStock(stock)}%
+                                                </p>
+
+                                            </div>
+                                        }
                                     </td>
                                     {/* <td>{stock.assetType}</td> */}
                                     <td>{stock.currency}</td>

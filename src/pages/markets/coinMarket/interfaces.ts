@@ -15,6 +15,7 @@ export interface IStock {
     assetType: string;
     name: string;
     price: number;
+    exchange: string;
     currency: string;
     country: string;
     sector: string;
