@@ -5,6 +5,7 @@ import '../../components/css/table-assets.css'
 import { IUser } from '../../markets/coinMarket/interfaces';
 import { FormEvent, useEffect, useState } from 'react';
 import { USER_AUTH_TOKEN } from '../../../App';
+import HeadOfBlock from '../../components/HeadOfBlock';
 
 export const TYPE_CRYPTO_WALLET = 'CryptoWallet';
 export const TYPE_STOCK_WALLET = 'StockWallet';
@@ -73,7 +74,7 @@ export function PortfolioComponent() {
         <div className='porfolio-container'>
 
             <div className='porfolio-info'>
-                <p>Portfolio info</p>
+                <HeadOfBlock name='Portfolio info' />
                 <h2>{'Total balance: 0$'}</h2>
                 <form onSubmit={(e) => createNewAccount(e)}>
                     <input type='text' name='accountName' placeholder='Введіть назву гаманця'
@@ -90,7 +91,7 @@ export function PortfolioComponent() {
 
             <div className='wallets'>
                 <div className='wallets-dropdown'>
-                    <p>Wallets:</p>
+                    <HeadOfBlock name='Wallets:' />
                     <ul className='list-unstyled'>
                         {accounts.map((account) => (
                             <li key={account.accountName}>

@@ -7,6 +7,7 @@ import { USER_AUTH_TOKEN, updateAccount, userAccountsStore } from '../../../stor
 import { IAccount } from '../../markets/coinMarket/interfaces';
 import { DepositForm } from '../porfolio/portfolioComponents/DepositForm';
 import { PieAssetsChart } from '../porfolio/portfolioComponents/PieAssetsChart';
+import HeadOfBlock from '../../components/HeadOfBlock';
 
 export function StockComponent() {
     const token = localStorage.getItem(USER_AUTH_TOKEN);
@@ -67,8 +68,8 @@ export function StockComponent() {
     return (
         <div className='stock-container'>
             <div className='up'>
-                <div className='stock-info'>
-                    <label>Wallet info</label>
+                <div className='info-container'>
+                    <HeadOfBlock name='Wallet info:' />
                     <table>
                         <thead>
                             <tr>
@@ -115,16 +116,16 @@ export function StockComponent() {
 
 
                 </div> */}
-                <div className='pie-chart'>
-                    <p>Diagram:</p>
+                <div className='info-container'>
+                    <HeadOfBlock name='Diagram:' />
                     {activeAccount &&
                         <PieAssetsChart account={activeAccount} handleTotalBalance={handleTotalBalance} />
                     }
                 </div>
             </div>
             <hr />
-            <div className='stock-porfolio-info'>
-                <p>Holdings:</p>
+            <div className='info-container'>
+                <HeadOfBlock name='Holdings:' />
                 {/* <div className="btn-group" role="group" aria-label="Basic outlined example">
                     <button type="button" className="btn btn-outline-primary">Left</button>
                     <button type="button" className="btn btn-outline-primary">Middle</button>

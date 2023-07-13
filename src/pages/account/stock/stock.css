@@ -9,6 +9,7 @@
 
 .up {
     display: flex;
+    align-items: flex-start;
 }
 
 .stock-info {

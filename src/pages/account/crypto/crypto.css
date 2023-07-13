@@ -6,13 +6,10 @@
     margin-left: 21%;
     padding: 10px;
 }
-.crypto-container p {
-    color: rgb(160, 159, 162);
-    font-size: medium;
-}
 
 .up {
     display: flex;
+    align-items: flex-start;
 }
 
 .coins-table {
@@ -24,7 +21,7 @@
     box-shadow: -5px 5px 10px -5px rgb(16, 16, 16);
     height: auto;
 }
-
+  
 .crypto-info {
     display: inline-block;
     align-items: center;
@@ -68,15 +65,3 @@
     border-radius: 10px;
 }
 
-.pie-chart {
-    margin: 3.5%;
-    padding: 2%;
-    color: rgb(249, 250, 254);
-    background-color: rgb(16, 16, 16);
-    border-radius: 10px;
-}
-
-.pie-chart {
-    /* display: flex; */
-    /* align-items: */
-}

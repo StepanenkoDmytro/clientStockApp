@@ -3,6 +3,7 @@ import '../../components/css/table-assets.css'
 import { useState, useEffect } from 'react';
 import { ICoinVM, IPage, ICoinDto, ICoin } from './interfaces';
 import { $search } from '../../../store/store';
+import HeadOfBlock from '../../components/HeadOfBlock';
 
 export const INITIAL_PAGINATION = {
     totalItems: 0,
@@ -78,7 +79,7 @@ export function CoinList() {
         <div className="coin-market-container">
             <div className='table-container'>
                 <div className="table-assets">
-                    <p>Crypto market:</p>
+                    <HeadOfBlock name={'Crypto market:'}/>
 
                     <table className="table">
                         <thead>

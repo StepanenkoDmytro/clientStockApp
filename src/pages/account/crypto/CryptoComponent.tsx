@@ -7,6 +7,7 @@ import { USER_AUTH_TOKEN, updateAccount, userAccountsStore } from '../../../stor
 import { IAccount } from '../../markets/coinMarket/interfaces';
 import { DepositForm } from '../porfolio/portfolioComponents/DepositForm';
 import { PieAssetsChart } from '../porfolio/portfolioComponents/PieAssetsChart';
+import HeadOfBlock from '../../components/HeadOfBlock';
 
 export function CryptoComponent() {
     const token = localStorage.getItem(USER_AUTH_TOKEN);
@@ -68,14 +69,8 @@ export function CryptoComponent() {
     return (
         <div className='crypto-container'>
             <div className='up'>
-                <div className='crypto-info'>
-                    {/* <p>Wallet info</p>
-                    <h1>{activeAccount?.accountName}</h1>
-                    <h6>{activeAccount?.accountType}</h6>
-
-                    <h2>Total balance: {accountTotalBalance}$</h2>
-                    <h4>USD: {activeAccount?.balance}$</h4> */}
-                    <label>Wallet info</label>
+                <div className='info-container'>
+                    <HeadOfBlock name='Wallet info:' />
                     <table>
                         <thead>
                             <tr>
@@ -115,28 +110,27 @@ export function CryptoComponent() {
                         </tbody>
                     </table>
                 </div>
-                <div className='pie-chart'>
-                    <p>Diagram:</p>
+                <div className='info-container'>
+                    <HeadOfBlock name='Diagram:' />
                     {activeAccount &&
                         <PieAssetsChart account={activeAccount} handleTotalBalance={handleTotalBalance} />
                     }
                 </div>
-                <div className='actions-wallet'>
+                {/* <div className='actions-wallet'>
                     <p>Action wallet</p>
 
                     {activeAccount &&
                         <DepositForm accountID={activeAccount.id} handleDepositAccount={handleDepositAccount} />
                     }
-                </div>
-
+                </div> */}
             </div>
 
             <hr />
             {/* <div>
                 <Speedometer width={200} height={200} value={64} previousValues={[74,76]}/>
             </div> */}
-            <div className='coins-table'>
-                <p>Holdings:</p>
+            <div className='info-container'>
+                <HeadOfBlock name='Holdings:' />
                 <div className='table-assets'>
                     <table className='table'>
                         <thead className='thead-dark'>

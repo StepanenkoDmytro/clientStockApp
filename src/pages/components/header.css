@@ -1,13 +1,19 @@
-.nav-link {
-    color: gray;
+.head-of-block {
+    display: flex;
+    align-items: top;
+    margin-bottom: 10px;
 }
 
-.nav-link:hover {
-    transform: scale(1.2);
-    color: black;
+.head-of-block p {
+    font-size: medium;
+    color: rgb(160, 159, 162);
 }
 
-.dropdown-item.active{
-    color: black;
-    background-color: white;
+.left-element {
+    margin-right: 10px;
+}
+
+.right-element {
+    margin-left: auto;
+    height: 18px;
 }

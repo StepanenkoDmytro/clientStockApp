@@ -6,6 +6,7 @@ import '../../components/css/table-assets.css'
 import { PurchaseData, PurchaseWidgetStock } from "./components/PurchaseWidgetStock";
 import { useStore } from "effector-react";
 import { tokenStore, updateAccount, userAccountsStore } from "../../../store/store";
+import HeadOfBlock from "../../components/HeadOfBlock";
 
 export function StockList() {
     const token = useStore(tokenStore);
@@ -113,7 +114,7 @@ export function StockList() {
             <div className="companies-container">
                 <div className='info-container'>
                     <div className="table-assets">
-                        <p>Stock market:</p>
+                        <HeadOfBlock name='Stock market:' />
                         <div className='type-companies'>
                             <button className='button-table' onClick={() => handleTypeCompaniesList('MOST_ACTIVES')}>Actives</button>
                             <button className='button-table' onClick={() => handleTypeCompaniesList('DAY_GAINERS')}>Gainers</button>
@@ -147,65 +148,64 @@ export function StockList() {
                 </div>
                 <div className="info-container">
                     <div className="table-assets">
-                        <p>Details:</p>
-                    
-                    {activeStock
-                        ? (<div>
-                            <h4>{activeStock.price}</h4>
-                            <table className="table">
-                                <tbody>
-                                    <tr>
-                                        <td>Symbol:</td>
-                                        <td className="data">{activeStock.symbol}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Name:</td>
-                                        <td className="data">{activeStock.name}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Currency:</td>
-                                        <td className="data">{activeStock.currency}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Country:</td>
-                                        <td className="data">{activeStock.country}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Sector:</td>
-                                        <td className="data">{activeStock.sector}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Industry:</td>
-                                        <td className="data">{activeStock.industry}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Market Capitalization:</td>
-                                        <td className="data">{activeStock.marketCapitalization}$</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dividend Yield:</td>
-                                        <td className="data">{activeStock.dividendYield}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dividend Date:</td>
-                                        <td className="data">{activeStock.dividendDate}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Last Dividend Date:</td>
-                                        <td className="data">{activeStock.exDividendDate}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>)
-                        : (<div>
-                            <h4 style={{ color: 'red' }}>Виберіть акцію</h4>
-                        </div>)
-                    }
+                        <HeadOfBlock name='Details:' />
+                        {activeStock
+                            ? (<div>
+                                <h4>{activeStock.price}</h4>
+                                <table className="table">
+                                    <tbody>
+                                        <tr>
+                                            <td>Symbol:</td>
+                                            <td className="data">{activeStock.symbol}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Name:</td>
+                                            <td className="data">{activeStock.name}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Currency:</td>
+                                            <td className="data">{activeStock.currency}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Country:</td>
+                                            <td className="data">{activeStock.country}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sector:</td>
+                                            <td className="data">{activeStock.sector}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Industry:</td>
+                                            <td className="data">{activeStock.industry}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Market Capitalization:</td>
+                                            <td className="data">{activeStock.marketCapitalization}$</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Dividend Yield:</td>
+                                            <td className="data">{activeStock.dividendYield}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Dividend Date:</td>
+                                            <td className="data">{activeStock.dividendDate}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Last Dividend Date:</td>
+                                            <td className="data">{activeStock.exDividendDate}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>)
+                            : (<div>
+                                <h4 style={{ color: 'red' }}>Виберіть акцію</h4>
+                            </div>)
+                        }
                     </div>
                 </div>
                 <div className="info-container">
                     <div>
-                        <p>Details Buy:</p>
+                        <HeadOfBlock name='Details Buy:' />
                     </div>
                     {activeStock ? (
                         <div>
@@ -215,7 +215,6 @@ export function StockList() {
                         <h4 style={{ color: 'red' }}>Виберіть акцію</h4>
                     </div>)}
                 </div>
-
             </div>
         </div>
     );

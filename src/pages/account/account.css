@@ -1,3 +1,13 @@
 .account-container {
     display: flex;
 }
+
+.info-container {
+    font-size: small;
+    margin: 10px;
+    padding: 20px;
+    box-shadow: -5px 5px 10px -5px rgb(16, 16, 16);
+    background-color: rgb(16, 16, 16);
+    border-radius: 10px;
+    height: auto;
+}

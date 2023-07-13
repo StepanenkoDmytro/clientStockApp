@@ -2,7 +2,7 @@
 import { Outlet, useNavigate } from 'react-router-dom'
 import './App.css'
 import { Footer } from './pages/components/Footer.tsx'
-import { Header } from './pages/components/Header.tsx'
+import { Header } from './pages/components/(Depricated)Header.tsx'
 import { useStore } from 'effector-react';
 import { saveToken, saveUser, userStore } from './store/store';
 import { IUser, IUserDto } from './pages/markets/coinMarket/interfaces.ts';
