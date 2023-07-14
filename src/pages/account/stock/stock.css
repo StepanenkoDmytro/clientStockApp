@@ -77,14 +77,14 @@
     color: rgb(249, 250, 254);
     background-color: rgb(16, 16, 16);
     border-radius: 10px;
-}
+}*/
 
 .truncate-name {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 100px;
-}*/
+}
 
 .truncate-sector {
     white-space: nowrap;

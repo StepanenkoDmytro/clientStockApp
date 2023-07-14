@@ -169,13 +169,13 @@ export function StockComponent() {
                         }
                     </div>
                 </div>
-                <div className='actions-wallet'>
+                {/* <div className='actions-wallet'>
                     {activeAccount &&
                         <DepositForm accountID={activeAccount.id} handleDepositAccount={handleAccount} />
                     }
 
 
-                </div>
+                </div> */}
 
                 <div className='up-group'>
 
@@ -216,6 +216,17 @@ export function StockComponent() {
                                     <td id='stock-profit-positive'>
                                         <p>1200$</p>
                                     </td>
+                                </tr>
+                               <tr><hr/></tr>
+                                <tr>
+                                    <td><p>Received dividend:</p></td>
+                                    <td id='stock-profit-positive'>
+                                        <p>20$</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><p>Forecast dividend</p></td>
+                                    <td id='stock-profit-positive'><p>120$</p></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -258,14 +269,8 @@ export function StockComponent() {
                 </div>
             </div>
 
-            {/* <hr /> */}
             <div className='info-container'>
                 <HeadOfBlock name='Holdings:' />
-                {/* <div className="btn-group" role="group" aria-label="Basic outlined example">
-                    <button type="button" className="btn btn-outline-primary">Left</button>
-                    <button type="button" className="btn btn-outline-primary">Middle</button>
-                    <button type="button" className="btn btn-outline-primary">Right</button>
-                </div><hr /> */}
                 <div className='table-assets'>
                     <table className='table'>
                         <thead>
@@ -280,7 +285,6 @@ export function StockComponent() {
                                 <th>Share</th>
                                 <th>Profit</th>
                                 <th>Growth</th>
-                                {/* <th>Asset type</th> */}
                                 <th>Currency</th>
 
 
@@ -319,48 +323,42 @@ export function StockComponent() {
                                         </div>
                                     </td>
                                     <td>{stock.dividendYield}</td>
-                                    <td>{getShareOfStock(stock)}%</td>
+                                    <td>{getShareOfStock(stock).toFixed(2)}%</td>
                                     <td>
-                                        {parseInt(profitStock(stock)) > 0
+                                        {parseInt(profitStock(stock)) < 0
                                             ? <div style={{ display: 'flex' }}>
-                                                <img className='right-element' src="/icons/positive-growth.svg" alt="Icon" />
-                                                <p id='positive-growth'>
+                                                <img className='right-element' src="/icons/negative-growth.svg" alt="Icon" />
+                                                <p id='negative-growth'>
                                                     {profitStock(stock)}
                                                 </p>
                                             </div>
                                             : <div style={{ display: 'flex' }}>
 
-                                                <img className='right-element' src="/icons/negative-growth.svg" alt="Icon" />
-                                                <p id='negative-growth'>
+
+                                                <img className='right-element' src="/icons/positive-growth.svg" alt="Icon" />
+                                                <p id='positive-growth'>
                                                     {profitStock(stock)}
                                                 </p>
-
                                             </div>
                                         }
                                     </td>
                                     <td>
-                                        {parseInt(growthStock(stock)) > 0
+                                        {parseInt(growthStock(stock)) < 0
                                             ? <div style={{ display: 'flex' }}>
+                                                <img className='right-element' src="/icons/negative-growth.svg" alt="Icon" />
+                                                <p id='negative-growth'>
+                                                    {growthStock(stock)}%
+                                                </p>
+                                            </div>
+                                            : <div style={{ display: 'flex' }}>
                                                 <img className='right-element' src="/icons/positive-growth.svg" alt="Icon" />
                                                 <p id='positive-growth'>
                                                     {growthStock(stock)}%
                                                 </p>
                                             </div>
-                                            : <div style={{ display: 'flex' }}>
-
-                                                <img className='right-element' src="/icons/negative-growth.svg" alt="Icon" />
-                                                <p id='negative-growth'>
-                                                    {growthStock(stock)}%
-                                                </p>
-
-                                            </div>
                                         }
                                     </td>
-                                    {/* <td>{stock.assetType}</td> */}
                                     <td>{stock.currency}</td>
-
-
-
                                 </tr>
                             )) : <></>}
                         </tbody>

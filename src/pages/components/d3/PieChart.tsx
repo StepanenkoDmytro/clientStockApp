@@ -67,8 +67,7 @@ const PieChart: React.FC<{ data: IPiePrice[]; width: number; height: number }> =
     const listItem = list.selectAll<HTMLElement, IPiePrice>('li')
       .data(data)
       .join('li')
-      .text((d) => d.label)
-      .style('font-size', `13px`); // Change text color
+      .text((d) => d.label); // Change text color
 
     listItem.append('span') // Add a <span> element for the square
       .style('display', 'inline-block')

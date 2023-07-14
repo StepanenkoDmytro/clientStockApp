@@ -8,6 +8,19 @@
     margin-left: 21%;
     padding: 10px;
 }
+.up {
+    display: flex;
+}
+
+.user-photo {
+    position: relative;
+    box-sizing: border-box;
+    width: 154px;
+    height: 154px;
+    border: 2px solid black;
+    border-radius: 50%;
+    /* margin: 40px; */
+}
 
 .porfolio-info {
     background-color: rgb(16, 16, 16);

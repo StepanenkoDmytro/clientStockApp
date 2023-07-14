@@ -1,11 +1,13 @@
 import { useStore } from 'effector-react';
-import { saveUser, userStore } from '../../../store/store';
+import { saveUser, updateAccount, userStore } from '../../../store/store';
 import './porfolio.css'
+import '../account.css'
 import '../../components/css/table-assets.css'
-import { IUser } from '../../markets/coinMarket/interfaces';
+import { IAccount, IUser } from '../../markets/coinMarket/interfaces';
 import { FormEvent, useEffect, useState } from 'react';
 import { USER_AUTH_TOKEN } from '../../../App';
 import HeadOfBlock from '../../components/HeadOfBlock';
+import { DepositForm } from './portfolioComponents/DepositForm';
 
 export const TYPE_CRYPTO_WALLET = 'CryptoWallet';
 export const TYPE_STOCK_WALLET = 'StockWallet';
@@ -70,22 +72,115 @@ export function PortfolioComponent() {
             [accountName]: !prevShowAccountMap[accountName],
         }));
     };
+
+    const handleClick = () => {
+        const input = document.querySelector('#inputFile')!;
+        input.click();
+    }
+   
     return (
         <div className='porfolio-container'>
+            <div className='up'>
+                <div className='info-container'>
+                    <HeadOfBlock name='Dmytro Stepanenko:' />
 
-            <div className='porfolio-info'>
-                <HeadOfBlock name='Portfolio info' />
-                <h2>{'Total balance: 0$'}</h2>
-                <form onSubmit={(e) => createNewAccount(e)}>
-                    <input type='text' name='accountName' placeholder='Введіть назву гаманця'
-                        onChange={(e) => handlNewAccountName(e.target.value)} />
-                    <select name='accountType' defaultValue={TYPE_STOCK_WALLET}
-                        onChange={(e) => setAccountType(e.target.value)}>
-                        <option value={TYPE_STOCK_WALLET}>{TYPE_STOCK_WALLET}</option>
-                        <option value={TYPE_CRYPTO_WALLET}>{TYPE_CRYPTO_WALLET}</option>
-                    </select>
-                    <button type='submit' className='btn btn-success'>Create</button>
-                </form>
+                    <div className='user-photo' onClick={() => handleClick()}>
+                        <img
+                            src={user?.imageID ? `http://localhost:8000/images/${user?.imageID}` : '/src/img/non-user-photo.png'}
+                        />
+                        <span> update photo </span>
+                        <input type="file" name="" id="inputFile" style={{ display: 'none' }}
+                        //   onChange={}
+                        />
+                    </div>
+                    {/* <div>
+                        <h2>{'Total balance: 0$'}</h2>
+                        <p>{'Dmytro Stepanenko'}</p>
+                        <p>{user?.email}</p>
+                        <p>{'0982846242'}</p>
+                    </div> */}
+                </div>
+                <div className='info-container'>
+                    <HeadOfBlock name='Portfolio info' />
+                    {/* <h2>{'Total balance: 0$'}</h2> */}
+                    <form onSubmit={(e) => createNewAccount(e)}>
+                        <input type='text' name='accountName' placeholder='Введіть назву гаманця'
+                            onChange={(e) => handlNewAccountName(e.target.value)} />
+                        <select name='accountType' defaultValue={TYPE_STOCK_WALLET}
+                            onChange={(e) => setAccountType(e.target.value)}>
+                            <option value={TYPE_STOCK_WALLET}>{TYPE_STOCK_WALLET}</option>
+                            <option value={TYPE_CRYPTO_WALLET}>{TYPE_CRYPTO_WALLET}</option>
+                        </select>
+                        <button type='submit' className='btn btn-success'>Create</button>
+                    </form>
+                    {accounts
+                        ? <div>
+                            <select className='form-select'
+                                // value={depositAccount!.accountName}
+                                // onChange={(e) => handleAccount(JSON.parse(e.target.value))}
+                                >
+                                {accounts.map((account) => (
+                                    <option key={account.accountName} value={JSON.stringify(account)}>
+                                        {account.accountName}
+                                    </option>
+                                ))}
+                            </select>
+                            {/* <DepositForm accountID={depositAccount!.id} handleDepositAccount={handleDepositAccount} /> */}
+                        </div>
+                        : <></>}
+                </div>
+                <div className='info-container'>
+                    <HeadOfBlock name='Summary profit:' />
+                    <table>
+                        <thead>
+                            <tr>
+                                <th
+                                    style={{ width: '150px' }}
+                                />
+                                <th
+                                    style={{ width: '100px' }}
+                                />
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><p>Day profit:</p></td>
+                                <td id='stock-profit-positive'>
+                                    <p>10$</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p>Week profit:</p></td>
+                                <td id='stock-profit-negative'>
+                                    <p>-100$</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p>Month profit:</p></td>
+                                <td id='stock-profit-positive'>
+                                    <p>200$</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p>Total profit:</p></td>
+                                <td id='stock-profit-positive'>
+                                    <p>1200$</p>
+                                </td>
+                            </tr>
+                            <tr><hr /></tr>
+                            <tr>
+                                <td><p>Received dividend:</p></td>
+                                <td id='stock-profit-positive'>
+                                    <p>20$</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p>Forecast dividend</p></td>
+                                <td id='stock-profit-positive'><p>120$</p></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <hr />
 
