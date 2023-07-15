@@ -99,6 +99,10 @@ export function CryptoComponent() {
         return coast;
     };
 
+    const profitCoin = (coin: IAccountCoin) => {
+        return ((handlePrice(coin.symbol) * coin.countCoin) - (coin.avgPrice * coin.countCoin)).toFixed(2);
+    }
+
     // const getShareOfStock = (stock: IAccountCoin) => {
     //     return ((coastStock(stock)) / costAccount(activeAccount!)) * 100;
     // };
@@ -221,10 +225,41 @@ export function CryptoComponent() {
                                     <td>
                                         {(handlePrice(coin.symbol) * coin.countCoin).toFixed(2)}$
                                     </td>
-                                    <td>{((handlePrice(coin.symbol) * coin.countCoin / costAccount(activeAccount)) * 100).toFixed(2)}%</td>
-                                    <td>{((handlePrice(coin.symbol) * coin.countCoin) - (coin.avgPrice * coin.countCoin)).toFixed(2)}$</td>
                                     <td>
-                                        {((((handlePrice(coin.symbol) * coin.countCoin) - (coin.avgPrice * coin.countCoin)) / (coin.avgPrice * coin.countCoin)) * 100).toFixed(2)}%
+                                        {((handlePrice(coin.symbol) * coin.countCoin / costAccount(activeAccount)) * 100).toFixed(2)}%
+                                    </td>
+                                    <td>
+                                        {parseInt(profitCoin(coin)) < 0
+                                            ? <div style={{ display: 'flex' }}>
+                                                <img className='right-element' src="/icons/negative-growth.svg" alt="Icon" />
+                                                <p id='negative-growth'>
+                                                    {profitCoin(coin)}
+                                                </p>
+                                            </div>
+                                            : <div style={{ display: 'flex' }}>
+                                                <img className='right-element' src="/icons/positive-growth.svg" alt="Icon" />
+                                                <p id='positive-growth'>
+                                                    {profitCoin(coin)}
+                                                </p>
+                                            </div>
+                                        }
+                                    </td>
+                                    <td>
+                                    {parseInt(profitCoin(coin)) < 0
+                                            ? <div style={{ display: 'flex' }}>
+                                                <img className='right-element' src="/icons/negative-growth.svg" alt="Icon" />
+                                                <p id='negative-growth'>
+                                                {((parseInt(profitCoin(coin)) / (coin.avgPrice * coin.countCoin)) * 100).toFixed(2)}%
+                                                </p>
+                                            </div>
+                                            : <div style={{ display: 'flex' }}>
+                                                <img className='right-element' src="/icons/positive-growth.svg" alt="Icon" />
+                                                <p id='positive-growth'>
+                                                {((parseInt(profitCoin(coin)) / (coin.avgPrice * coin.countCoin)) * 100).toFixed(2)}%
+                                                </p>
+                                            </div>
+                                        }
+                                        
                                     </td>
                                 </tr>
                             ))}
