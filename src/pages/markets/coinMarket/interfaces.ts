@@ -89,8 +89,8 @@ export interface IAccountCoin {
     idCoin: string;
     name: string;
     symbol: string;
-    amountCOIN: number;
-    amountUSD: number;
+    countCoin: number;
+    avgPrice: number;
 }
 
 export interface IAccountStock {
@@ -122,5 +122,9 @@ export interface IPiePrice {
 
 export interface IPieData {
     data: IPiePrice[];
-    totalBalance: number;
+    actualTotalBalance: number;
+}
+
+export interface IActualPricesData {
+    data: IPiePrice[];
 }

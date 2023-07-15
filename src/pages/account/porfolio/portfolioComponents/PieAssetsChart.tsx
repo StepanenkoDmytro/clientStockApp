@@ -13,7 +13,7 @@ export const PieAssetsChart: React.FC<PieAssetsChartrops> = ({ account, handleTo
     const [priceList, setPriceList] = useState<IPiePrice[]>([]);
 
     useEffect(() => {
-        fetch(`http://localhost:8000/api/v1/account/price-for-list`, {
+        fetch(`http://localhost:8000/api/v1/account/pie-chart-data`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -23,9 +23,8 @@ export const PieAssetsChart: React.FC<PieAssetsChartrops> = ({ account, handleTo
         })
             .then((response) => response.json())
             .then((response: IPieData) => {
-                console.log(response);
-                handleTotalBalance(response.totalBalance);
                 setPriceList(response.data);
+                handleTotalBalance(response.actualTotalBalance);
             })
             .catch((error) => {
                 console.error(error);

@@ -99,7 +99,7 @@ export function CoinList() {
                                             height="18" />
                                     </td>
                                     <td>
-                                        <a href={"./coins/" + coin.id}>{coin.name}</a>
+                                        <a href={"./coin-market/" + coin.id}>{coin.name}</a>
                                     </td>
                                     <td>$ {coin.priceUSD}</td>
                                     <td>$ {coin.marketCapUsd}</td>

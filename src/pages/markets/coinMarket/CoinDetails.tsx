@@ -78,7 +78,7 @@ export function CoinDetails() {
     return (
         <>
             {coin && (
-                <div className='container'>
+                <div className='coin-market-container'>
                     <div className='coin-image'>
                         <img src={coin.iconUrl} alt='Logo'
                             height='96' />
@@ -92,7 +92,7 @@ export function CoinDetails() {
                         <PurchaseWidget accounts={cryptoAccounts} onBuyCoins={handleBuyCoins} />
                     ) : (<p></p>)}
                     <div style={{background: 'white'}}>
-                        <CandlestickChart data={candlesData} width={1000} height={400} />
+                        {/* <CandlestickChart data={candlesData} width={1000} height={400} /> */}
                     </div>
                 </div>
             )}

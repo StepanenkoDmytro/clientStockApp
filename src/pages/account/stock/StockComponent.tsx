@@ -4,7 +4,7 @@ import '../account.css'
 import '../../components/css/table-assets.css'
 import { useStore } from 'effector-react';
 import { USER_AUTH_TOKEN, updateAccount, userAccountsStore } from '../../../store/store';
-import { IAccount, IAccountStock, IPiePrice } from '../../markets/coinMarket/interfaces';
+import { IAccount, IAccountStock, IActualPricesData, IPiePrice } from '../../markets/coinMarket/interfaces';
 import { DepositForm } from '../porfolio/portfolioComponents/DepositForm';
 import { PieAssetsChart } from '../porfolio/portfolioComponents/PieAssetsChart';
 import HeadOfBlock from '../../components/HeadOfBlock';
@@ -71,7 +71,7 @@ export function StockComponent() {
 
     const getPrices = (account: IAccount) => {
 
-        fetch(`http://localhost:8000/api/v1/stocks/price-list`, {
+        fetch(`http://localhost:8000/api/v1/account/actual-prices-data`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -80,9 +80,9 @@ export function StockComponent() {
             body: JSON.stringify(account)
         })
             .then((response) => response.json())
-            .then((prices: IPiePrice[]) => {
-                console.log(prices);
-                setCurrentStockPrices(prices);
+            .then((actual: IActualPricesData) => {
+                console.log(actual);
+                setCurrentStockPrices(actual.data);
             })
             .catch((error) => {
                 console.error(error);
@@ -102,10 +102,10 @@ export function StockComponent() {
     };
 
     const getShareOfStock = (stock: IAccountStock) => {
-        return ((coastStock(stock)) / costAccount(activeAccount!)) * 100;
+        return ((costStock(stock)) / costAccount(activeAccount!)) * 100;
     };
 
-    const coastStock = (stock: IAccountStock) => {
+    const costStock = (stock: IAccountStock) => {
         return stock.buyPrice * stock.countStocks;
     };
 
@@ -134,7 +134,9 @@ export function StockComponent() {
                                 <tr>
                                     <td><h4>Total balance:</h4></td>
                                     <td id='stock-wallet-info'>
-                                        <h4>{accountTotalBalance}$</h4>
+                                        <h4>
+                                            {accountTotalBalance}
+                                            $</h4>
                                     </td>
                                 </tr>
                                 <tr>
@@ -173,8 +175,6 @@ export function StockComponent() {
                     {activeAccount &&
                         <DepositForm accountID={activeAccount.id} handleDepositAccount={handleAccount} />
                     }
-
-
                 </div> */}
 
                 <div className='up-group'>
@@ -274,7 +274,7 @@ export function StockComponent() {
                 <div className='table-assets'>
                     <table className='table'>
                         <thead>
-                            <tr>
+                        <tr>
                                 <th>Name</th>
                                 <th>Count</th>
                                 <th>Entry price</th>
@@ -286,8 +286,6 @@ export function StockComponent() {
                                 <th>Profit</th>
                                 <th>Growth</th>
                                 <th>Currency</th>
-
-
                             </tr>
                         </thead>
                         <tbody>
