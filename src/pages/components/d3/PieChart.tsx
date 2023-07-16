@@ -6,7 +6,7 @@ import { IPiePrice } from '../../markets/coinMarket/interfaces';
 
 const PieChart: React.FC<{ data: IPiePrice[]; width: number; height: number }> = ({ data, width, height }) => {
   const svgRef = useRef<SVGSVGElement>(null);
-  const listRef = useRef<HTMLUListElement>(null);
+  const tableRef = useRef<HTMLTableElement>(null);
 
   const chartWidth = width - 50;
   const chartHeight = height - 50;
@@ -14,7 +14,7 @@ const PieChart: React.FC<{ data: IPiePrice[]; width: number; height: number }> =
   useEffect(() => {
     const svg = d3.select(svgRef.current)
       .attr("width", width)
-      .attr("height", height + 100)
+      .attr("height", height + 30)
       .attr("viewBox", [-chartWidth / 2, -chartHeight / 2, chartWidth, chartHeight])
       .attr("style", "max-width: 100%; height: auto; height: intrinsic;");
 
@@ -63,18 +63,25 @@ const PieChart: React.FC<{ data: IPiePrice[]; width: number; height: number }> =
       })
       .style('fill', (d) => color(d.data.label));
 
-    const list = d3.select(listRef.current); // Retrieve the list using listRef
-    const listItem = list.selectAll<HTMLElement, IPiePrice>('li')
-      .data(data)
-      .join('li')
-      .text((d) => d.label); // Change text color
+      const table = d3.select(tableRef.current); // Retrieve the table using tableRef
 
-    listItem.append('span') // Add a <span> element for the square
-      .style('display', 'inline-block')
-      .style('width', '10px')
-      .style('height', '10px')
-      .style('background-color', (d) => color(d.label))
-      .style('margin-left', '5px'); // Adjust the margin as needed
+      const row = table.selectAll('tr')
+          .data(data)
+          .enter()
+          .append('tr');
+
+          row.append('td')
+          .append('span')
+          .style('display', 'inline-block')
+          .style('width', '10px')
+          .style('height', '10px')
+          .style('background-color', (d) => color(d.label))
+          .style('margin-right', '5px');
+      
+      row.append('td')
+          .text((d) => d.label)
+          .style('font-size', '16px')
+          .style('color', 'rgb(160, 159, 162)'); 
 
     return () => {
       svg.selectAll('*').remove();
@@ -85,7 +92,7 @@ const PieChart: React.FC<{ data: IPiePrice[]; width: number; height: number }> =
     <div className="pie">
       <svg ref={svgRef}></svg>
       <div className="list-container">
-        <ul ref={listRef}></ul>
+      <table ref={tableRef}></table>
       </div>
     </div>
   );

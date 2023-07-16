@@ -1,0 +1,22 @@
+.gauge-table {
+  font-size: 16px;
+  color: rgb(160, 159, 162);
+  line-height: 15px;
+}
+
+#values {
+  width: 40px;
+  text-align: right;
+}
+
+#values-yellow {
+  color: rgb(185, 187, 38);
+}
+
+#values-green {
+  color: rgb(27, 135, 91);
+}
+
+#values-red {
+  color: rgb(178, 41, 34);
+}

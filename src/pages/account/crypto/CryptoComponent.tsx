@@ -10,6 +10,8 @@ import { PieAssetsChart } from '../porfolio/portfolio-components/PieAssetsChart'
 import HeadOfBlock from '../../components/HeadOfBlock';
 import CryptoWalletInfoTable from './crypto-components/CryptoWalletInfoTable';
 import CryptoHoldingsTable from './crypto-components/CryptoHoldingsTable';
+import Gauge from '../../components/d3/GaugeChart';
+import CryptoProfitTable from './crypto-components/CryptoProfitTable';
 
 export function CryptoComponent() {
     const token = localStorage.getItem(USER_AUTH_TOKEN);
@@ -70,26 +72,39 @@ export function CryptoComponent() {
     return (
         <div className='crypto-container'>
             <div className='up'>
-                <div className='info-container'>
-                    <HeadOfBlock name='Wallet info:' />
+                <div className='up-inline'>
+                    <div className='info-container'>
+                        <HeadOfBlock name='Wallet info:' />
 
-                    {activeAccount && <CryptoWalletInfoTable account={activeAccount} actualTotalBalance={accountTotalBalance} />}
-                   
-                    <select className='form-select'
-                        value={storedActiveAccount!}
-                        onChange={(e) => handleActiveAccount(JSON.parse(e.target.value))}>
-                        {cryptoAccounts.map((account) => (
-                            <option key={account.accountName} value={JSON.stringify(account)}>
-                                {account.accountName}
-                            </option>
-                        ))}
-                    </select>
+                        {activeAccount && <CryptoWalletInfoTable account={activeAccount} actualTotalBalance={accountTotalBalance} />}
+
+                        <select className='form-select'
+                            value={storedActiveAccount!}
+                            onChange={(e) => handleActiveAccount(JSON.parse(e.target.value))}>
+                            {cryptoAccounts.map((account) => (
+                                <option key={account.accountName} value={JSON.stringify(account)}>
+                                    {account.accountName}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className='info-container'>
+                        <HeadOfBlock name='Profit:' />
+                        <CryptoProfitTable />
+                    </div>
+                    
                 </div>
-                <div className='info-container'>
-                    <HeadOfBlock name='Diagram:' />
-                    {activeAccount &&
-                        <PieAssetsChart account={activeAccount} handleTotalBalance={handleTotalBalance} />
-                    }
+                <div className='up-inline'>
+                    <div className='info-container'>
+                        <HeadOfBlock name='Diagram:' />
+                        {activeAccount &&
+                            <PieAssetsChart account={activeAccount} handleTotalBalance={handleTotalBalance} />
+                        }
+                    </div>
+                    <div className='info-container'>
+                        <HeadOfBlock name='Fear & Greed Index:' />
+                        <Gauge value={70} gaugeMaxValue={100} />
+                    </div>
                 </div>
                 {/* <div className='actions-wallet'>
                     <p>Action wallet</p>
@@ -98,6 +113,7 @@ export function CryptoComponent() {
                         <DepositForm accountID={activeAccount.id} handleDepositAccount={handleDepositAccount} />
                     }
                 </div> */}
+
             </div>
 
             <hr />
@@ -105,6 +121,7 @@ export function CryptoComponent() {
                 <HeadOfBlock name='Holdings:' />
                 {activeAccount && <CryptoHoldingsTable account={activeAccount} />}
             </div>
+
         </div>
     );
 }
