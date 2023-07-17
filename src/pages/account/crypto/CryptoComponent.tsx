@@ -12,6 +12,7 @@ import CryptoWalletInfoTable from './crypto-components/CryptoWalletInfoTable';
 import CryptoHoldingsTable from './crypto-components/CryptoHoldingsTable';
 import Gauge from '../../components/d3/GaugeChart';
 import CryptoProfitTable from './crypto-components/CryptoProfitTable';
+import FearGreeIndex from './crypto-components/FearGreedIndex';
 
 export function CryptoComponent() {
     const token = localStorage.getItem(USER_AUTH_TOKEN);
@@ -103,7 +104,7 @@ export function CryptoComponent() {
                     </div>
                     <div className='info-container'>
                         <HeadOfBlock name='Fear & Greed Index:' />
-                        <Gauge value={70} gaugeMaxValue={100} />
+                        <FearGreeIndex />
                     </div>
                 </div>
                 {/* <div className='actions-wallet'>

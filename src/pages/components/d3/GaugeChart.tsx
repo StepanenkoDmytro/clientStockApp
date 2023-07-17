@@ -1,19 +1,17 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import './guage.css'
+import { FearGreeIndexData } from '../../account/crypto/crypto-components/FearGreedIndex';
 
 interface GaugeProps {
-    value: number;
-    gaugeMaxValue: number;
+    data: FearGreeIndexData;
 }
 
-interface TableItem {
-    label: string;
-}
-
-const Gauge: React.FC<GaugeProps> = ({ value, gaugeMaxValue }) => {
+const Gauge: React.FC<GaugeProps> = ({ data }) => {
     const svgRef = useRef<SVGSVGElement>(null);
     const tableRef = useRef<HTMLTableElement>(null);
+
+    const gaugeMaxValue = 100;
 
     useEffect(() => {
         const width = 270;
@@ -71,7 +69,7 @@ const Gauge: React.FC<GaugeProps> = ({ value, gaugeMaxValue }) => {
             .domain([0, gaugeMaxValue])
             .range([-Math.PI / 2, Math.PI / 2]);
 
-        const valueAngle = range(value * (180 / Math.PI));
+        const valueAngle = range(data.now * (180 / Math.PI));
 
         chart.append('line')
             .attr('class', 'needle-line')
@@ -83,23 +81,7 @@ const Gauge: React.FC<GaugeProps> = ({ value, gaugeMaxValue }) => {
             .style('stroke', 'rgb(160, 159, 162)')
             .style('stroke-width', 2);
 
-        // const tableData: TableItem[] = [
-        //     { label: 'Now - значення ' + value },
-        //     { label: 'Yestarday - 70' },
-        //     { label: 'Last week - 66' },
-        //     { label: 'Last month - 80' },
-        // ];
-
-        // const table = d3.select(tableRef.current);
-        // const rows = table.selectAll('tr')
-        //     .data(tableData)
-        //     .enter()
-        //     .append('tr');
-
-        // rows.append('td')
-        //     .text((d) => d.label);
-
-    }, [value, gaugeMaxValue]);
+    }, [data, gaugeMaxValue]);
 
     return (
         <div className="pie">
@@ -112,7 +94,7 @@ const Gauge: React.FC<GaugeProps> = ({ value, gaugeMaxValue }) => {
                                 <p>Now:</p>
                             </td>
                             <td id='values'>
-                                <p>{value}</p>
+                                <p>{data.now}</p>
                             </td>
                         </tr>
                         <tr>
@@ -120,7 +102,7 @@ const Gauge: React.FC<GaugeProps> = ({ value, gaugeMaxValue }) => {
                                 <p>Yestarday:</p>
                             </td>
                             <td id='values'>
-                                <p>70</p>
+                                <p>{data.previousClose}</p>
                             </td>
                         </tr>
                         <tr>
@@ -128,7 +110,7 @@ const Gauge: React.FC<GaugeProps> = ({ value, gaugeMaxValue }) => {
                                 <p>Last week:</p>
                             </td>
                             <td id='values'>
-                                <p>66</p>
+                                <p>{data.oneWeekAgo}</p>
                             </td>
                         </tr>
                         <tr>
@@ -136,7 +118,7 @@ const Gauge: React.FC<GaugeProps> = ({ value, gaugeMaxValue }) => {
                                 <p>Last month:</p>
                             </td>
                             <td id='values'>
-                                <p>80</p>
+                                <p>{data.oneMonthAgo}</p>
                             </td>
                         </tr>
                     </tbody>
